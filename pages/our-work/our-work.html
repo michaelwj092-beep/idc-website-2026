@@ -232,6 +232,18 @@
       .footer-logo img { margin: 0 auto 16px; }
       .footer-center { text-align: center; }
     }
+
+    /* Mobile-only optimizations (max-width: 768px) */
+    @media (max-width: 768px) {
+      html, body {
+        overflow-x: hidden;
+        max-width: 100%;
+      }
+      body {
+        background-image: none !important;
+        background-color: #1A1A1A !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -393,26 +405,29 @@
     (function() {
       const hamburger = document.querySelector('.hamburger');
       const mobileMenu = document.querySelector('.mobile-menu');
-      const mobileLinks = mobileMenu.querySelectorAll('a');
 
-      function toggleMenu() {
-        const isOpen = mobileMenu.classList.toggle('open');
-        hamburger.classList.toggle('active');
-        hamburger.setAttribute('aria-expanded', isOpen);
-        mobileMenu.setAttribute('aria-hidden', !isOpen);
-        document.body.style.overflow = isOpen ? 'hidden' : '';
+      if (hamburger && mobileMenu) {
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+
+        function toggleMenu() {
+          const isOpen = mobileMenu.classList.toggle('open');
+          hamburger.classList.toggle('active');
+          hamburger.setAttribute('aria-expanded', isOpen);
+          mobileMenu.setAttribute('aria-hidden', !isOpen);
+          document.body.style.overflow = isOpen ? 'hidden' : '';
+        }
+
+        function closeMenu() {
+          mobileMenu.classList.remove('open');
+          hamburger.classList.remove('active');
+          hamburger.setAttribute('aria-expanded', 'false');
+          mobileMenu.setAttribute('aria-hidden', 'true');
+          document.body.style.overflow = '';
+        }
+
+        hamburger.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
       }
-
-      function closeMenu() {
-        mobileMenu.classList.remove('open');
-        hamburger.classList.remove('active');
-        hamburger.setAttribute('aria-expanded', 'false');
-        mobileMenu.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-      }
-
-      hamburger.addEventListener('click', toggleMenu);
-      mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
     })();
 
     // Lazy load iframes on hover and scale them accurately

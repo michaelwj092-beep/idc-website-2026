@@ -2667,6 +2667,22 @@
       transform: translateY(-2px);
     }
 
+    /* Mobile-only optimizations (max-width: 768px) */
+    @media (max-width: 768px) {
+      html, body {
+        overflow-x: hidden;
+        max-width: 100%;
+      }
+      body,
+      body.about-page,
+      .about {
+        background-image: none !important;
+        background-color: #1A1A1A !important;
+      }
+      .ghost-transition {
+        display: none !important;
+      }
+    }
 
 </style>
 

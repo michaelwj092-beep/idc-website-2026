@@ -2313,6 +2313,19 @@
       }
     }
 
+    /* Mobile-only optimizations (max-width: 768px) */
+    @media (max-width: 768px) {
+      html, body {
+        overflow-x: hidden;
+        max-width: 100%;
+      }
+      body,
+      .about {
+        background-image: none !important;
+        background-color: #1A1A1A !important;
+      }
+    }
+
 </style>
 
 
@@ -2534,10 +2547,12 @@
 </footer>
 
 <script>
-<script>
-    (function() {
-      const hamburger = document.querySelector('.hamburger');
-      const mobileMenu = document.querySelector('.mobile-menu');
+  // Mobile Nav Toggle
+  (function() {
+    const hamburger = document.querySelector('.hamburger');
+    const mobileMenu = document.querySelector('.mobile-menu');
+
+    if (hamburger && mobileMenu) {
       const mobileLinks = mobileMenu.querySelectorAll('a');
 
       function toggleMenu() {
@@ -2561,9 +2576,8 @@
       mobileLinks.forEach(function(link) {
         link.addEventListener('click', closeMenu);
       });
-      
-      })();
-</script>
+    }
+  })();
 </script>
 </body>
 </html>

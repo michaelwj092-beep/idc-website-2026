@@ -3876,6 +3876,97 @@ document.addEventListener("DOMContentLoaded", () => {
       color: #FFFFFF;
     }
 
+    /* Pinpoint Mobile Redirect Message (Desktop: hidden) */
+    .pinpoint-mobile-screen {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      /* Hide entire Pinpoint revision tool interface completely */
+      .inspire-rev-root,
+      .inspire-rev-control-bar,
+      .inspire-rev-sidebar,
+      .inspire-rev-global-overlay-wrapper,
+      .inspire-rev-capture-indicator,
+      .inspire-pin,
+      .inspire-box,
+      .inspire-note-card,
+      #pinpoint-welcome-card,
+      #tutorial-overlay,
+      #tutorial-blocker-overlay,
+      #tut-skip-btn,
+      #tut-instruction-card,
+      #tutorial-spotlight,
+      #tutorial-dim-overlay,
+      .tut-dim-overlay {
+        display: none !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+        opacity: 0 !important;
+      }
+
+      html, body {
+        overflow: hidden !important;
+        height: 100% !important;
+      }
+
+      /* Clean full screen centered message */
+      .pinpoint-mobile-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: #0D0D12;
+        z-index: 999999;
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 24px;
+        box-sizing: border-box;
+      }
+
+      .pinpoint-mobile-logo {
+        width: 80px;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+      }
+
+      .pinpoint-mobile-headline {
+        color: #FFFFFF;
+        font-family: 'Public Sans', sans-serif;
+        font-weight: 700;
+        font-size: 28px;
+        line-height: 1.2;
+        text-align: center;
+        margin: 24px 0 0 0;
+      }
+
+      .pinpoint-mobile-body {
+        color: #E5E7EB;
+        font-family: 'Public Sans', sans-serif;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 1.6;
+        max-width: 320px;
+        text-align: center;
+        margin: 16px auto 0 auto;
+      }
+
+      .pinpoint-mobile-divider {
+        width: 120px;
+        height: 2px;
+        margin: 24px auto 0 auto;
+        background: linear-gradient(90deg, #2F80ED, #8E54E9, #E34C89, #FF7F50);
+        border-radius: 2px;
+      }
+    }
+
   </style>
 
   <div id="tutorial-overlay"></div>
@@ -3905,6 +3996,15 @@ document.addEventListener("DOMContentLoaded", () => {
   </div>
 
   <div id="tutorial-spotlight"></div>
+
+  <!-- Pinpoint Mobile Redirect Message -->
+  <div class="pinpoint-mobile-screen">
+    <img src="../brand/logos/PIN-BrandMark.svg" alt="PIN" class="pinpoint-mobile-logo">
+    <h1 class="pinpoint-mobile-headline">Experience Pinpoint on Desktop.</h1>
+    <p class="pinpoint-mobile-body">Our interactive revision tool is built for the full desktop experience. Visit inspiredesignscollective.com on your computer to try Pinpoint.</p>
+    <div class="pinpoint-mobile-divider"></div>
+  </div>
+
 <script>
     
     function startTutorialFromCard() {

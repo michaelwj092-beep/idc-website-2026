@@ -329,6 +329,73 @@
       .footer-center { text-align: center; }
       .footer-contact a { justify-content: flex-start; }
     }
+
+    .relay-mobile-fallback {
+      display: none;
+    }
+
+    /* Mobile-only optimizations (max-width: 768px) */
+    @media (max-width: 768px) {
+      html, body {
+        overflow-x: hidden;
+        max-width: 100%;
+      }
+      body {
+        background-image: none !important;
+        background-color: #1A1A1A !important;
+      }
+      #relay .tool-iframe-wrap,
+      #relay .mobile-demo-note {
+        display: none !important;
+      }
+      .relay-mobile-fallback {
+        display: block;
+        width: 100%;
+        margin-top: 24px;
+      }
+      .relay-mobile-fallback .cs-browser {
+        background: var(--color-charcoal);
+        border-radius: 12px;
+        padding: 12px 12px 0 12px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+        position: relative;
+        overflow: hidden;
+      }
+      .relay-mobile-fallback .browser-dots {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 12px;
+      }
+      .relay-mobile-fallback .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #333333;
+      }
+      .relay-mobile-fallback .browser-content {
+        position: relative;
+        border-radius: 4px 4px 0 0;
+        overflow: hidden;
+        background: #000;
+        width: 100%;
+      }
+      .relay-mobile-fallback .browser-content img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        display: block;
+      }
+      .relay-mobile-note {
+        text-align: center;
+        color: #4B5563;
+        font-style: italic;
+        font-family: 'Public Sans', sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+        margin-top: 16px;
+        line-height: 1.5;
+      }
+    }
   </style>
 </head>
 <body>
@@ -461,6 +528,19 @@
         <iframe src="../../mockup/relay.html" class="tool-iframe" loading="lazy"></iframe>
         <div class="scroll-strip"><span>SCROLL</span></div>
       </div>
+      <div class="relay-mobile-fallback">
+        <div class="cs-browser">
+          <div class="browser-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+          <div class="browser-content">
+            <img src="../../assets/screenshots/relay-desktop.webp" alt="Relay Client Portal Preview" loading="lazy">
+          </div>
+        </div>
+        <p class="relay-mobile-note">Visit us on desktop to explore the full Relay portal.</p>
+      </div>
     </section>
 
     <!-- PINPOINT SECTION -->
@@ -535,26 +615,29 @@
     (function() {
       const hamburger = document.querySelector('.hamburger');
       const mobileMenu = document.querySelector('.mobile-menu');
-      const mobileLinks = mobileMenu.querySelectorAll('a');
 
-      function toggleMenu() {
-        const isOpen = mobileMenu.classList.toggle('open');
-        hamburger.classList.toggle('active');
-        hamburger.setAttribute('aria-expanded', isOpen);
-        mobileMenu.setAttribute('aria-hidden', !isOpen);
-        document.body.style.overflow = isOpen ? 'hidden' : '';
+      if (hamburger && mobileMenu) {
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+
+        function toggleMenu() {
+          const isOpen = mobileMenu.classList.toggle('open');
+          hamburger.classList.toggle('active');
+          hamburger.setAttribute('aria-expanded', isOpen);
+          mobileMenu.setAttribute('aria-hidden', !isOpen);
+          document.body.style.overflow = isOpen ? 'hidden' : '';
+        }
+
+        function closeMenu() {
+          mobileMenu.classList.remove('open');
+          hamburger.classList.remove('active');
+          hamburger.setAttribute('aria-expanded', 'false');
+          mobileMenu.setAttribute('aria-hidden', 'true');
+          document.body.style.overflow = '';
+        }
+
+        hamburger.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
       }
-
-      function closeMenu() {
-        mobileMenu.classList.remove('open');
-        hamburger.classList.remove('active');
-        hamburger.setAttribute('aria-expanded', 'false');
-        mobileMenu.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-      }
-
-      hamburger.addEventListener('click', toggleMenu);
-      mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
     })();
   </script>
 </body>
