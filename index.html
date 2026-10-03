@@ -12,12 +12,13 @@
   <meta property="og:url" content="https://inspiredesignscollective.com">
   <meta property="og:title" content="Inspire Designs Collective | Church Websites Built for Ministry">
   <meta property="og:description" content="We build custom websites for churches and ministries. Intentional design, real ministry experience, and tools that make managing your site effortless.">
-  <meta property="og:image" content="https://inspiredesignscollective.com/assets/screenshots/grace-community-desktop.webp">
+  <meta property="og:image" content="https://inspiredesignscollective.com/assets/backgrounds/og-image.webp">
 
   <!-- Public Sans from Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,700;1,500&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,700;1,500&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,700;1,500&display=swap"></noscript>
 
   <style>
     /* =========================================
@@ -2027,13 +2028,13 @@
         <div class="laptop-frame desktop-only">
           <div class="laptop-screen">
             <div class="iframe-wrapper">
-              <img src="assets/screenshots/grace-community-desktop.webp" alt="Grace Community Church Desktop">
+              <img src="assets/screenshots/grace-community-desktop.webp" alt="Grace Community Church Desktop" fetchpriority="high">
             </div>
           </div>
           <div class="laptop-base"></div>
         </div>
         <div class="mobile-visual mobile-only">
-          <img src="assets/screenshots/concept-site-mobile.jpg" alt="Grace Community Church Mobile View">
+          <img src="assets/screenshots/concept-site-mobile.jpg" alt="Grace Community Church Mobile View" width="390" height="844">
         </div>
       </div>
     </div>
