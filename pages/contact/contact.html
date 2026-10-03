@@ -20,6 +20,9 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,700;1,500&display=swap" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,700;1,500&display=swap"></noscript>
 
+  <!-- hCaptcha -->
+  <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+
   <style>
     /* =========================================
        RESET & BASE
@@ -2515,6 +2518,11 @@
       resize: vertical;
     }
     
+    .h-captcha {
+      margin-top: 16px;
+      margin-bottom: 16px;
+    }
+    
     .submit-btn {
       width: 100%;
       background: linear-gradient(135deg, #2F80ED 0%, #8E54E9 40%, #E34C89 70%, #FF7F50 100%);
@@ -2674,6 +2682,7 @@
         <div class="form-group">
           <textarea id="message" name="message" class="form-control" rows="5" placeholder="Tell us about your ministry and what you are looking for" required></textarea>
         </div>
+        <div class="h-captcha" data-sitekey="20826afe-32da-4400-88a2-81d26606ca2a"></div>
         <button type="submit" class="submit-btn">Send Message</button>
       </form>
     </div>
@@ -2763,14 +2772,31 @@
       e.preventDefault();
       
       const form = this;
-      const btn = form.querySelector('.submit-btn');
-      const originalBtnText = btn.textContent;
-      btn.textContent = 'Sending...';
-      btn.disabled = true;
 
       // Remove existing error message if any
       const existingError = document.getElementById('form-error-msg');
       if (existingError) existingError.remove();
+
+      // Check that hCaptcha has been completed
+      const hcaptchaToken = (typeof hcaptcha !== 'undefined') ? hcaptcha.getResponse() : '';
+      if (!hcaptchaToken) {
+        let errorDiv = document.createElement('div');
+        errorDiv.id = 'form-error-msg';
+        errorDiv.style.fontFamily = "'Public Sans', sans-serif";
+        errorDiv.style.fontWeight = '400';
+        errorDiv.style.color = '#E34C89';
+        errorDiv.style.marginTop = '16px';
+        errorDiv.style.fontSize = '0.9375rem';
+        errorDiv.style.textAlign = 'center';
+        errorDiv.textContent = 'Please complete the security check before submitting.';
+        form.appendChild(errorDiv);
+        return;
+      }
+
+      const btn = form.querySelector('.submit-btn');
+      const originalBtnText = btn.textContent;
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
 
       const name = document.getElementById('name').value;
       const email = document.getElementById('email').value;
