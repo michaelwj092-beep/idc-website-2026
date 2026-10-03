@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Learn exactly how Inspire Designs Collective builds your church website from first conversation to launch and beyond.">
+  <title>How It Works | Inspire Designs Collective</title>
+  <link rel="icon" type="image/svg+xml" href="../../brand/logos/IDC_BRANDMARKICON.svg">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://inspiredesignscollective.com/pages/how-it-works/how-it-works.html">
+  <meta property="og:title" content="How It Works | Inspire Designs Collective">
+  <meta property="og:description" content="Learn exactly how Inspire Designs Collective builds your church website from first conversation to launch and beyond.">
+  <meta property="og:image" content="https://inspiredesignscollective.com/assets/screenshots/grace-community-desktop.webp">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --color-brand-blue: #2F80ED;
+      --color-brand-purple: #8E54E9;
+      --color-brand-pink: #E34C89;
+      --color-brand-coral: #FF7F50;
+      --color-bg-dark: #000000;
+      --color-white: #FFFFFF;
+      --color-light: #E5E7EB;
+      --color-slate: #4B5563;
+      --color-charcoal: #1A1A1A;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: 'Public Sans', sans-serif;
+      background-color: var(--color-bg-dark);
+      background-image: url('../../assets/backgrounds/black-watercolor.webp');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: var(--color-white);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ===== NAVBAR ===== */
+    .site-nav {
+      position: fixed;
+      top: 0; left: 0; width: 100%;
+      height: 80px;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .site-nav::before {
+      content: ''; position: absolute; inset: -30px; z-index: -1;
+      backdrop-filter: url(#liquid-prism) blur(12px);
+      -webkit-backdrop-filter: url(#liquid-prism) blur(12px);
+      background: rgba(0,0,0,0.4);
+    }
+    .site-nav::after {
+      content: ''; position: absolute; inset: 0; z-index: -1;
+      background-image: url('../../assets/backgrounds/transparent-glass.png');
+      background-size: cover; background-repeat: no-repeat;
+      background-position: center; opacity: 0.15; pointer-events: none;
+    }
+    .nav-inner {
+      display: flex; justify-content: space-between; align-items: center;
+      max-width: 1440px; margin: 0 auto; height: 100%; padding: 0 24px; position: relative; z-index: 2;
+    }
+    .nav-logo { flex-shrink: 0; }
+    .nav-logo img { height: 48px; width: auto; display: block; }
+    @media (min-width: 960px) { .nav-logo img { height: 52px; } }
+    
+    .nav-links { display: none; }
+    .nav-cta { display: none; }
+    
+    .hamburger {
+      background: none; border: none; cursor: pointer; padding: 8px; z-index: 1001; position: relative;
+      min-height: 44px; min-width: 44px;
+    }
+    .hamburger-lines {
+      width: 24px; height: 16px; position: relative; display: flex; flex-direction: column; justify-content: space-between; margin: 0 auto;
+    }
+    .hamburger-lines span {
+      display: block; width: 100%; height: 2px; background: var(--color-white); border-radius: 2px; transition: 0.3s;
+    }
+    .hamburger.active .hamburger-lines span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.active .hamburger-lines span:nth-child(2) { opacity: 0; }
+    .hamburger.active .hamburger-lines span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+      background: rgba(0,0,0,0.95); backdrop-filter: blur(10px);
+      z-index: 999; display: flex; flex-direction: column; justify-content: center; align-items: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+    }
+    .mobile-menu.open { opacity: 1; pointer-events: auto; }
+    .mobile-menu-links { list-style: none; text-align: center; margin-bottom: 32px; }
+    .mobile-menu-links li { margin: 24px 0; }
+    .mobile-menu-links a { color: var(--color-white); font-size: 1.5rem; font-weight: 700; text-decoration: none; padding: 12px; display: block; }
+    .mobile-menu-cta a {
+      display: inline-block; padding: 12px 28px; border-radius: 50px; text-decoration: none; font-weight: 700; color: var(--color-white);
+      background: linear-gradient(135deg, var(--color-brand-blue), var(--color-brand-purple), var(--color-brand-pink));
+      min-height: 44px;
+    }
+
+    @media (min-width: 960px) {
+      .hamburger { display: none; }
+      .mobile-menu { display: none !important; }
+      .nav-inner { display: grid; grid-template-columns: 1fr auto 1fr; }
+      .nav-logo { justify-self: start; }
+      .nav-links { display: flex; gap: 32px; list-style: none; margin: 0; padding: 0; align-items: center; }
+      .nav-links li a {
+        color: var(--color-white); text-decoration: none; font-size: 0.875rem; font-weight: 700;
+        text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.8; transition: opacity 0.2s ease;
+        padding: 10px 0;
+      }
+      .nav-links li a:hover { opacity: 1; }
+      .nav-cta {
+        display: inline-flex; justify-self: end; padding: 10px 24px; border-radius: 50px; align-items: center;
+        color: var(--color-white); text-decoration: none; font-size: 0.875rem; font-weight: 700;
+        background: linear-gradient(135deg, var(--color-brand-blue), var(--color-brand-purple), var(--color-brand-pink));
+        background-size: 200% auto; transition: background-position 0.3s ease;
+        min-height: 44px;
+      }
+      .nav-cta:hover { background-position: right center; }
+    }
+
+    /* ===== PAGE HEADER ===== */
+    .page-header {
+      padding: 140px 24px 60px; /* Account for 80px fixed nav + 60px padding */
+      max-width: 1440px; margin: 0 auto;
+    }
+    .whisper-label {
+      font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--color-slate); opacity: 0.8; display: block; margin-bottom: 16px;
+    }
+    .page-headline {
+      font-size: 3rem; font-weight: 700; line-height: 1.1; margin-bottom: 16px;
+    }
+    .page-subheadline {
+      font-size: 1.125rem; font-weight: 400; color: var(--color-light); max-width: 600px; line-height: 1.6;
+    }
+    .jump-links {
+      display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap;
+    }
+    .jump-btn {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--color-light);
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 400;
+      font-size: 13px;
+      border-radius: 50px;
+      padding: 8px 20px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px; /* Touch target */
+    }
+    .jump-btn:hover {
+      border-color: rgba(255,255,255,0.4);
+      color: var(--color-white);
+    }
+
+    @media (min-width: 960px) {
+      .page-header { padding-top: 180px; }
+      .page-headline { font-size: 4rem; }
+    }
+
+    /* ===== PROCESS STEPS ===== */
+    .process-step {
+      padding: 20px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+    }
+    .step-content {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .step-divider {
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(135deg, var(--color-brand-blue), var(--color-brand-purple), var(--color-brand-pink));
+      margin-bottom: 12px;
+    }
+    .step-label {
+      font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px;
+    }
+    .step-headline {
+      font-size: 22px; font-weight: 700; line-height: 1.2; margin-bottom: 10px;
+    }
+    .step-body {
+      font-size: 14px; font-weight: 400; color: var(--color-light); line-height: 1.5;
+    }
+    .step-link {
+      margin-top: 8px; font-size: 15px; font-weight: 700; text-decoration: none; padding: 0; min-height: 44px; display: inline-flex; align-items: center;
+    }
+    
+    @media (min-width: 960px) {
+      .step-content { width: 60%; }
+      .step-left .step-content { margin-right: auto; text-align: left; align-items: flex-start; }
+      .step-right .step-content { margin-left: auto; text-align: right; align-items: flex-end; }
+      .step-left .step-divider { margin-right: auto; margin-left: 0; }
+      .step-right .step-divider { margin-left: auto; margin-right: 0; }
+    }
+
+    /* ===== TOOL SECTIONS (Relay & Pinpoint) ===== */
+    .tool-section {
+      padding: 80px 24px 0;
+      max-width: 1440px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+    }
+    #relay,
+    #pinpoint {
+      scroll-margin-top: 92px;
+    }
+    .tool-label {
+      font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; display: block;
+    }
+    .tool-headline {
+      font-size: 40px; font-weight: 700; line-height: 1.2; margin-bottom: 12px;
+    }
+    .tool-sub {
+      font-size: 18px; font-weight: 400; color: var(--color-light); line-height: 1.5;
+    }
+    .tool-note {
+      font-size: 14px; font-style: italic; color: var(--color-slate); margin-top: 12px; display: block;
+    }
+    .mobile-demo-note {
+      font-family: 'Public Sans', sans-serif; font-size: 13px; font-style: italic; color: var(--color-slate);
+      margin-top: 20px; display: block;
+    }
+
+    .tool-iframe-wrap {
+      width: 100%;
+      margin-top: 20px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #0A0A0A;
+      border: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+    }
+    .tool-iframe {
+      flex: 1;
+      width: 100%;
+      border: none;
+      display: block;
+      pointer-events: auto;
+    }
+    .scroll-strip {
+      width: 40px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.3);
+      cursor: ns-resize;
+      transition: background 0.2s;
+    }
+    .scroll-strip:hover {
+      background: rgba(0,0,0,0.6);
+    }
+    .scroll-strip span {
+      color: var(--color-slate);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      opacity: 0.6;
+    }
+
+    #relay .tool-iframe { height: 500px; }
+    #pinpoint .tool-iframe { height: 500px; }
+
+    @media (min-width: 960px) {
+      .mobile-demo-note { display: none; }
+      #relay .tool-iframe { height: 700px; }
+      #pinpoint .tool-iframe { height: 650px; }
+    }
+
+    /* ===== CLOSING CTA ===== */
+    .closing-cta {
+      padding: 40px 24px; text-align: center;
+      display: flex; flex-direction: column; align-items: center; gap: 20px;
+    }
+    .closing-cta-text {
+      font-family: 'Public Sans', sans-serif; font-size: 18px; color: var(--color-light); font-weight: 400;
+    }
+    .closing-cta-btn {
+      display: inline-flex; padding: 14px 32px; border-radius: 50px; text-decoration: none;
+      font-weight: 700; font-size: 16px; color: var(--color-white); align-items: center; justify-content: center;
+      background: linear-gradient(135deg, var(--color-brand-blue), var(--color-brand-purple), var(--color-brand-pink));
+      background-size: 200% auto; transition: background-position 0.3s ease;
+      min-height: 44px; /* Touch target */
+    }
+    .closing-cta-btn:hover { background-position: right center; }
+
+    /* ===== FOOTER ===== */
+    .site-footer {
+      border-top: 1px solid rgba(255,255,255,0.05); padding: 80px 24px 40px; background: var(--color-bg-dark); text-align: center;
+    }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; align-items: center; margin-bottom: 60px; }
+    .footer-contact a { display: block; color: var(--color-light); text-decoration: none; margin-bottom: 8px; font-size: 14px; padding: 8px 0; min-height: 44px; display: flex; align-items: center; justify-content: center; }
+    .footer-logo img { height: 72px; width: auto; margin-bottom: 16px; }
+    .footer-tagline { font-size: 14px; color: var(--color-slate); }
+    .footer-social { display: flex; gap: 16px; justify-content: center; }
+    .social-icon { color: var(--color-slate); transition: color 0.2s; padding: 8px; min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; justify-content: center; }
+    .social-icon:hover { color: var(--color-white); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 24px; font-size: 12px; color: var(--color-slate); }
+    
+    @media (min-width: 768px) {
+      .footer-inner { flex-direction: row; justify-content: space-between; align-items: flex-start; text-align: left; }
+      .footer-logo img { margin: 0 auto 16px; }
+      .footer-center { text-align: center; }
+      .footer-contact a { justify-content: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SVG Filter for Nav -->
+  <svg width="0" height="0" style="position: absolute;">
+    <defs>
+      <filter id="liquid-prism" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.005 0.005" numOctaves="2" result="noise" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="20" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- NAVIGATION -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="../../index.html" class="nav-logo" aria-label="Inspire Designs Collective home">
+        <img src="../../brand/logos/INSPIRE DESIGNS COLLECTIVE MASTER LOGO (WHITE TEXT).svg" alt="Inspire Designs Collective" width="200" height="40">
+      </a>
+      <ul class="nav-links">
+        <li><a href="../our-work/our-work.html">Our Work</a></li>
+        <li><a href="how-it-works.html">How It Works</a></li>
+        <li><a href="../plans/plans.html">Plans</a></li>
+        <li><a href="../about/about.html">Why Us?</a></li>
+        <li><a href="../contact/contact.html?source=nav-process">Contact</a></li>
+      </ul>
+      <a href="../contact/contact.html?source=nav-cta-process" class="nav-cta">Get Started</a>
+      <button class="hamburger" aria-label="Open menu" aria-expanded="false">
+        <div class="hamburger-lines"><span></span><span></span><span></span></div>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" role="dialog" aria-label="Mobile navigation menu" aria-hidden="true">
+    <ul class="mobile-menu-links">
+      <li><a href="../our-work/our-work.html">Our Work</a></li>
+      <li><a href="how-it-works.html">How It Works</a></li>
+      <li><a href="../plans/plans.html">Plans</a></li>
+      <li><a href="../about/about.html">Why Us?</a></li>
+      <li><a href="../contact/contact.html?source=nav-process">Contact</a></li>
+    </ul>
+    <div class="mobile-menu-cta">
+      <a href="../contact/contact.html?source=nav-cta-process">Get Started</a>
+    </div>
+  </div>
+
+  <main>
+    <!-- PAGE HEADER -->
+    <header class="page-header">
+      <span class="whisper-label">THE PROCESS</span>
+      <h1 class="page-headline">Here is exactly how it works.</h1>
+      <p class="page-subheadline">From your first conversation with us to your site going live, we handle the details so you can stay focused on your ministry.</p>
+      <div class="jump-links">
+        <a href="#relay" class="jump-btn">Jump to Relay &rarr;</a>
+        <a href="#pinpoint" class="jump-btn">Jump to Pinpoint &rarr;</a>
+      </div>
+    </header>
+
+    <!-- STEP 01 -->
+    <section class="process-step step-left">
+      <div class="step-divider"></div>
+      <div class="step-content">
+        <span class="step-label" style="color: var(--color-brand-blue);">STEP 01</span>
+        <h2 class="step-headline">It starts with a few questions.</h2>
+        <p class="step-body">Before we get on a call, we want to know a little about you and your ministry. Our intake form walks you through the basics. Your church name, your vision, what you need, and where you are starting from. No technical knowledge required. Just tell us about your ministry in your own words. We handle everything else from there.</p>
+      </div>
+    </section>
+
+    <!-- STEP 02 -->
+    <section class="process-step step-right">
+      <div class="step-divider"></div>
+      <div class="step-content">
+        <span class="step-label" style="color: var(--color-brand-purple);">STEP 02</span>
+        <h2 class="step-headline">We get on a call and get aligned.</h2>
+        <p class="step-body">This is where we dig in together. We talk through your vision, your congregation, and what your site needs to do for your ministry. We help you figure out what you do not know you need, including domains, hosting, content, and photography. Do not have professional photos? We can help with that too. We work with photographers who specialize in church and ministry photography and can connect you with someone who will get you exactly what your site needs. By the end of this call we both know exactly what we are building and why.</p>
+      </div>
+    </section>
+
+    <!-- STEP 03 -->
+    <section class="process-step step-left">
+      <div class="step-divider"></div>
+      <div class="step-content">
+        <span class="step-label" style="color: var(--color-brand-pink);">STEP 03</span>
+        <h2 class="step-headline">We get to work.</h2>
+        <p class="step-body">Once we are aligned we start building. You do not have to do anything during this phase except stay available for quick questions. We handle the design, the development, the content placement, and all the technical setup. Domains, hosting, SSL certificates, mobile optimization. All of it. We keep you updated along the way so you are never wondering where things stand.</p>
+      </div>
+    </section>
+
+    <!-- STEP 04 -->
+    <section class="process-step step-right">
+      <div class="step-divider"></div>
+      <div class="step-content">
+        <span class="step-label" style="color: var(--color-brand-coral);">STEP 04</span>
+        <h2 class="step-headline">You review it your way.</h2>
+        <p class="step-body">When your site is ready for review we give you access to Pinpoint, our built-in revision tool. Instead of sending a list of changes in an email, you go directly to your site, drop a pin on anything you want changed, leave a note, and submit it. We see exactly where you are pointing and exactly what you need. No confusion, no back and forth, no missed details. Just precise clear revisions every time.</p>
+        <a href="#pinpoint" class="step-link" style="color: var(--color-brand-coral);">What is Pinpoint?</a>
+      </div>
+    </section>
+
+    <!-- STEP 05 -->
+    <section class="process-step step-left">
+      <div class="step-divider"></div>
+      <div class="step-content">
+        <span class="step-label" style="color: var(--color-brand-blue);">STEP 05</span>
+        <h2 class="step-headline">Your site goes live.</h2>
+        <p class="step-body">Once revisions are approved we handle the launch. Domain connection, final testing, mobile checks, and everything in between. We make sure your site is fast, secure, and working perfectly before we hand you the keys. You do not have to touch a single line of code.</p>
+      </div>
+    </section>
+
+    <!-- STEP 06 -->
+    <section class="process-step step-right">
+      <div class="step-divider"></div>
+      <div class="step-content">
+        <span class="step-label" style="color: var(--color-brand-purple);">STEP 06</span>
+        <h2 class="step-headline">We stay with you.</h2>
+        <p class="step-body">Your site is live but we are not done. Every month you have access to Relay, your dedicated client portal. Need to update an event, swap a photo, change your service times, or ask a question? Log into Relay, send us a message, and we handle it. Three revision rounds every month, included with your management plan. We are your ongoing design team, always available, always ready.</p>
+        <a href="#relay" class="step-link" style="color: var(--color-brand-purple);">What is Relay?</a>
+      </div>
+    </section>
+
+    <!-- RELAY SECTION -->
+    <section class="tool-section" id="relay">
+      <span class="tool-label" style="color: var(--color-brand-blue);">RELAY</span>
+      <h2 class="tool-headline">Your ministry's direct line to us.</h2>
+      <p class="tool-sub">Log in, send a message, submit a revision, check your invoices. Everything in one place.</p>
+      <span class="mobile-demo-note">For the best experience viewing this demo visit us on a desktop.</span>
+      <div class="tool-iframe-wrap">
+        <div class="scroll-strip"><span>SCROLL</span></div>
+        <iframe src="../../mockup/relay.html" class="tool-iframe" loading="lazy"></iframe>
+        <div class="scroll-strip"><span>SCROLL</span></div>
+      </div>
+    </section>
+
+    <!-- PINPOINT SECTION -->
+    <section class="tool-section" id="pinpoint">
+      <span class="tool-label" style="color: var(--color-brand-pink);">PINPOINT</span>
+      <h2 class="tool-headline">Revisions without the frustration.</h2>
+      <p class="tool-sub">Drop a pin on anything you want changed. Leave a note. Submit it. We handle the rest.</p>
+      <span class="tool-note">Click anywhere on the site to drop a pin and leave a note. We handle the rest.</span>
+      <style>
+        .pinpoint-browser { width: 100%; max-width: 1100px; margin: 32px auto 0; background: #1A1A1A; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 20px 40px rgba(0,0,0,0.4); display: flex; flex-direction: column; }
+        .pinpoint-browser-dots { display: flex; gap: 6px; padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); background: #111; }
+        .pinpoint-dot { width: 10px; height: 10px; border-radius: 50%; }
+        .pinpoint-dot:nth-child(1) { background: #FF5F56; }
+        .pinpoint-dot:nth-child(2) { background: #FFBD2E; }
+        .pinpoint-dot:nth-child(3) { background: #27C93F; }
+        .pinpoint-browser-content img { width: 100%; height: auto; display: block; }
+        .pinpoint-cta-wrap { text-align: center; margin-top: 40px; }
+        .pinpoint-cta-btn { display: inline-block; background: #E34C89; color: #FFFFFF; font-family: 'Public Sans', sans-serif; font-weight: 700; font-size: 16px; padding: 16px 40px; border-radius: 50px; text-decoration: none; transition: opacity 0.3s; }
+        .pinpoint-cta-btn:hover { opacity: 0.9; }
+      </style>
+      <div class="pinpoint-browser">
+        <div class="pinpoint-browser-dots"><div class="pinpoint-dot"></div><div class="pinpoint-dot"></div><div class="pinpoint-dot"></div></div>
+        <div class="pinpoint-browser-content">
+          <img src="../../assets/screenshots/pinpoint-preview.webp" alt="Pinpoint Preview" loading="lazy">
+        </div>
+      </div>
+      <div class="pinpoint-cta-wrap">
+        <a href="../../mockup/concept-church-pinpoint.html" target="_blank" class="pinpoint-cta-btn">Try Pinpoint Yourself &rarr;</a>
+      </div>
+    </section>
+
+    <!-- CLOSING CTA -->
+    <section class="closing-cta">
+      <span class="closing-cta-text">Ready to get started?</span>
+      <a href="../../pages/contact/contact.html" class="closing-cta-btn">Let's Talk</a>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <div class="footer-contact">
+          <a href="tel:4702282440">(470) 228-2440</a>
+          <a href="mailto:hello@inspiredesignscollective.com">hello@inspiredesignscollective.com</a>
+        </div>
+      </div>
+      <div class="footer-center">
+        <a href="../../index.html" class="footer-logo" aria-label="Inspire Designs Collective home">
+          <img src="../../brand/logos/INSPIRE DESIGNS COLLECTIVE MASTER LOGO (WHITE TEXT).svg" alt="Inspire Designs Collective" width="200" height="40" loading="lazy">
+        </a>
+        <p class="footer-tagline">Handling the details, so you can focus on the ministry.</p>
+      </div>
+      <div class="footer-right">
+        <div class="footer-social">
+          <a href="https://www.facebook.com/profile.php?id=61595194855505" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="#" class="social-icon" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2026 Inspire Designs Collective, LLC.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile Menu
+    (function() {
+      const hamburger = document.querySelector('.hamburger');
+      const mobileMenu = document.querySelector('.mobile-menu');
+      const mobileLinks = mobileMenu.querySelectorAll('a');
+
+      function toggleMenu() {
+        const isOpen = mobileMenu.classList.toggle('open');
+        hamburger.classList.toggle('active');
+        hamburger.setAttribute('aria-expanded', isOpen);
+        mobileMenu.setAttribute('aria-hidden', !isOpen);
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      }
+
+      function closeMenu() {
+        mobileMenu.classList.remove('open');
+        hamburger.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      hamburger.addEventListener('click', toggleMenu);
+      mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
+    })();
+  </script>
+</body>
+</html>

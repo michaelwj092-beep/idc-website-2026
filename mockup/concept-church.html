@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grace Community Church</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/church-concept/GCC-Logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Public+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    html { scroll-behavior: smooth; }
+    /* RESET & BASE */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Public Sans', sans-serif;
+      background-color: #F5F2EB;
+      color: #1A1A1A;
+      overflow-x: hidden;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    ul {
+      list-style: none;
+    }
+
+    /* NAVIGATION */
+        .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 70px;
+      z-index: 200;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      overflow: hidden;
+    }
+    .navbar::before {
+      content: '';
+      position: absolute;
+      top: -30px;
+      left: -30px;
+      right: -30px;
+      bottom: -30px;
+      z-index: 0;
+      backdrop-filter: url(#liquid-prism-intense) blur(12px);
+      -webkit-backdrop-filter: url(#liquid-prism-intense) blur(12px);
+      background: rgba(0,0,0,0.65);
+    }
+    .navbar::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-image: url('../assets/backgrounds/transparent-glass.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      opacity: 0.11;
+      pointer-events: none;
+    }
+    .nav-inner {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 0 40px;
+      height: 100%;
+    }
+    .nav-logo img {
+      height: 56px;
+      width: auto;
+      display: block;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+    }
+    .nav-logo img {
+      height: 56px;
+      width: auto;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+      justify-content: center;
+    }
+    .nav-btn-container {
+      display: flex;
+      justify-content: flex-end;
+    }
+    .nav-links a {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 400;
+      font-size: 15px;
+      color: #E5E7EB;
+      position: relative;
+      padding-bottom: 4px;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0%;
+      height: 2px;
+      background: #C9933A;
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    .nav-btn {
+      background: #C9933A;
+      color: #FFFFFF;
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      border-radius: 50px;
+      padding: 10px 24px;
+      transition: background 0.3s ease, transform 0.2s ease;
+      display: inline-block;
+    }
+    .nav-btn:hover {
+      background: #b58434;
+      transform: translateY(-1px);
+    }
+    .nav-hamburger {
+      display: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: row;
+    }
+    .hero-left {
+      width: 50%;
+      height: 100%;
+      background: #FFFFFF;
+      padding: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .hero-label {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 500;
+      font-size: 11px;
+      color: #C9933A;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      margin-bottom: 24px;
+    }
+    .hero-headline {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 68px;
+      line-height: 1.1;
+      color: #1A1A1A;
+      margin: 0;
+    }
+    .hero-headline span {
+      color: #C9933A;
+      display: block;
+    }
+    .hero-subhead {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 400;
+      font-size: 17px;
+      color: #4B5563;
+      margin-top: 24px;
+    }
+    .hero-cta {
+      background: #C9933A;
+      color: #FFFFFF;
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      border-radius: 50px;
+      padding: 14px 32px;
+      margin-top: 32px;
+      transition: background 0.3s ease, transform 0.2s ease;
+      display: inline-block;
+    }
+    .hero-cta:hover {
+      background: #b58434;
+      transform: translateY(-2px);
+    }
+
+    .hero-right {
+      width: 50%;
+      height: 100%;
+    }
+    .hero-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    /* OVERLAPPING CARD */
+    .hero-card {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 60px);
+      width: 80%;
+      max-width: 1100px;
+      background: #1A1A1A;
+      border-top: 2px solid #C9933A;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      padding: 28px 40px;
+      display: flex;
+      z-index: 100;
+    }
+    .card-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 24px;
+    }
+    .card-col:not(:last-child) {
+      border-right: 1px solid rgba(255,255,255,0.1);
+    }
+    .card-label {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 500;
+      font-size: 10px;
+      color: #C9933A;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+    }
+    .card-val {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-top: 8px;
+    }
+    .card-val.large { font-size: 20px; }
+    .card-val.medium { font-size: 18px; }
+    .card-link {
+      display: inline-block;
+      transition: color 0.2s ease;
+    }
+    .card-link:hover {
+      color: #C9933A;
+    }
+
+    /* MOBILE RESPONSIVE (max-width: 768px) */
+    
+    /* WELCOME SECTION */
+    .welcome-section {
+      position: relative;
+      width: 100%;
+      background: #1A1A1A;
+      padding: 100px 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .welcome-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('../assets/church-concept/backgrounds/black-gold-texture-2.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.08;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .welcome-container {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      width: 100%;
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .welcome-quote {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 52px;
+      line-height: 1.15;
+      color: #FFFFFF;
+      margin: 0;
+    }
+    .welcome-hr {
+      width: 100px;
+      height: 2px;
+      background: #C9933A;
+      border: none;
+      margin: 32px auto 0 auto;
+    }
+    .welcome-stats {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      margin-top: 60px;
+      width: 100%;
+    }
+    .welcome-stat-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+    }
+    .welcome-stat-divider {
+      width: 1px;
+      height: 80px;
+      background: rgba(255,255,255,0.1);
+      margin: 0 40px;
+    }
+    .welcome-stat-value {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 64px;
+      color: #C9933A;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .welcome-stat-label {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 400;
+      font-size: 13px;
+      color: #E5E7EB;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin: 0;
+    }
+    .welcome-paragraph {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 400;
+      font-size: 18px;
+      color: #E5E7EB;
+      line-height: 1.7;
+      max-width: 680px;
+      margin: 60px auto 0 auto;
+    }
+
+    
+    /* WORSHIP SECTION */
+    .worship-section {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      
+    }
+    .worship-left {
+      position: relative;
+      width: 50%;
+      background: #1B2A4A;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    .worship-bg-overlay-2 {
+      position: absolute;
+      inset: 0;
+      background-image: url('../assets/church-concept/backgrounds/blue-paper.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.185;
+      z-index: 1;
+    }
+    .worship-container {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 60px 40px;
+    }
+    .worship-hr {
+      width: 80px;
+      height: 2px;
+      background: #C9933A;
+      border: none;
+      margin: 0 auto;
+    }
+    .worship-headline {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 56px;
+      line-height: 1.15;
+      color: #FFFFFF;
+      margin: 24px 0 0 0;
+    }
+    .worship-paragraph {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 400;
+      font-size: 18px;
+      color: #E5E7EB;
+      line-height: 1.7;
+      margin: 24px 0 0 0;
+    }
+    .worship-right {
+      width: 50%;
+      position: relative;
+    }
+    .worship-right img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    
+    /* SERMONS SECTION */
+    .sermons-section {
+      width: 100%;
+      background-image: url('../assets/backgrounds/white-watercolor-background.webp');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      min-height: 500px;
+    }
+    .sermons-left {
+      width: 45%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 48px;
+    }
+    .sermons-image-wrapper {
+      width: 60%;
+      display: flex;
+      justify-content: center;
+    }
+    .sermons-left img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      border: 1.5px solid #C9933A;
+      border-radius: 8px;
+      display: block;
+    }
+    .sermons-right {
+      width: 55%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 48px;
+    }
+    .sermons-label {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 500;
+      font-size: 13px;
+      color: #C9933A;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      margin: 0;
+    }
+    .sermons-headline {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 68px;
+      line-height: 1.15;
+      color: #1A1A1A;
+      margin: 12px 0 0 0;
+    }
+    .sermons-paragraph {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 400;
+      font-size: 19px;
+      color: #4B5563;
+      line-height: 1.7;
+      margin: 16px 0 0 0;
+      max-width: 540px;
+    }
+    .sermons-btn {
+      display: inline-block;
+      background: #C9933A;
+      color: #FFFFFF;
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      border-radius: 50px;
+      padding: 12px 28px;
+      margin-top: 22px;
+      transition: opacity 0.3s ease;
+    }
+    .sermons-btn:hover {
+      opacity: 0.9;
+    }
+
+    
+    /* NEXT GEN SECTION */
+    .nextgen-section {
+      position: relative;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      z-index: 5;
+    }
+    .nextgen-bg-left, .nextgen-bg-right, .nextgen-accent-line {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+    .nextgen-bg-left {
+      background-image: url('../assets/church-concept/backgrounds/grey-concrete.jpg');
+      background-size: cover;
+      background-position: center;
+      clip-path: polygon(0 0, 70% 0, 30% 100%, 0 100%);
+    }
+    .nextgen-bg-left::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('../assets/church-concept/backgrounds/squares-black-white.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.12;
+    }
+    .nextgen-bg-right {
+      background: #1A1A1A;
+      clip-path: polygon(70% 0, 100% 0, 100% 100%, 30% 100%);
+    }
+    .nextgen-bg-right::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('../assets/church-concept/backgrounds/black-gold-texture-2.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.40;
+    }
+    .nextgen-accent-line {
+      pointer-events: none;
+      z-index: 1;
+    }
+    .nextgen-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 60px;
+    }
+    .nextgen-header {
+      width: 100%;
+      padding-top: 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+        .nextgen-headline {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 52px;
+      color: #FFFFFF;
+      text-shadow: 0 4px 16px rgba(0,0,0,0.4);
+      margin: 0;
+    }
+    .nextgen-hr {
+      width: 80px;
+      height: 2px;
+      background: #C9933A;
+      border: none;
+      margin: 20px auto 0 auto;
+    }
+    .nextgen-zones {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 20px;
+    }
+    .nextgen-zone-left {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      text-align: left;
+      padding: 0 16% 120px 6%;
+    }
+    .nextgen-zone-right {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: flex-end;
+      text-align: right;
+      padding: 120px 6% 0 16%;
+    }
+        .editorial-image-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 440px;
+    }
+    .nextgen-zone-left .editorial-image-wrapper::before {
+      content: '';
+      position: absolute;
+      top: -16px;
+      left: -16px;
+      width: 100%;
+      height: 100%;
+      border: 2px solid #C9933A;
+      z-index: 0;
+    }
+    .nextgen-zone-right .editorial-image-wrapper::before {
+      content: '';
+      position: absolute;
+      bottom: -16px;
+      right: -16px;
+      width: 100%;
+      height: 100%;
+      border: 2px solid #C9933A;
+      z-index: 0;
+    }
+    .editorial-image {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      display: block;
+      z-index: 1;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+    }
+    .zone-info {
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 440px;
+    }
+    .nextgen-zone-right .zone-info {
+      align-items: flex-start;
+      text-align: left;
+    }
+                        .zone-label {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 900;
+      font-size: 36px;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+    .zone-desc {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      color: #FFFFFF;
+      line-height: 1.5;
+    }
+    .zone-time {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 900;
+      font-size: 22px;
+      color: #FFFFFF;
+    }
+    .zone-italic {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 400;
+      font-size: 15px;
+      color: #E5E7EB;
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    
+    /* NEXT STEPS SECTION */
+    .nextsteps-section {
+      position: relative;
+      width: 100%;
+      background: #1A1A1A;
+      padding: 60px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 4;
+    }
+    .nextsteps-bg-overlay {
+      position: absolute;
+      inset: 0;
+      background-image: url('../assets/church-concept/backgrounds/grey-concrete-2.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.12;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .nextsteps-container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 24px;
+    }
+    .nextsteps-header {
+      max-width: 800px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .nextsteps-label {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 500;
+      font-size: 11px;
+      color: #C9933A;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+    }
+    .nextsteps-headline {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 52px;
+      color: #FFFFFF;
+      line-height: 1.15;
+      margin: 16px 0 0 0;
+    }
+    .nextsteps-subheadline {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 400;
+      font-size: 18px;
+      color: #E5E7EB;
+      margin: 16px 0 0 0;
+    }
+    .nextsteps-hr {
+      width: 80px;
+      height: 2px;
+      background: #C9933A;
+      border: none;
+      margin: 24px auto 0 auto;
+    }
+    .nextsteps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      width: 100%;
+      max-width: 1440px;
+      align-items: stretch;
+      margin-top: 60px;
+    }
+    .nextsteps-card {
+      position: relative;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 24px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .nextsteps-ghost-num {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 80px;
+      color: #C9933A;
+      opacity: 0.08;
+      line-height: 1;
+      z-index: 0;
+      pointer-events: none;
+      user-select: none;
+    }
+    .nextsteps-card-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+    .nextsteps-card-label {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      color: #C9933A;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+    }
+    .nextsteps-card-headline {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 20px;
+      color: #FFFFFF;
+      margin: 12px 0 0 0;
+    }
+    .nextsteps-card-body {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      color: #E5E7EB;
+      line-height: 1.7;
+      margin: 12px 0 0 0;
+    }
+    .nextsteps-card-cta {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: #C9933A;
+      text-decoration: none;
+      margin: 20px 0 0 0;
+      display: inline-block;
+      transition: opacity 0.2s ease;
+    }
+    .nextsteps-card-cta:hover {
+      opacity: 0.8;
+    }
+
+    
+    /* FOOTER SECTION */
+        .site-footer {
+      position: relative;
+      width: 100%;
+      background: #1A1A1A;
+      border-top: 2px solid #C9933A;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+      z-index: 100;
+      overflow: hidden;
+    }
+    .site-footer::before {
+      content: '';
+      position: absolute;
+      top: -30px;
+      left: -30px;
+      right: -30px;
+      bottom: -30px;
+      z-index: 0;
+      backdrop-filter: url(#liquid-prism-intense) blur(12px);
+      -webkit-backdrop-filter: url(#liquid-prism-intense) blur(12px);
+      background: rgba(0,0,0,0.65);
+    }
+    .site-footer::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-image: url('../assets/backgrounds/transparent-glass.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      opacity: 0.11;
+      pointer-events: none;
+    }
+    .footer-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 60px 24px 40px 24px;
+    }
+    .footer-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 40px;
+    }
+    .footer-col {
+      display: flex;
+      flex-direction: column;
+    }
+    .footer-logo {
+      width: 120px;
+      display: block;
+    }
+    .footer-contact {
+      margin-top: 16px;
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      color: #E5E7EB;
+      line-height: 1.8;
+    }
+    .footer-label {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      color: #C9933A;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+    }
+    .footer-links {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .footer-link {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 400;
+      font-size: 15px;
+      color: #E5E7EB;
+      line-height: 2;
+      text-decoration: none;
+      display: inline-block;
+      align-self: flex-start;
+      position: relative;
+    }
+    .footer-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 1px;
+      bottom: 2px;
+      left: 0;
+      background-color: #C9933A;
+      transition: width 0.2s ease;
+    }
+    .footer-link:hover::after {
+      width: 100%;
+    }
+    .footer-copy {
+      margin-top: 8px;
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      color: #E5E7EB;
+    }
+    .footer-input {
+      margin-top: 16px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: #FFFFFF;
+      font-family: 'Public Sans', sans-serif;
+      font-size: 14px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .footer-input::placeholder {
+      color: #4B5563;
+    }
+    .footer-input-email {
+      margin-top: 8px;
+    }
+    .footer-submit {
+      margin-top: 12px;
+      background: #C9933A;
+      color: #FFFFFF;
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      border-radius: 50px;
+      padding: 10px 24px;
+      width: 100%;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .footer-submit:hover {
+      opacity: 0.9;
+    }
+    .footer-socials {
+      margin-top: 32px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+    }
+    .footer-social-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #E5E7EB;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .footer-social-icon:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #FFFFFF;
+    }
+    .footer-bottom {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 20px 24px;
+      text-align: center;
+    }
+    .footer-copyright {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 400;
+      font-size: 13px;
+      color: #4B5563;
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .footer-columns {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .nextsteps-section {
+        padding: 60px 0;
+      }
+      .nextsteps-grid {
+        grid-template-columns: 1fr;
+      }
+      .nextgen-zones {
+        flex-direction: column;
+      }
+      .nextgen-zone-left, .nextgen-zone-right {
+        width: 100%;
+        padding: 40px 24px;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .sermons-section {
+        flex-direction: column;
+      }
+      .sermons-left {
+        width: 100%;
+        padding: 32px 32px 0 32px;
+      }
+      .sermons-image-wrapper {
+        width: 100%;
+      }
+      .sermons-right {
+        width: 100%;
+        padding: 32px;
+      }
+
+      .worship-section {
+        flex-direction: column-reverse;
+      }
+      .worship-left, .worship-right {
+        width: 100%;
+      }
+      .worship-right {
+        height: 350px;
+      }
+      .worship-container {
+        padding-left: 40px;
+        padding-right: 40px;
+      }
+      .worship-headline {
+        font-size: 36px;
+      }
+
+      .welcome-section {
+        padding: 60px 0;
+      }
+      .welcome-quote {
+        font-size: 36px;
+      }
+      .welcome-stats {
+        flex-direction: column;
+        gap: 40px;
+      }
+      .welcome-stat-divider {
+        display: none;
+      }
+
+      .nav-inner {
+        padding: 0 24px;
+        display: flex;
+        justify-content: space-between;
+      }
+      .nav-links, .nav-btn {
+        display: none;
+      }
+      .nav-hamburger {
+        display: block;
+      }
+
+      .hero {
+        flex-direction: column;
+        height: auto;
+      }
+      .hero-left {
+        width: 100%;
+        padding: 120px 24px 80px 24px;
+        min-height: 70vh;
+      }
+      .hero-headline {
+        font-size: 52px;
+      }
+      .hero-right {
+        width: 100%;
+        height: 300px;
+      }
+
+      .hero-card {
+        flex-direction: column;
+        width: 90%;
+        padding: 24px 20px;
+        gap: 20px;
+        transform: translate(-50%, 40px); /* Adjust overlap slightly for mobile */
+      }
+      .card-col {
+        padding: 0 0 20px 0;
+      }
+      .card-col:not(:last-child) {
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <svg width="0" height="0" style="position: absolute;">
+    <defs>
+      <filter id="liquid-prism-intense" x="-10%" y="-10%" width="120%" height="120%" filterUnits="objectBoundingBox">
+        <feTurbulence type="fractalNoise" baseFrequency="0.001 0.005" numOctaves="1" seed="17" result="turbulence" />
+        <feComponentTransfer in="turbulence" result="mapped">
+          <feFuncR type="gamma" amplitude="1" exponent="10" offset="0.5" />
+          <feFuncG type="gamma" amplitude="0" exponent="1" offset="0" />
+          <feFuncB type="gamma" amplitude="0" exponent="1" offset="0.5" />
+        </feComponentTransfer>
+        <feGaussianBlur in="turbulence" stdDeviation="3" result="softMap" />
+        <feSpecularLighting in="softMap" surfaceScale="5" specularConstant="1" specularExponent="100" lighting-color="white" result="specLight">
+          <fePointLight x="-200" y="-200" z="300" />
+        </feSpecularLighting>
+        <feComposite in="specLight" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="litImage" />
+        <feDisplacementMap in="SourceGraphic" in2="softMap" scale="200" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+    </defs>
+  </svg>
+
+
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <img src="../assets/church-concept/GCC-Logo.svg" alt="Grace Community Church">
+    </a>
+    <div class="nav-links">
+      <a href="#">Watch</a>
+      <a href="#about">About</a>
+      <a href="#next-gen">Next Gen</a>
+      <a href="#">Give</a>
+    </div>
+    <div class="nav-btn-container">
+      <a href="#" class="nav-btn">Plan a Visit</a>
+      <div class="nav-hamburger">☰</div>
+    </div>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-label">Grace Community Church</div>
+      <h1 class="hero-headline">
+        A church where<br>everyone<span>belongs.</span>
+      </h1>
+      <p class="hero-subhead">Find your people. Find your faith. Find your home.</p>
+      <a href="#" class="hero-cta">Plan a Visit</a>
+    </div>
+    <div class="hero-right">
+      <img src="../assets/church-concept/lobby-1.jpg" alt="Congregation">
+    </div>
+
+    <!-- OVERLAPPING CARD -->
+    <div class="hero-card">
+      <div class="card-col">
+        <div class="card-label">Sundays</div>
+        <div class="card-val large">9AM + 11AM</div>
+      </div>
+      <div class="card-col">
+        <div class="card-label">Location</div>
+        <div class="card-val medium">Downtown Grace Campus</div>
+      </div>
+      <div class="card-col">
+        <div class="card-label">Online</div>
+        <div class="card-val medium">
+          <a href="#" class="card-link">Watch Live &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WELCOME SECTION -->
+  <section class="welcome-section" id="about">
+    <div class="welcome-bg"></div>
+    <div class="welcome-container">
+      
+      <!-- MOMENT ONE -->
+      <h2 class="welcome-quote">"You don't have to be perfect to walk through our doors."</h2>
+      <hr class="welcome-hr">
+
+      <!-- MOMENT TWO -->
+      <div class="welcome-stats">
+        <div class="welcome-stat-block">
+          <span class="welcome-stat-value">12+</span>
+          <span class="welcome-stat-label">Years Serving Our Community</span>
+        </div>
+        <div class="welcome-stat-divider"></div>
+        <div class="welcome-stat-block">
+          <span class="welcome-stat-value">ONE</span>
+          <span class="welcome-stat-label">Church. Every Background Welcome.</span>
+        </div>
+      </div>
+
+      <!-- MOMENT THREE -->
+      <p class="welcome-paragraph">Grace Community was built for the person who is still figuring it out. We are a church of real people navigating real life together, anchored in faith and committed to each other.</p>
+      
+    </div>
+  </section>
+
+  <!-- WORSHIP SECTION -->
+  <section class="worship-section">
+    <div class="worship-left">
+      <div class="worship-bg-overlay-2"></div>
+      <div class="worship-container">
+        <hr class="worship-hr">
+        <h2 class="worship-headline">Worship that moves you.</h2>
+        <p class="worship-paragraph">We believe worship should be exciting, reverent, and alive. Every Sunday we gather to sing, pray, and encounter God together. Come worship with us.</p>
+      </div>
+    </div>
+    <div class="worship-right">
+      <img src="../assets/church-concept/worship-3.jpg" loading="lazy" alt="Worship Experience">
+    </div>
+  </section>
+
+  <!-- SERMONS SECTION -->
+  <section class="sermons-section">
+    <div class="sermons-left">
+      <div class="sermons-image-wrapper">
+        <img src="../assets/church-concept/sermon-series.jpg" loading="lazy" alt="Jesus in My Place Sermon Series">
+      </div>
+    </div>
+    <div class="sermons-right">
+      <span class="sermons-label">Now Teaching</span>
+      <h2 class="sermons-headline">Jesus in My Place</h2>
+      <p class="sermons-paragraph">A study of substitution, grace, and what it means that Jesus stood in your place so you would never have to stand alone.</p>
+      <a href="#" class="sermons-btn">Watch Now</a>
+    </div>
+  </section>
+
+  <!-- NEXT GEN SECTION -->
+  <section class="nextgen-section" id="next-gen">
+    <!-- SVG Clip Path Definition -->
+    <!-- Backgrounds -->
+    <div class="nextgen-bg-left"></div>
+    <div class="nextgen-bg-right"></div>
+    
+    <!-- Accent Line -->
+    <svg class="nextgen-accent-line" preserveAspectRatio="none" viewBox="0 0 100 100">
+       <polygon points="74,0 67,10 67,20 59.2,32 60,40 51,50 50.8,58 45,65 47,70 40,80 39,90 33,100 27,100 29,90 36,80 36,70 43,65 41.8,58 48,50 48,40 56.2,32 57,20 64,10 66,0" fill="#1A1A1A"/>
+       <polyline points="74,0 67,10 67,20 59.2,32 60,40 51,50 50.8,58 45,65 47,70 40,80 39,90 33,100" fill="none" stroke="#C9933A" stroke-width="2" vector-effect="non-scaling-stroke"/>
+    </svg>
+
+    <div class="nextgen-content">
+      <div class="nextgen-header">
+        <h2 class="nextgen-headline">Next Gen Ministries.</h2>
+        <hr class="nextgen-hr">
+      </div>
+      <div class="nextgen-zones">
+        
+        <!-- KIDS ZONE -->
+        <div class="nextgen-zone-left">
+          <div class="editorial-image-wrapper">
+            <img src="../assets/church-concept/children.jpg" loading="lazy" alt="Grace Kids" class="editorial-image">
+          </div>
+          <div class="zone-info">
+            <span class="zone-label">GRACE KIDS</span>
+            <span class="zone-desc">A safe, fun, and faith filled environment for children from birth through 5th grade.</span>
+            <span class="zone-time">Sundays at 9AM and 11AM</span>
+            <span class="zone-italic">Every volunteer is background checked and trained so your child is always in safe hands.</span>
+          </div>
+        </div>
+
+        <!-- YOUTH ZONE -->
+        <div class="nextgen-zone-right">
+          <div class="editorial-image-wrapper">
+            <img src="../assets/church-concept/youth.jpg" loading="lazy" alt="Grace Youth" class="editorial-image">
+          </div>
+          <div class="zone-info">
+            <span class="zone-label">GRACE YOUTH</span>
+            <span class="zone-desc">A community for middle and high school students to ask hard questions and find real answers.</span>
+            <span class="zone-time">Sundays at 11AM and Wednesdays at 6:30PM</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- NEXT STEPS SECTION -->
+  <section class="nextsteps-section">
+    <div class="nextsteps-bg-overlay"></div>
+    <div class="nextsteps-container">
+      
+      <div class="nextsteps-header">
+        <span class="nextsteps-label">NEXT STEPS</span>
+        <h2 class="nextsteps-headline">Ready for what's next?</h2>
+        <p class="nextsteps-subheadline">Whether you have questions or you are ready to take a step, we want to walk with you.</p>
+        <hr class="nextsteps-hr">
+      </div>
+
+      <div class="nextsteps-grid">
+        <!-- CARD ONE -->
+        <div class="nextsteps-card">
+          <div class="nextsteps-ghost-num">01</div>
+          <div class="nextsteps-card-content">
+            <span class="nextsteps-card-label">FAITH</span>
+            <h3 class="nextsteps-card-headline">Questions About Salvation</h3>
+            <p class="nextsteps-card-body">Have questions about faith, Jesus, or what it means to follow Him? We would love to have that conversation with you.</p>
+            <a href="#" class="nextsteps-card-cta">Start the Conversation &rarr;</a>
+          </div>
+        </div>
+
+        <!-- CARD TWO -->
+        <div class="nextsteps-card">
+          <div class="nextsteps-ghost-num">02</div>
+          <div class="nextsteps-card-content">
+            <span class="nextsteps-card-label">BAPTISM</span>
+            <h3 class="nextsteps-card-headline">Take the Next Step</h3>
+            <p class="nextsteps-card-body">Baptism is a public declaration of a personal decision. If you are ready to make that declaration, we want to celebrate with you.</p>
+            <a href="#" class="nextsteps-card-cta">Learn About Baptism &rarr;</a>
+          </div>
+        </div>
+
+        <!-- CARD THREE -->
+        <div class="nextsteps-card">
+          <div class="nextsteps-ghost-num">03</div>
+          <div class="nextsteps-card-content">
+            <span class="nextsteps-card-label">PRAYER</span>
+            <h3 class="nextsteps-card-headline">You Are Not Alone</h3>
+            <p class="nextsteps-card-body">Whatever you are carrying, you do not have to carry it alone. Submit a prayer request and our team will be praying with you.</p>
+            <a href="#" class="nextsteps-card-cta">Submit a Prayer Request &rarr;</a>
+          </div>
+        </div>
+
+        <!-- CARD FOUR -->
+        <div class="nextsteps-card">
+          <div class="nextsteps-ghost-num">04</div>
+          <div class="nextsteps-card-content">
+            <span class="nextsteps-card-label">COMMUNITY</span>
+            <h3 class="nextsteps-card-headline">Find Your People</h3>
+            <p class="nextsteps-card-body">Join a small group, serve on a team, or find a ministry area that fits where you are in life right now.</p>
+            <a href="#" class="nextsteps-card-cta">Get Connected &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+
+
+
+
+  <!-- FOOTER SECTION -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-columns">
+        
+        <!-- LEFT COLUMN -->
+        <div class="footer-col">
+          <img src="../assets/church-concept/GCC-Logo.svg" alt="Grace Community Church Logo" class="footer-logo" loading="lazy">
+          <div class="footer-contact">
+            4200 Grace Community Drive<br>
+            Houston, TX 77001<br>
+            (713) 555-0192<br>
+            hello@gracecommunity.church
+          </div>
+        </div>
+
+        <!-- CENTER COLUMN -->
+        <div class="footer-col">
+          <span class="footer-label">QUICK LINKS</span>
+          <div class="footer-links">
+            <a href="#" class="footer-link">Watch</a>
+            <a href="#about" class="footer-link">About</a>
+            <a href="#next-gen" class="footer-link">Next Gen</a>
+            <a href="#" class="footer-link">Give</a>
+            <a href="#" class="footer-link">Plan a Visit</a>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="footer-col">
+          <span class="footer-label">STAY CONNECTED</span>
+          <p class="footer-copy">Get updates, announcements, and encouragement delivered to your inbox.</p>
+          <form onsubmit="event.preventDefault();">
+            <input type="text" placeholder="Name" class="footer-input">
+            <input type="email" placeholder="Email" class="footer-input footer-input-email">
+            <button type="submit" class="footer-submit">Subscribe</button>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- SOCIAL ICONS -->
+      <div class="footer-socials">
+        <a href="#" class="footer-social-icon" aria-label="Facebook">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+        </a>
+        <a href="#" class="footer-social-icon" aria-label="Instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+        </a>
+        <a href="#" class="footer-social-icon" aria-label="YouTube">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- BOTTOM BAR -->
+    <div class="footer-bottom">
+      <p class="footer-copyright">© 2026 Grace Community Church. All rights reserved.</p>
+    </div>
+  </footer>
+
+
+  <!-- MODALS STYLES -->
+  <style>
+    .church-modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 99999;
+      display: flex; justify-content: center; align-items: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
+      padding: 24px;
+    }
+    .church-modal-overlay.active { opacity: 1; pointer-events: auto; }
+    .church-modal-card {
+      background: #1A1A1A; border-top: 2px solid #C9933A; border-radius: 16px;
+      padding: 40px; width: 100%; max-width: 480px; position: relative;
+      display: flex; flex-direction: column; align-items: center;
+      transform: translateY(20px); transition: transform 0.2s ease;
+      box-sizing: border-box;
+    }
+    .church-modal-overlay.active .church-modal-card { transform: translateY(0); }
+    .church-modal-close {
+      position: absolute; top: 16px; right: 16px; background: none; border: none;
+      color: #FFFFFF; font-size: 28px; cursor: pointer; opacity: 0.5; transition: opacity 0.2s;
+      line-height: 1; padding: 4px;
+    }
+    .church-modal-close:hover { opacity: 1; }
+    .church-modal-logo { width: 60px; height: auto; margin: 0 auto; display: block; }
+    
+    .church-modal-headline {
+      font-family: 'Playfair Display', serif; font-weight: 900; font-size: 28px;
+      color: #FFFFFF; text-align: center; margin-top: 16px; margin-bottom: 0;
+    }
+    .church-modal-body {
+      font-family: 'Public Sans', sans-serif; font-weight: 400; font-size: 15px;
+      color: #E5E7EB; text-align: center; margin-top: 12px; margin-bottom: 0; line-height: 1.5;
+    }
+
+    /* Modal 1 Specifics */
+    .church-modal-amounts { display: flex; gap: 16px; width: 100%; margin-top: 24px; }
+    .church-modal-amt-btn {
+      flex: 1; background: transparent; border: 1px solid #C9933A; color: #C9933A;
+      border-radius: 50px; padding: 14px; font-family: 'Public Sans', sans-serif;
+      font-weight: 700; font-size: 16px; cursor: pointer; transition: background 0.2s;
+    }
+    .church-modal-amt-btn:hover { background: rgba(201,147,58,0.1); }
+    
+    .church-modal-input {
+      width: 100%; background: #2A2A2A; border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; padding: 14px 16px; color: #FFFFFF; font-family: 'Public Sans', sans-serif;
+      font-size: 15px; margin-top: 12px; outline: none; transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+    .church-modal-input:focus { border-color: #C9933A; }
+    .church-modal-input::placeholder { color: rgba(255,255,255,0.4); }
+    
+    .church-modal-submit {
+      width: 100%; background: #C9933A; color: #FFFFFF; border: none; border-radius: 50px;
+      padding: 16px; font-family: 'Public Sans', sans-serif; font-weight: 700; font-size: 16px;
+      margin-top: 16px; cursor: pointer; transition: opacity 0.2s;
+    }
+    .church-modal-submit:hover { opacity: 0.9; }
+    
+    .church-modal-note {
+      font-family: 'Public Sans', sans-serif; font-size: 12px; font-style: italic;
+      color: #4B5563; text-align: center; margin-top: 16px; margin-bottom: 0;
+    }
+
+    /* Modal 2 Specifics */
+    .church-modal-form { width: 100%; margin-top: 20px; }
+    .church-modal-row { display: flex; gap: 12px; width: 100%; }
+    .church-modal-row .church-modal-input { margin-top: 0; }
+    
+    .church-modal-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+      background-repeat: no-repeat; background-position: right 16px center; background-size: 12px;
+    }
+    
+    .church-modal-check-wrap {
+      display: flex; align-items: flex-start; gap: 12px; margin-top: 12px; cursor: pointer;
+    }
+    .church-modal-checkbox { margin-top: 4px; accent-color: #C9933A; }
+    .church-modal-check-text { font-family: 'Public Sans', sans-serif; font-size: 14px; color: #FFFFFF; line-height: 1.4; }
+    .church-modal-check-note { font-size: 13px; font-style: italic; color: #4B5563; margin-left: 4px; }
+
+    @media (max-width: 600px) {
+      .church-modal-card { width: 90%; padding: 32px 20px; }
+    }
+  </style>
+
+  <!-- MODAL 1: GIVING -->
+  <div class="church-modal-overlay" id="modal-give">
+    <div class="church-modal-card">
+      <button class="church-modal-close" aria-label="Close">&times;</button>
+      <img src="../assets/church-concept/GCC-Logo.svg" alt="GCC Logo" class="church-modal-logo" loading="lazy">
+      <h2 class="church-modal-headline">Give Online</h2>
+      <p class="church-modal-body">Your generosity makes a difference. Every gift supports our church, our community, and our mission.</p>
+      
+      <div class="church-modal-amounts">
+        <button class="church-modal-amt-btn">$25</button>
+        <button class="church-modal-amt-btn">$50</button>
+      </div>
+      
+      <input type="text" class="church-modal-input" placeholder="$Other Amount">
+      <button class="church-modal-submit">Give Now</button>
+      
+      <p class="church-modal-note">You will be redirected to our secure giving platform.</p>
+    </div>
+  </div>
+
+  <!-- MODAL 2: PLAN A VISIT -->
+  <div class="church-modal-overlay" id="modal-visit">
+    <div class="church-modal-card">
+      <button class="church-modal-close" aria-label="Close">&times;</button>
+      <img src="../assets/church-concept/GCC-Logo.svg" alt="GCC Logo" class="church-modal-logo" loading="lazy">
+      <h2 class="church-modal-headline">Plan Your Visit</h2>
+      <p class="church-modal-body">We would love to see you this Sunday. Fill out the form below and we will make sure you feel right at home.</p>
+      
+      <form class="church-modal-form" onsubmit="event.preventDefault();">
+        <div class="church-modal-row">
+          <input type="text" class="church-modal-input" placeholder="First Name">
+          <input type="text" class="church-modal-input" placeholder="Last Name">
+        </div>
+        <input type="email" class="church-modal-input" placeholder="Email">
+        <input type="tel" class="church-modal-input" placeholder="Phone">
+        
+        <select class="church-modal-input church-modal-select">
+          <option value="" disabled selected>Which service will you attend?</option>
+          <option value="9am">9AM Service</option>
+          <option value="11am">11AM Service</option>
+        </select>
+        
+        <label class="church-modal-check-wrap">
+          <input type="checkbox" class="church-modal-checkbox">
+          <span class="church-modal-check-text">I will be bringing children<span class="church-modal-check-note">We will have Grace Kids ready for them.</span></span>
+        </label>
+        
+        <button class="church-modal-submit">See You Sunday</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODALS SCRIPT -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const modalGive = document.getElementById('modal-give');
+      const modalVisit = document.getElementById('modal-visit');
+      
+      // Open Give Modal
+      document.querySelectorAll('a, button').forEach(el => {
+        if (el.textContent.trim() === 'Give') {
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            modalGive.classList.add('active');
+          });
+        }
+      });
+
+      // Open Plan a Visit Modal
+      document.querySelectorAll('a, button').forEach(el => {
+        if (el.textContent.trim().includes('Plan a Visit') || el.textContent.trim().includes('Plan A Visit')) {
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            modalVisit.classList.add('active');
+          });
+        }
+      });
+
+      // Close Modals
+      document.querySelectorAll('.church-modal-close').forEach(btn => {
+        btn.addEventListener('click', () => {
+          modalGive.classList.remove('active');
+          modalVisit.classList.remove('active');
+        });
+      });
+
+      document.querySelectorAll('.church-modal-overlay').forEach(overlay => {
+        overlay.addEventListener('click', (e) => {
+          if (e.target === overlay) {
+            overlay.classList.remove('active');
+          }
+        });
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          modalGive.classList.remove('active');
+          modalVisit.classList.remove('active');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,4920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grace Community Church</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/church-concept/GCC-Logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Public+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    html { scroll-behavior: smooth; }
+    /* RESET & BASE */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Public Sans', sans-serif;
+      background-color: #F5F2EB;
+      color: #1A1A1A;
+      overflow-x: hidden;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    ul {
+      list-style: none;
+    }
+
+    /* NAVIGATION */
+        .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 70px;
+      z-index: 200;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      overflow: hidden;
+    }
+    .navbar::before {
+      content: '';
+      position: absolute;
+      top: -30px;
+      left: -30px;
+      right: -30px;
+      bottom: -30px;
+      z-index: 0;
+      backdrop-filter: url(#liquid-prism-intense) blur(12px);
+      -webkit-backdrop-filter: url(#liquid-prism-intense) blur(12px);
+      background: rgba(0,0,0,0.65);
+    }
+    .navbar::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-image: url('../assets/backgrounds/transparent-glass.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      opacity: 0.11;
+      pointer-events: none;
+    }
+    .nav-inner {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 0 40px;
+      height: 100%;
+    }
+    .nav-logo img {
+      height: 56px;
+      width: auto;
+      display: block;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+    }
+    .nav-logo img {
+      height: 56px;
+      width: auto;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+      justify-content: center;
+    }
+    .nav-btn-container {
+      display: flex;
+      justify-content: flex-end;
+    }
+    .nav-links a {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 400;
+      font-size: 15px;
+      color: #E5E7EB;
+      position: relative;
+      padding-bottom: 4px;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0%;
+      height: 2px;
+      background: #C9933A;
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    .nav-btn {
+      background: #C9933A;
+      color: #FFFFFF;
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      border-radius: 50px;
+      padding: 10px 24px;
+      transition: background 0.3s ease, transform 0.2s ease;
+      display: inline-block;
+    }
+    .nav-btn:hover {
+      background: #b58434;
+      transform: translateY(-1px);
+    }
+    .nav-hamburger {
+      display: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: row;
+    }
+    .hero-left {
+      width: 50%;
+      height: 100%;
+      background: #FFFFFF;
+      padding: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .hero-label {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 500;
+      font-size: 11px;
+      color: #C9933A;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      margin-bottom: 24px;
+    }
+    .hero-headline {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 68px;
+      line-height: 1.1;
+      color: #1A1A1A;
+      margin: 0;
+    }
+    .hero-headline span {
+      color: #C9933A;
+      display: block;
+    }
+    .hero-subhead {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 400;
+      font-size: 17px;
+      color: #4B5563;
+      margin-top: 24px;
+    }
+    .hero-cta {
+      background: #C9933A;
+      color: #FFFFFF;
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      border-radius: 50px;
+      padding: 14px 32px;
+      margin-top: 32px;
+      transition: background 0.3s ease, transform 0.2s ease;
+      display: inline-block;
+    }
+    .hero-cta:hover {
+      background: #b58434;
+      transform: translateY(-2px);
+    }
+
+    .hero-right {
+      width: 50%;
+      height: 100%;
+    }
+    .hero-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    /* OVERLAPPING CARD */
+    .hero-card {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 60px);
+      width: 80%;
+      max-width: 1100px;
+      background: #1A1A1A;
+      border-top: 2px solid #C9933A;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      padding: 28px 40px;
+      display: flex;
+      z-index: 100;
+    }
+    .card-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 24px;
+    }
+    .card-col:not(:last-child) {
+      border-right: 1px solid rgba(255,255,255,0.1);
+    }
+    .card-label {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 500;
+      font-size: 10px;
+      color: #C9933A;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+    }
+    .card-val {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-top: 8px;
+    }
+    .card-val.large { font-size: 20px; }
+    .card-val.medium { font-size: 18px; }
+    .card-link {
+      display: inline-block;
+      transition: color 0.2s ease;
+    }
+    .card-link:hover {
+      color: #C9933A;
+    }
+
+    /* MOBILE RESPONSIVE (max-width: 768px) */
+    
+    /* WELCOME SECTION */
+    .welcome-section {
+      position: relative;
+      width: 100%;
+      background: #1A1A1A;
+      padding: 100px 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .welcome-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('../assets/church-concept/backgrounds/black-gold-texture-2.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.08;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .welcome-container {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      width: 100%;
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .welcome-quote {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 52px;
+      line-height: 1.15;
+      color: #FFFFFF;
+      margin: 0;
+    }
+    .welcome-hr {
+      width: 100px;
+      height: 2px;
+      background: #C9933A;
+      border: none;
+      margin: 32px auto 0 auto;
+    }
+    .welcome-stats {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      margin-top: 60px;
+      width: 100%;
+    }
+    .welcome-stat-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+    }
+    .welcome-stat-divider {
+      width: 1px;
+      height: 80px;
+      background: rgba(255,255,255,0.1);
+      margin: 0 40px;
+    }
+    .welcome-stat-value {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 64px;
+      color: #C9933A;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .welcome-stat-label {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 400;
+      font-size: 13px;
+      color: #E5E7EB;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin: 0;
+    }
+    .welcome-paragraph {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 400;
+      font-size: 18px;
+      color: #E5E7EB;
+      line-height: 1.7;
+      max-width: 680px;
+      margin: 60px auto 0 auto;
+    }
+
+    
+    /* WORSHIP SECTION */
+    .worship-section {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      
+    }
+    .worship-left {
+      position: relative;
+      width: 50%;
+      background: #1B2A4A;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    .worship-bg-overlay-2 {
+      position: absolute;
+      inset: 0;
+      background-image: url('../assets/church-concept/backgrounds/blue-paper.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.185;
+      z-index: 1;
+    }
+    .worship-container {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 60px 40px;
+    }
+    .worship-hr {
+      width: 80px;
+      height: 2px;
+      background: #C9933A;
+      border: none;
+      margin: 0 auto;
+    }
+    .worship-headline {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 56px;
+      line-height: 1.15;
+      color: #FFFFFF;
+      margin: 24px 0 0 0;
+    }
+    .worship-paragraph {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 400;
+      font-size: 18px;
+      color: #E5E7EB;
+      line-height: 1.7;
+      margin: 24px 0 0 0;
+    }
+    .worship-right {
+      width: 50%;
+      position: relative;
+    }
+    .worship-right img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    
+    /* SERMONS SECTION */
+    .sermons-section {
+      width: 100%;
+      background-image: url('../assets/backgrounds/white-watercolor-background.webp');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      min-height: 500px;
+    }
+    .sermons-left {
+      width: 45%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 48px;
+    }
+    .sermons-image-wrapper {
+      width: 60%;
+      display: flex;
+      justify-content: center;
+    }
+    .sermons-left img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      border: 1.5px solid #C9933A;
+      border-radius: 8px;
+      display: block;
+    }
+    .sermons-right {
+      width: 55%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 48px;
+    }
+    .sermons-label {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 500;
+      font-size: 13px;
+      color: #C9933A;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      margin: 0;
+    }
+    .sermons-headline {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 68px;
+      line-height: 1.15;
+      color: #1A1A1A;
+      margin: 12px 0 0 0;
+    }
+    .sermons-paragraph {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 400;
+      font-size: 19px;
+      color: #4B5563;
+      line-height: 1.7;
+      margin: 16px 0 0 0;
+      max-width: 540px;
+    }
+    .sermons-btn {
+      display: inline-block;
+      background: #C9933A;
+      color: #FFFFFF;
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      border-radius: 50px;
+      padding: 12px 28px;
+      margin-top: 22px;
+      transition: opacity 0.3s ease;
+    }
+    .sermons-btn:hover {
+      opacity: 0.9;
+    }
+
+    
+    /* NEXT GEN SECTION */
+    .nextgen-section {
+      position: relative;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      z-index: 5;
+    }
+    .nextgen-bg-left, .nextgen-bg-right, .nextgen-accent-line {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+    .nextgen-bg-left {
+      background-image: url('../assets/church-concept/backgrounds/grey-concrete.jpg');
+      background-size: cover;
+      background-position: center;
+      clip-path: polygon(0 0, 70% 0, 30% 100%, 0 100%);
+    }
+    .nextgen-bg-left::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('../assets/church-concept/backgrounds/squares-black-white.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.12;
+    }
+    .nextgen-bg-right {
+      background: #1A1A1A;
+      clip-path: polygon(70% 0, 100% 0, 100% 100%, 30% 100%);
+    }
+    .nextgen-bg-right::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('../assets/church-concept/backgrounds/black-gold-texture-2.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.40;
+    }
+    .nextgen-accent-line {
+      pointer-events: none;
+      z-index: 1;
+    }
+    .nextgen-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 60px;
+    }
+    .nextgen-header {
+      width: 100%;
+      padding-top: 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+        .nextgen-headline {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 52px;
+      color: #FFFFFF;
+      text-shadow: 0 4px 16px rgba(0,0,0,0.4);
+      margin: 0;
+    }
+    .nextgen-hr {
+      width: 80px;
+      height: 2px;
+      background: #C9933A;
+      border: none;
+      margin: 20px auto 0 auto;
+    }
+    .nextgen-zones {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 20px;
+    }
+    .nextgen-zone-left {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      text-align: left;
+      padding: 0 16% 120px 6%;
+    }
+    .nextgen-zone-right {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: flex-end;
+      text-align: right;
+      padding: 120px 6% 0 16%;
+    }
+        .editorial-image-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 440px;
+    }
+    .nextgen-zone-left .editorial-image-wrapper::before {
+      content: '';
+      position: absolute;
+      top: -16px;
+      left: -16px;
+      width: 100%;
+      height: 100%;
+      border: 3px solid #C9933A;
+      z-index: 0;
+    }
+    .nextgen-zone-right .editorial-image-wrapper::before {
+      content: '';
+      position: absolute;
+      bottom: -16px;
+      right: -16px;
+      width: 100%;
+      height: 100%;
+      border: 3px solid #C9933A;
+      z-index: 0;
+    }
+    .editorial-image {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      display: block;
+      z-index: 1;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+    }
+    .zone-info {
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 440px;
+    }
+    .nextgen-zone-right .zone-info {
+      align-items: flex-start;
+      text-align: left;
+    }
+                        .zone-label {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 900;
+      font-size: 36px;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+    .zone-desc {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      color: #FFFFFF;
+      line-height: 1.5;
+    }
+    .zone-time {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 900;
+      font-size: 22px;
+      color: #FFFFFF;
+    }
+    .zone-italic {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 400;
+      font-size: 15px;
+      color: #E5E7EB;
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    
+    /* NEXT STEPS SECTION */
+    .nextsteps-section {
+      position: relative;
+      width: 100%;
+      background: #1A1A1A;
+      padding: 60px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 4;
+    }
+    .nextsteps-bg-overlay {
+      position: absolute;
+      inset: 0;
+      background-image: url('../assets/church-concept/backgrounds/grey-concrete-2.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.12;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .nextsteps-container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 24px;
+    }
+    .nextsteps-header {
+      max-width: 800px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .nextsteps-label {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 500;
+      font-size: 11px;
+      color: #C9933A;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+    }
+    .nextsteps-headline {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 52px;
+      color: #FFFFFF;
+      line-height: 1.15;
+      margin: 16px 0 0 0;
+    }
+    .nextsteps-subheadline {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 400;
+      font-size: 18px;
+      color: #E5E7EB;
+      margin: 16px 0 0 0;
+    }
+    .nextsteps-hr {
+      width: 80px;
+      height: 2px;
+      background: #C9933A;
+      border: none;
+      margin: 24px auto 0 auto;
+    }
+    .nextsteps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      width: 100%;
+      max-width: 1440px;
+      align-items: stretch;
+      margin-top: 60px;
+    }
+    .nextsteps-card {
+      position: relative;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 24px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .nextsteps-ghost-num {
+      position: absolute;
+      bottom: -15px;
+      right: 15px;
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 80px;
+      color: #C9933A;
+      opacity: 0.08;
+      line-height: 1;
+      z-index: 0;
+      pointer-events: none;
+      user-select: none;
+    }
+    .nextsteps-card-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+    .nextsteps-card-label {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      color: #C9933A;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+    }
+    .nextsteps-card-headline {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 20px;
+      color: #FFFFFF;
+      margin: 12px 0 0 0;
+    }
+    .nextsteps-card-body {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      color: #E5E7EB;
+      line-height: 1.7;
+      margin: 12px 0 0 0;
+    }
+    .nextsteps-card-cta {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: #C9933A;
+      text-decoration: none;
+      margin: 20px 0 0 0;
+      display: inline-block;
+      transition: opacity 0.2s ease;
+    }
+    .nextsteps-card-cta:hover {
+      opacity: 0.8;
+    }
+
+    
+    /* FOOTER SECTION */
+        .site-footer {
+      position: relative;
+      width: 100%;
+      background: #1A1A1A;
+      border-top: 2px solid #C9933A;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+      z-index: 100;
+      overflow: hidden;
+    }
+    .site-footer::before {
+      content: '';
+      position: absolute;
+      top: -30px;
+      left: -30px;
+      right: -30px;
+      bottom: -30px;
+      z-index: 0;
+      backdrop-filter: url(#liquid-prism-intense) blur(12px);
+      -webkit-backdrop-filter: url(#liquid-prism-intense) blur(12px);
+      background: rgba(0,0,0,0.65);
+    }
+    .site-footer::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-image: url('../assets/backgrounds/transparent-glass.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      opacity: 0.11;
+      pointer-events: none;
+    }
+    .footer-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 60px 24px 40px 24px;
+    }
+    .footer-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 40px;
+    }
+    .footer-col {
+      display: flex;
+      flex-direction: column;
+    }
+    .footer-logo {
+      width: 120px;
+      display: block;
+    }
+    .footer-contact {
+      margin-top: 16px;
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      color: #E5E7EB;
+      line-height: 1.8;
+    }
+    .footer-label {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      color: #C9933A;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+    }
+    .footer-links {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .footer-link {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 400;
+      font-size: 15px;
+      color: #E5E7EB;
+      line-height: 2;
+      text-decoration: none;
+      display: inline-block;
+      align-self: flex-start;
+      position: relative;
+    }
+    .footer-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 1px;
+      bottom: 2px;
+      left: 0;
+      background-color: #C9933A;
+      transition: width 0.2s ease;
+    }
+    .footer-link:hover::after {
+      width: 100%;
+    }
+    .footer-copy {
+      margin-top: 8px;
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      color: #E5E7EB;
+    }
+    .footer-input {
+      margin-top: 16px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: #FFFFFF;
+      font-family: 'Public Sans', sans-serif;
+      font-size: 14px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .footer-input::placeholder {
+      color: #4B5563;
+    }
+    .footer-input-email {
+      margin-top: 8px;
+    }
+    .footer-submit {
+      margin-top: 12px;
+      background: #C9933A;
+      color: #FFFFFF;
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      border-radius: 50px;
+      padding: 10px 24px;
+      width: 100%;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .footer-submit:hover {
+      opacity: 0.9;
+    }
+    .footer-socials {
+      margin-top: 32px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+    }
+    .footer-social-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #E5E7EB;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .footer-social-icon:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #FFFFFF;
+    }
+    .footer-bottom {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 20px 24px;
+      text-align: center;
+    }
+    .footer-copyright {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 400;
+      font-size: 13px;
+      color: #4B5563;
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .footer-columns {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .nextsteps-section {
+        padding: 60px 0;
+      }
+      .nextsteps-grid {
+        grid-template-columns: 1fr;
+      }
+      .nextgen-zones {
+        flex-direction: column;
+      }
+      .nextgen-zone-left, .nextgen-zone-right {
+        width: 100%;
+        padding: 40px 24px;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .sermons-section {
+        flex-direction: column;
+      }
+      .sermons-left {
+        width: 100%;
+        padding: 32px 32px 0 32px;
+      }
+      .sermons-image-wrapper {
+        width: 100%;
+      }
+      .sermons-right {
+        width: 100%;
+        padding: 32px;
+      }
+
+      .worship-section {
+        flex-direction: column-reverse;
+      }
+      .worship-left, .worship-right {
+        width: 100%;
+      }
+      .worship-right {
+        height: 350px;
+      }
+      .worship-container {
+        padding-left: 40px;
+        padding-right: 40px;
+      }
+      .worship-headline {
+        font-size: 36px;
+      }
+
+      .welcome-section {
+        padding: 60px 0;
+      }
+      .welcome-quote {
+        font-size: 36px;
+      }
+      .welcome-stats {
+        flex-direction: column;
+        gap: 40px;
+      }
+      .welcome-stat-divider {
+        display: none;
+      }
+
+      .nav-inner {
+        padding: 0 24px;
+        display: flex;
+        justify-content: space-between;
+      }
+      .nav-links, .nav-btn {
+        display: none;
+      }
+      .nav-hamburger {
+        display: block;
+      }
+
+      .hero {
+        flex-direction: column;
+        height: auto;
+      }
+      .hero-left {
+        width: 100%;
+        padding: 120px 24px 80px 24px;
+        min-height: 70vh;
+      }
+      .hero-headline {
+        font-size: 52px;
+      }
+      .hero-right {
+        width: 100%;
+        height: 300px;
+      }
+
+      .hero-card {
+        flex-direction: column;
+        width: 90%;
+        padding: 24px 20px;
+        gap: 20px;
+        transform: translate(-50%, 40px); /* Adjust overlap slightly for mobile */
+      }
+      .card-col {
+        padding: 0 0 20px 0;
+      }
+      .card-col:not(:last-child) {
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+      }
+    }
+  
+    #pinpoint-welcome-card {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) translateY(20px);
+      z-index: 9100;
+      width: 480px;
+      background: #0D0D12;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 8px 48px rgba(0,0,0,0.7);
+      opacity: 0;
+      display: none;
+      animation: welcome-card-enter 300ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      text-align: center;
+    }
+    
+    #pinpoint-welcome-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1.5px;
+      background: linear-gradient(90deg, #2F80ED, #8E54E9, #E34C89, #FF7F50);
+      border-top-left-radius: 16px;
+      border-top-right-radius: 16px;
+    }
+
+    @keyframes welcome-card-enter {
+      0% { opacity: 0; transform: translate(-50%, calc(-50% + 20px)); }
+      100% { opacity: 1; transform: translate(-50%, -50%); }
+    }
+
+  
+
+
+    #tut-instruction-card {
+      position: fixed;
+      z-index: 9200;
+      background: #0D0D12;
+      border-radius: 12px;
+      padding: 24px;
+      width: 100%;
+      max-width: 340px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+      opacity: 0;
+      display: none;
+    }
+    
+    #tut-instruction-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1.5px;
+      background: linear-gradient(90deg, #2F80ED, #8E54E9, #E34C89, #FF7F50);
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+    
+    .tut-card-enter {
+      animation: tut-card-in 300ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .tut-card-exit {
+      animation: tut-card-out 200ms ease-in forwards;
+    }
+    
+    @keyframes tut-card-in {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes tut-card-out {
+      0% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(20px); }
+    }
+
+    .tut-next-btn {
+      background: linear-gradient(135deg, #2F80ED, #8E54E9, #E34C89, #FF7F50);
+      color: white;
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 12px 24px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      margin-top: 16px;
+    }
+    
+    #tut-error-msg {
+      color: #FF7F50;
+      font-style: italic;
+      font-size: 13px;
+      margin-top: 12px;
+      display: none;
+    }
+
+  
+    
+
+  </style>
+<style>
+    html { scroll-behavior: smooth; }
+
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap');
+
+/* ── Namespace root: all CSS vars scoped here ──────────────── */
+:root, .inspire-rev-root {
+  --inspire-font: 'Public Sans', system-ui, sans-serif;
+  --inspire-blue: #2F80ED;
+  --inspire-violet: #8E54E9;
+  --inspire-pink: #E34C89;
+  --inspire-coral: #FF7F50;
+  --inspire-charcoal: #1A1A1A;
+  --inspire-slate-gray: #4B5563;
+  --inspire-light-gray: #E5E7EB;
+  --inspire-white: #FFFFFF;
+  --inspire-danger: #EF4444;
+  --inspire-text-muted: #6B7280;
+
+  /* 135deg brand gradient */
+  --inspire-gradient: linear-gradient(135deg,
+    var(--inspire-blue)   0%,
+    var(--inspire-blue)  25%,
+    var(--inspire-violet) 44%,
+    var(--inspire-pink)   65%,
+    var(--inspire-coral)  90%,
+    var(--inspire-coral) 100%);
+
+  --inspire-bg-glass: rgba(26, 26, 26, 0.88);
+  --inspire-border-glass: rgba(255, 255, 255, 0.08);
+  --inspire-shadow: 0 10px 25px -5px rgba(0,0,0,0.5), 0 8px 10px -6px rgba(0,0,0,0.5);
+  --inspire-shadow-accent: 0 0 15px rgba(142, 84, 233, 0.4);
+
+  font-family: var(--inspire-font);
+  color-scheme: dark;
+}
+
+/* ── Floating Control Panel ───────────────────────────────── */
+.inspire-rev-control-bar {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 24px;
+  background: var(--inspire-bg-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--inspire-border-glass);
+  border-radius: 9999px;
+  box-shadow: var(--inspire-shadow);
+  color: var(--inspire-white);
+  animation: inspire-slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  user-select: none;
+  pointer-events: auto;
+  /* Never overflow a narrow viewport */
+  max-width: calc(100vw - 24px);
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+
+/* ── Mobile status badge (hidden on desktop) ─────────────── */
+.inspire-rev-status-badge-mobile {
+  display: none;
+}
+
+/* ── Mobile ≤ 540px ────────────────────────────────────────── */
+@media (max-width: 540px) {
+  .inspire-rev-control-bar {
+    bottom: 16px;
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: 9999px; /* maintain premium floating pill shape */
+    max-width: calc(100vw - 20px);
+    width: auto;
+  }
+
+  /* IDC logo is too wide on phones — hide it to prioritize space */
+  .inspire-rev-logo-group {
+    display: none !important;
+  }
+
+  /* Hide the desktop status wrapper on mobile */
+  .inspire-rev-status-wrapper {
+    display: none !important;
+  }
+
+  /* Float the mobile status badge elegantly at the top center of the screen */
+  .inspire-rev-status-badge-mobile {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    position: fixed;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 500;
+    background: var(--inspire-bg-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--inspire-border-glass);
+    border-radius: 9999px;
+    padding: 8px 14px;
+    box-shadow: var(--inspire-shadow);
+  }
+
+  /* Keep full text labels visible on all action buttons */
+  .inspire-rev-btn-label {
+    display: inline !important;
+  }
+
+  .inspire-rev-btn {
+    font-size: 11px;
+    padding: 6px 10px;
+    gap: 4px;
+    border-radius: 9999px;
+    height: auto;
+    width: auto;
+  }
+
+  /* The revisions button displays cleanly next to them */
+  .inspire-rev-btn-revisions {
+    padding: 6px 10px;
+    gap: 4px;
+  }
+
+  .inspire-rev-actions {
+    gap: 6px;
+  }
+
+  /* Ensure sidebar footer clears the bottom toolbar */
+  .inspire-rev-sidebar-footer {
+    padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  .inspire-rev-sidebar {
+    padding-bottom: 0 !important;
+  }
+}
+
+/* ── Wordmark treatments ──────────────────────────────────── */
+.inspire-rev-logo-group {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+  padding-right: 16px;
+}
+
+.inspire-rev-logo-text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.inspire-rev-logo-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--inspire-white);
+  display: inline-flex;
+  gap: 3px;
+}
+
+.inspire-rev-logo-designs {
+  color: var(--inspire-white);
+}
+
+.inspire-rev-logo-collective {
+  font-size: 7px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--inspire-coral);
+  margin-top: 2px;
+}
+
+/* ── Status wrapper ───────────────────────────────────────── */
+.inspire-rev-status-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── Status dot ───────────────────────────────────────────── */
+.inspire-rev-status-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--inspire-coral);
+  border-radius: 8px;
+  box-shadow: 0 0 8px var(--inspire-coral);
+}
+
+/* ── Actions row ──────────────────────────────────────────── */
+.inspire-rev-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── Glassmorphic buttons ─────────────────────────────────── */
+.inspire-rev-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--inspire-light-gray);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  font-family: var(--inspire-font);
+}
+
+.inspire-rev-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: var(--inspire-white);
+}
+
+.inspire-rev-btn-primary {
+  background: var(--inspire-gradient);
+  border-color: transparent;
+  color: var(--inspire-white);
+}
+
+.inspire-rev-btn-primary:hover {
+  opacity: 0.95;
+  box-shadow: var(--inspire-shadow-accent);
+  transform: translateY(-1px);
+}
+
+.inspire-rev-btn-primary.inspire-rev-active {
+  background: linear-gradient(135deg, var(--inspire-pink) 0%, var(--inspire-coral) 100%);
+  box-shadow: 0 0 15px rgba(255, 127, 80, 0.4);
+}
+
+.inspire-rev-btn-text {
+  background: transparent;
+  border: none;
+  color: var(--inspire-slate-gray);
+}
+
+.inspire-rev-btn-text:hover {
+  color: var(--inspire-white);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* ── Fullscreen Capture Overlay ───────────────────────────── */
+.inspire-pin.selected { z-index: 305 !important; }
+body.inspire-pinning-active {
+  cursor: crosshair !important;
+}
+body.inspire-pinning-active .inspire-rev-sidebar,
+body.inspire-pinning-active .inspire-rev-control-bar,
+body.inspire-pinning-active .inspire-note-card,
+body.inspire-pinning-active button,
+body.inspire-pinning-active .inspire-rev-btn {
+  cursor: default !important;
+}
+body.inspire-pinning-active .inspire-pin {
+  cursor: grab !important;
+}
+
+.inspire-rev-capture-indicator {
+  position: absolute;
+  padding: 6px 16px;
+  background: var(--inspire-charcoal);
+  border: 1px solid var(--inspire-violet);
+  border-radius: 8px;
+  color: var(--inspire-white);
+  font-size: 12px;
+  pointer-events: none;
+  transform: translate(15px, 15px);
+  box-shadow: var(--inspire-shadow);
+  white-space: nowrap;
+  font-weight: 500;
+  font-family: var(--inspire-font);
+}
+
+.inspire-rev-pin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: var(--inspire-violet);
+  color: var(--inspire-white);
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 8px;
+  border: 3px solid var(--inspire-white);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.inspire-rev-pin:hover,
+.inspire-rev-pin.inspire-rev-selected {
+  background: var(--inspire-pink);
+  transform: scale(1.15);
+  box-shadow: 0 0 15px var(--inspire-pink);
+}
+
+.inspire-rev-pin-priority-high {
+  background: var(--inspire-pink);
+  border-color: var(--inspire-coral);
+}
+
+.inspire-rev-pin-priority-low {
+  background: var(--inspire-slate-gray);
+}
+
+/* ── Pin Popover / Comment Form ───────────────────────────── */
+.inspire-rev-popover {
+  position: absolute;
+  top: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  background: var(--inspire-bg-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--inspire-border-glass);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: var(--inspire-shadow);
+  color: var(--inspire-white);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: inspire-scale-in 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  overflow: hidden;
+}
+
+/* 135deg top thin brand accent bar for popover */
+.inspire-rev-popover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--inspire-gradient);
+}
+
+.inspire-rev-popover-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.inspire-rev-popover-title {
+  color: var(--inspire-white);
+}
+
+.inspire-rev-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.inspire-rev-form-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--inspire-slate-gray);
+  letter-spacing: 0.05em;
+}
+
+.inspire-rev-input,
+.inspire-rev-textarea,
+.inspire-rev-select {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  color: var(--inspire-white);
+  padding: 10px;
+  font-size: 13px;
+  outline: none;
+  font-family: var(--inspire-font);
+  box-sizing: border-box;
+  transition: all 0.15s ease;
+}
+
+.inspire-rev-textarea {
+  min-height: 70px;
+  resize: vertical;
+}
+
+.inspire-rev-input:focus,
+.inspire-rev-textarea:focus,
+.inspire-rev-select:focus {
+  border-color: var(--inspire-violet);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.inspire-rev-popover-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+/* ── Sidebar Drawer ───────────────────────────────────────── */
+.inspire-rev-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 380px;
+  background: #13131A;
+  border-left: 1px solid var(--inspire-border-glass);
+  box-shadow: var(--inspire-shadow);
+  z-index: 400;
+  display: flex;
+  flex-direction: column;
+  color: var(--inspire-white);
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto;
+  overflow: hidden;
+}
+
+/* Full-width on mobile */
+@media (max-width: 540px) {
+  .inspire-rev-sidebar {
+    width: 100vw;
+  }
+}
+
+/* Thin brand gradient bar on top of sidebar */
+.inspire-rev-sidebar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--inspire-gradient);
+  z-index: 2;
+}
+
+.inspire-rev-sidebar.inspire-rev-open {
+  transform: translateX(0);
+}
+
+.inspire-rev-sidebar-header {
+  padding: 24px 20px 20px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  z-index: 1;
+}
+
+.inspire-rev-sidebar-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+}
+
+.inspire-rev-sidebar-heading {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.inspire-rev-sidebar-count {
+  background: var(--inspire-violet);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  color: var(--inspire-white);
+}
+
+.inspire-rev-close-btn {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  color: var(--inspire-slate-gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.inspire-rev-close-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--inspire-white);
+}
+
+.inspire-rev-sidebar-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 1;
+}
+
+.inspire-rev-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  text-align: center;
+  color: var(--inspire-slate-gray);
+  gap: 8px;
+}
+
+.inspire-rev-empty-icon {
+  width: 48px;
+  height: 56px;
+  color: rgba(255, 255, 255, 0.05);
+}
+
+/* ── Feedback Cards ───────────────────────────────────────── */
+.inspire-rev-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: all 0.2s;
+  cursor: default;
+}
+
+.inspire-rev-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.inspire-rev-selected-card {
+  border-color: var(--inspire-violet);
+  background: rgba(142, 84, 233, 0.08);
+}
+
+.inspire-rev-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.inspire-rev-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.inspire-rev-card-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background: var(--inspire-violet);
+  color: var(--inspire-white);
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 8px;
+}
+
+.inspire-rev-card-page {
+  font-size: 10px;
+  color: var(--inspire-slate-gray);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 4px 6px;
+  border-radius: 4px;
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.inspire-rev-card-priority {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+
+.inspire-rev-prio-flexible {
+  background: rgba(47, 128, 237, 0.15);
+  color: #2F80ED;
+}
+.inspire-rev-prio-guided {
+  background: rgba(255, 127, 80, 0.15);
+  color: #FF7F50;
+}
+.inspire-rev-prio-exact {
+  background: rgba(227, 76, 137, 0.15);
+  color: #E34C89;
+}
+
+.inspire-prio-btn {
+  flex: 1;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--inspire-slate-gray);
+  padding: 8px 0;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.inspire-prio-btn:hover {
+  background: rgba(255,255,255,0.05);
+  color: var(--inspire-white);
+}
+.inspire-prio-btn[data-val="flexible"].active {
+  background: rgba(47, 128, 237, 0.15);
+  color: #2F80ED;
+  border-color: rgba(47, 128, 237, 0.3);
+}
+.inspire-prio-btn[data-val="guided"].active {
+  background: rgba(255, 127, 80, 0.15);
+  color: #FF7F50;
+  border-color: rgba(255, 127, 80, 0.3);
+}
+.inspire-prio-btn[data-val="exact"].active {
+  background: rgba(227, 76, 137, 0.15);
+  color: #E34C89;
+  border-color: rgba(227, 76, 137, 0.3);
+}
+
+.inspire-rev-card-comment {
+  font-size: 13px;
+  color: var(--inspire-light-gray);
+  line-height: 1.5;
+  margin: 0;
+  word-break: break-word;
+}
+
+.inspire-rev-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  padding-top: 8px;
+  font-size: 11px;
+  color: var(--inspire-slate-gray);
+}
+
+.inspire-rev-card-author {
+  font-weight: 500;
+}
+
+.inspire-rev-card-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.inspire-rev-card-btn {
+  background: transparent;
+  border: none;
+  color: var(--inspire-slate-gray);
+  cursor: pointer;
+  padding: 4px;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.15s;
+}
+
+.inspire-rev-card-btn:hover {
+  color: var(--inspire-white);
+}
+
+.inspire-rev-card-btn-danger:hover {
+  color: var(--inspire-pink);
+}
+
+/* ── Sidebar footer ───────────────────────────────────────── */
+.inspire-rev-sidebar-footer {
+  padding: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1;
+}
+
+/* ── Animations ───────────────────────────────────────────── */
+@keyframes inspire-slide-up {
+  from {
+    transform: translate(-50%, 100px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes inspire-scale-in {
+  from {
+    transform: translateX(-50%) scale(0.92);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+  }
+}
+
+/* ── Global pin overlay wrapper ───────────────────────────────
+   IMPORTANT: position:fixed so pin percentages match the
+   fixed capture overlay's coordinate space exactly.           */
+.inspire-rev-global-overlay-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 100;
+}
+
+/* Drag hint label that appears below a selected pin */
+.inspire-rev-drag-hint {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--inspire-slate-gray);
+  white-space: nowrap;
+  pointer-events: none;
+  animation: inspire-fade-in 0.2s ease;
+}
+
+/* Dragging state — show grabbing cursor, lift the pin slightly */
+.inspire-rev-pin-dragging {
+  cursor: grabbing !important;
+  transform: scale(1.25);
+  box-shadow: 0 0 20px var(--inspire-violet);
+  z-index: 505;
+}
+
+@keyframes inspire-fade-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(4px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* Vanilla JS Overrides & Tweaks */
+.inspire-rev-global-overlay-wrapper {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* Ensure footer sits above main content pins */
+.footer {
+  position: relative;
+  z-index: 200;
+}
+
+.inspire-pin {
+  position: absolute;
+  pointer-events: auto;
+  transform: translate(-50%, -50%);
+  cursor: grab;
+  z-index: 300;
+}
+
+.inspire-pin {
+  transition: top 0.15s ease-out, left 0.15s ease-out, transform 0.15s ease-out, box-shadow 0.15s ease-out;
+}
+.inspire-pin:active {
+  cursor: grabbing;
+}
+.inspire-pin.is-dragging {
+  transition: none !important;
+  transform: translate(-50%, -50%) scale(1.1);
+  z-index: 310;
+}
+.inspire-pin.is-dragging .pin-number {
+  box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+}
+.inspire-box.is-dragging {
+  transform: scale(1.02) !important;
+  box-shadow: 0 16px 32px rgba(0,0,0,0.5) !important;
+}
+
+.pin-number {
+  width: 24px;
+  height: 24px;
+  background-color: #E34C89; /* Hot Pink */
+  color: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(227, 76, 137, 0.5);
+  transition: transform 0.2s;
+}
+
+
+@keyframes pin-pulse-anim {
+  0% { box-shadow: 0 0 0 0 rgba(227, 76, 137, 0.7); }
+  70% { box-shadow: 0 0 0 20px rgba(227, 76, 137, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(227, 76, 137, 0); }
+}
+
+.inspire-pin.pin-pulse .pin-number {
+  animation: pin-pulse-anim 1s infinite;
+  background-color: #E34C89; /* Hot Pink glow */
+}
+
+.inspire-pin:hover .pin-number {
+  transform: scale(1.1);
+}
+
+.inspire-pin.selected .pin-number {
+  transform: scale(1.1);
+  box-shadow: 0 0 0 3px rgba(227, 76, 137, 0.3);
+}
+
+/* Note Card Smart Positioning */
+.inspire-note-card.note-card-top {
+  top: auto;
+  bottom: 100%;
+  transform: translate(-50%, -12px);
+}
+.inspire-note-card.note-card-top::before {
+  top: auto;
+  bottom: -6px;
+  border-top: none;
+  border-left: none;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+  border-right: 1px solid rgba(255,255,255,0.12);
+}
+.inspire-note-card.note-card-left {
+  transform: translate(-85%, 12px);
+}
+.inspire-note-card.note-card-top.note-card-left {
+  transform: translate(-85%, -12px);
+}
+.inspire-note-card.note-card-left::before {
+  left: 85%;
+}
+.inspire-note-card.note-card-right {
+  transform: translate(-15%, 12px);
+}
+.inspire-note-card.note-card-top.note-card-right {
+  transform: translate(-15%, -12px);
+}
+.inspire-note-card.note-card-right::before {
+  left: 15%;
+}
+
+/* Grouping & Card Layout */
+.inspire-rev-group { margin-bottom: 16px; }
+.inspire-rev-group-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-bottom: 8px; margin-bottom: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.inspire-rev-group-header h4 { font-size: 12px; font-weight: 700; color: var(--inspire-white); margin: 0; }
+.inspire-rev-group-count {
+  font-size: 10px; background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 10px; color: var(--inspire-white);
+}
+
+.inspire-rev-card-header-line {
+  display: flex; justify-content: space-between; align-items: center; gap: 8px; width: 100%;
+}
+.inspire-rev-card-title-group {
+  display: flex; align-items: center; gap: 6px; overflow: hidden; white-space: nowrap; flex: 1;
+}
+.inspire-rev-dot {
+  width: 8px; height: 8px; border-radius: 8px; background: #E34C89; flex-shrink: 0;
+}
+.inspire-rev-pin-label {
+  color: #E34C89; font-weight: 700; font-size: 11px; flex-shrink: 0;
+}
+.inspire-rev-section-name {
+  font-size: 11px; flex-shrink: 0; color: var(--inspire-slate-gray); font-style: italic;
+}
+.inspire-rev-preview {
+  font-size: 11px; text-overflow: ellipsis; overflow: hidden; flex: 1; color: var(--inspire-light-gray);
+}
+
+/* Box and Pipeline Status Colors */
+.inspire-box {
+  transform: none !important;
+  border-width: 2px;
+  border-style: dashed;
+  cursor: pointer;
+  pointer-events: auto;
+}
+.inspire-box .pin-number {
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  margin: 0;
+}
+.pin-border-draft { border-color: #E34C89 !important; background: rgba(227, 76, 137, 0.08) !important; }
+.pin-border-open { border-color: #2F80ED !important; background: rgba(47, 128, 237, 0.08) !important; }
+.pin-border-pending { border-color: #F59E0B !important; background: rgba(245, 158, 11, 0.08) !important; }
+.pin-border-resolved { border-color: #10B981 !important; background: rgba(16, 185, 129, 0.08) !important; }
+/* Pipeline Status Colors */
+.pin-bg-draft { background-color: #E34C89 !important; }
+.pin-bg-open { background-color: #2F80ED !important; }
+.pin-bg-pending { background-color: #F59E0B !important; }
+.pin-bg-resolved { background-color: #10B981 !important; }
+
+.pin-text-draft { color: #E34C89 !important; }
+.pin-text-open { color: #2F80ED !important; }
+.pin-text-pending { color: #F59E0B !important; }
+.pin-text-resolved { color: #10B981 !important; }
+
+/* Colored Action Buttons */
+.inspire-rev-card-btn.inspire-rev-card-btn-locate { color: #2F80ED; opacity: 1; }
+.inspire-rev-card-btn.inspire-rev-card-btn-edit { color: #F59E0B; opacity: 1; }
+.inspire-rev-card-btn.inspire-rev-card-btn-danger { color: #EF4444; opacity: 1; }
+
+.inspire-rev-card-btn.inspire-rev-card-btn-locate:hover,
+.inspire-rev-card-btn.inspire-rev-card-btn-edit:hover,
+.inspire-rev-card-btn.inspire-rev-card-btn-danger:hover {
+  filter: brightness(1.3);
+  color: var(--inspire-white);
+}
+
+/* Note Card specific to Vanilla */
+.inspire-note-card {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, 12px);
+  width: 280px;
+  background: #1A1A24;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  z-index: 305;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  cursor: default;
+}
+
+.inspire-note-card::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 12px;
+  height: 12px;
+  background: #1A1A24;
+  border-top: 1px solid rgba(255,255,255,0.12);
+  border-left: 1px solid rgba(255,255,255,0.12);
+}
+
+  </style>
+</head>
+<body>
+  <svg width="0" height="0" style="position: absolute;">
+    <defs>
+      <filter id="liquid-prism-intense" x="-10%" y="-10%" width="120%" height="120%" filterUnits="objectBoundingBox">
+        <feTurbulence type="fractalNoise" baseFrequency="0.001 0.005" numOctaves="1" seed="17" result="turbulence" />
+        <feComponentTransfer in="turbulence" result="mapped">
+          <feFuncR type="gamma" amplitude="1" exponent="10" offset="0.5" />
+          <feFuncG type="gamma" amplitude="0" exponent="1" offset="0" />
+          <feFuncB type="gamma" amplitude="0" exponent="1" offset="0.5" />
+        </feComponentTransfer>
+        <feGaussianBlur in="turbulence" stdDeviation="3" result="softMap" />
+        <feSpecularLighting in="softMap" surfaceScale="5" specularConstant="1" specularExponent="100" lighting-color="white" result="specLight">
+          <fePointLight x="-200" y="-200" z="300" />
+        </feSpecularLighting>
+        <feComposite in="specLight" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="litImage" />
+        <feDisplacementMap in="SourceGraphic" in2="softMap" scale="200" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+    </defs>
+  </svg>
+
+
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <img src="../assets/church-concept/GCC-Logo.svg" alt="Grace Community Church">
+    </a>
+    <div class="nav-links">
+      <a href="#">Watch</a>
+      <a href="#about">About</a>
+      <a href="#next-gen">Next Gen</a>
+      <a href="#">Give</a>
+    </div>
+    <div class="nav-btn-container">
+      <a href="#" class="nav-btn">Plan a Visit</a>
+      <div class="nav-hamburger">☰</div>
+    </div>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-label">Grace Community Church</div>
+      <h1 class="hero-headline">
+        A church where<br>everyone<span>belongs.</span>
+      </h1>
+      <p class="hero-subhead">Find your people. Find your faith. Find your home.</p>
+      <a href="#" class="hero-cta">Plan a Visit</a>
+    </div>
+    <div class="hero-right">
+      <img src="../assets/church-concept/lobby-1.jpg" alt="Congregation">
+    </div>
+
+    <!-- OVERLAPPING CARD -->
+    <div class="hero-card">
+      <div class="card-col">
+        <div class="card-label">Sundays</div>
+        <div class="card-val large">9AM + 11AM</div>
+      </div>
+      <div class="card-col">
+        <div class="card-label">Location</div>
+        <div class="card-val medium">Downtown Grace Campus</div>
+      </div>
+      <div class="card-col">
+        <div class="card-label">Online</div>
+        <div class="card-val medium">
+          <a href="#" class="card-link">Watch Live &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WELCOME SECTION -->
+  <section class="welcome-section" id="about">
+    <div class="welcome-bg"></div>
+    <div class="welcome-container">
+      
+      <!-- MOMENT ONE -->
+      <h2 class="welcome-quote">"You don't have to be perfect to walk through our doors."</h2>
+      <hr class="welcome-hr">
+
+      <!-- MOMENT TWO -->
+      <div class="welcome-stats">
+        <div class="welcome-stat-block">
+          <span class="welcome-stat-value">12+</span>
+          <span class="welcome-stat-label">Years Serving Our Community</span>
+        </div>
+        <div class="welcome-stat-divider"></div>
+        <div class="welcome-stat-block">
+          <span class="welcome-stat-value">ONE</span>
+          <span class="welcome-stat-label">Church. Every Background Welcome.</span>
+        </div>
+      </div>
+
+      <!-- MOMENT THREE -->
+      <p class="welcome-paragraph">Grace Community was built for the person who is still figuring it out. We are a church of real people navigating real life together, anchored in faith and committed to each other.</p>
+      
+    </div>
+  </section>
+
+  <!-- WORSHIP SECTION -->
+  <section class="worship-section">
+    <div class="worship-left">
+      <div class="worship-bg-overlay-2"></div>
+      <div class="worship-container">
+        <hr class="worship-hr">
+        <h2 class="worship-headline">Worship that moves you.</h2>
+        <p class="worship-paragraph">We believe worship should be exciting, reverent, and alive. Every Sunday we gather to sing, pray, and encounter God together. Come worship with us.</p>
+      </div>
+    </div>
+    <div class="worship-right">
+      <img src="../assets/church-concept/worship-3.jpg" alt="Worship Experience" loading="lazy">
+    </div>
+  </section>
+
+  <!-- SERMONS SECTION -->
+  <section class="sermons-section">
+    <div class="sermons-left">
+      <div class="sermons-image-wrapper">
+        <img src="../assets/church-concept/sermon-series.jpg" alt="Jesus in My Place Sermon Series" loading="lazy">
+      </div>
+    </div>
+    <div class="sermons-right">
+      <span class="sermons-label">Now Teaching</span>
+      <h2 class="sermons-headline">Jesus in My Place</h2>
+      <p class="sermons-paragraph">A study of substitution, grace, and what it means that Jesus stood in your place so you would never have to stand alone.</p>
+      <a href="#" class="sermons-btn">Watch Now</a>
+    </div>
+  </section>
+
+  <!-- NEXT GEN SECTION -->
+  <section class="nextgen-section" id="next-gen">
+    <!-- SVG Clip Path Definition -->
+    <!-- Backgrounds -->
+    <div class="nextgen-bg-left"></div>
+    <div class="nextgen-bg-right"></div>
+    
+    <!-- Accent Line -->
+    <svg class="nextgen-accent-line" preserveAspectRatio="none" viewBox="0 0 100 100">
+       <polygon points="74,0 67,10 67,20 59.2,32 60,40 51,50 50.8,58 45,65 47,70 40,80 39,90 33,100 27,100 29,90 36,80 36,70 43,65 41.8,58 48,50 48,40 56.2,32 57,20 64,10 66,0" fill="#1A1A1A"/>
+       <polyline points="74,0 67,10 67,20 59.2,32 60,40 51,50 50.8,58 45,65 47,70 40,80 39,90 33,100" fill="none" stroke="#C9933A" stroke-width="2" vector-effect="non-scaling-stroke"/>
+    </svg>
+
+    <div class="nextgen-content">
+      <div class="nextgen-header">
+        <h2 class="nextgen-headline">Next Gen Ministries.</h2>
+        <hr class="nextgen-hr">
+      </div>
+      <div class="nextgen-zones">
+        
+        <!-- KIDS ZONE -->
+        <div class="nextgen-zone-left">
+          <div class="editorial-image-wrapper">
+            <img src="../assets/church-concept/children.jpg" alt="Grace Kids" class="editorial-image" loading="lazy">
+          </div>
+          <div class="zone-info">
+            <span class="zone-label">GRACE KIDS</span>
+            <span class="zone-desc">A safe, fun, and faith filled environment for children from birth through 5th grade.</span>
+            <span class="zone-time">Sundays at 9AM and 11AM</span>
+            <span class="zone-italic">Every volunteer is background checked and trained so your child is always in safe hands.</span>
+          </div>
+        </div>
+
+        <!-- YOUTH ZONE -->
+        <div class="nextgen-zone-right">
+          <div class="editorial-image-wrapper">
+            <img src="../assets/church-concept/youth.jpg" alt="Grace Youth" class="editorial-image" loading="lazy">
+          </div>
+          <div class="zone-info">
+            <span class="zone-label">GRACE YOUTH</span>
+            <span class="zone-desc">A community for middle and high school students to ask hard questions and find real answers.</span>
+            <span class="zone-time">Sundays at 11AM and Wednesdays at 6:30PM</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- NEXT STEPS SECTION -->
+  <section class="nextsteps-section">
+    <div class="nextsteps-bg-overlay"></div>
+    <div class="nextsteps-container">
+      
+      <div class="nextsteps-header">
+        <span class="nextsteps-label">NEXT STEPS</span>
+        <h2 class="nextsteps-headline">Ready for what's next?</h2>
+        <p class="nextsteps-subheadline">Whether you have questions or you are ready to take a step, we want to walk with you.</p>
+        <hr class="nextsteps-hr">
+      </div>
+
+      <div class="nextsteps-grid">
+        <!-- CARD ONE -->
+        <div class="nextsteps-card">
+          <div class="nextsteps-ghost-num">01</div>
+          <div class="nextsteps-card-content">
+            <span class="nextsteps-card-label">FAITH</span>
+            <h3 class="nextsteps-card-headline">Questions About Salvation</h3>
+            <p class="nextsteps-card-body">Have questions about faith, Jesus, or what it means to follow Him? We would love to have that conversation with you.</p>
+            <a href="#" class="nextsteps-card-cta">Start the Conversation &rarr;</a>
+          </div>
+        </div>
+
+        <!-- CARD TWO -->
+        <div class="nextsteps-card">
+          <div class="nextsteps-ghost-num">02</div>
+          <div class="nextsteps-card-content">
+            <span class="nextsteps-card-label">BAPTISM</span>
+            <h3 class="nextsteps-card-headline">Take the Next Step</h3>
+            <p class="nextsteps-card-body">Baptism is a public declaration of a personal decision. If you are ready to make that declaration, we want to celebrate with you.</p>
+            <a href="#" class="nextsteps-card-cta">Learn About Baptism &rarr;</a>
+          </div>
+        </div>
+
+        <!-- CARD THREE -->
+        <div class="nextsteps-card">
+          <div class="nextsteps-ghost-num">03</div>
+          <div class="nextsteps-card-content">
+            <span class="nextsteps-card-label">PRAYER</span>
+            <h3 class="nextsteps-card-headline">You Are Not Alone</h3>
+            <p class="nextsteps-card-body">Whatever you are carrying, you do not have to carry it alone. Submit a prayer request and our team will be praying with you.</p>
+            <a href="#" class="nextsteps-card-cta">Submit a Prayer Request &rarr;</a>
+          </div>
+        </div>
+
+        <!-- CARD FOUR -->
+        <div class="nextsteps-card">
+          <div class="nextsteps-ghost-num">04</div>
+          <div class="nextsteps-card-content">
+            <span class="nextsteps-card-label">COMMUNITY</span>
+            <h3 class="nextsteps-card-headline">Find Your People</h3>
+            <p class="nextsteps-card-body">Join a small group, serve on a team, or find a ministry area that fits where you are in life right now.</p>
+            <a href="#" class="nextsteps-card-cta">Get Connected &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", () => {
+  const LOCAL_STORAGE_KEY = 'pinpoint_revisions_church';
+  
+  // Default Preloaded Pins - Always restored on page load
+  const defaultPins = [
+    {
+      id: "pin_3",
+      x_coord: 50,
+      y_coord: 30,
+      context: "main",
+      sectionName: "A Place to Belong",
+      label: "Background",
+      comment: "I'd like to see a different background texture on this section.",
+      priority: "flexible",
+      author: "Pastor Dave",
+      status: "pending",
+      messages: [
+        { role: 'client', text: "I'd like to see a different background texture on this section." },
+        { role: 'designer', text: "Background texture has been updated." }
+      ],
+      created_at: new Date().toISOString()
+    }
+  ];
+
+  // Always reset pins on page load regardless of localStorage
+  let pins = JSON.parse(JSON.stringify(defaultPins));
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(pins));
+  
+  window.handleAcceptRevision = (id) => {
+    const p = pins.find(x => x.id === id);
+    if (p) p.status = 'resolved';
+    if (selectedPinId === id) selectedPinId = null;
+    if (activeCanvasPinId === id) activeCanvasPinId = null;
+    saveToDb();
+  };
+  
+  window.replyingToId = null;
+  
+  window.handleNeedsWorkInit = (id) => {
+    window.replyingToId = id;
+    renderAll();
+    setTimeout(() => {
+      const ta = document.getElementById('needs-work-textarea');
+      if (ta) ta.focus();
+    }, 10);
+  };
+  
+  window.handleNeedsWorkCancel = () => {
+    window.replyingToId = null;
+    renderAll();
+  };
+
+  window.handleSubmitNeedsWork = (id) => {
+    const pin = pins.find(p => p.id === id);
+    if (pin) {
+      const ta = document.getElementById('needs-work-textarea');
+      if (ta && ta.value.trim() !== '') {
+        pin.messages.push({ role: 'client', text: ta.value.trim() });
+      }
+      pin.status = 'draft';
+    }
+    window.replyingToId = null;
+    saveToDb();
+    renderAll();
+  };
+  
+
+  let isPinMode = false;
+  window.pinpointLatchOn = false;
+  let selectedPinId = null;
+  let activeCanvasPinId = null;
+  let isSidebarOpen = false;
+
+  // Build UI Shell
+  const appRoot = document.createElement('div');
+  appRoot.className = 'inspire-rev-root';
+  
+  const globalOverlay = document.createElement('div');
+  globalOverlay.className = 'inspire-rev-global-overlay-wrapper';
+  globalOverlay.style.position = 'absolute';
+  globalOverlay.style.top = '0';
+  globalOverlay.style.left = '0';
+  globalOverlay.style.width = '100%';
+  globalOverlay.style.height = document.documentElement.scrollHeight + 'px';
+  globalOverlay.style.pointerEvents = 'none';
+  globalOverlay.style.zIndex = '100';
+  appRoot.appendChild(globalOverlay);
+
+  const captureIndicator = document.createElement('div');
+  captureIndicator.className = 'inspire-rev-capture-indicator';
+  captureIndicator.style.position = 'fixed';
+  captureIndicator.style.display = 'none';
+  captureIndicator.innerHTML = '📍 Click to drop pin (Esc to cancel)';
+  appRoot.appendChild(captureIndicator);
+
+  // Bottom Control Bar
+  const controlBar = document.createElement('div');
+  controlBar.className = 'inspire-rev-control-bar';
+  controlBar.innerHTML = `
+    <div class="inspire-rev-logo-group" style="border-right: 1px solid rgba(255, 255, 255, 0.15); padding-right: 16px; display: flex; align-items: center;">
+      <img src="../brand/logos/PIN-BrandMark-Control.svg" style="height: 22px; width: auto; display: block;" alt="PIN" />
+    </div>
+    <div class="inspire-rev-status-wrapper">
+      <div class="inspire-rev-status-dot"></div>
+      <span class="inspire-rev-status-text" style="font-size: 12px; font-weight: 600; letter-spacing: 0.02em;">Review Active</span>
+    </div>
+    <div class="inspire-rev-actions" style="display: flex; align-items: center; gap: 8px;">
+      <button class="inspire-rev-btn inspire-rev-btn-primary" id="btn-drop-pin" style="margin-right: 0;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="4 4"></rect><circle cx="12" cy="12" r="2" fill="currentColor"></circle></svg>
+        <span class="inspire-rev-btn-label">Pin or Box</span>
+      </button>
+      <div id="workflow-toggle" style="display: flex; background: #1A1A1A; border: 1px solid rgba(255,255,255,0.05); border-radius: 50px; padding: 4px;">
+        <button id="pin-latch-toggle" onclick="window.pinpointLatchOn = !window.pinpointLatchOn; window.updatePinpointToggleUI();" style="background: transparent; color: #4B5563; border: none; border-radius: 50px; padding: 6px 16px; font-size: 10px; font-weight: 700; font-family: 'Public Sans', sans-serif; cursor: pointer; transition: all 0.2s;">LATCH</button>
+      </div>
+      <button class="inspire-rev-btn inspire-rev-btn-revisions" id="btn-sidebar">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+        <span class="inspire-rev-btn-label">Revisions</span>
+        <span id="revisions-count">(${pins.length})</span>
+      </button>
+    </div>
+  `;
+  appRoot.appendChild(controlBar);
+
+  // Sidebar
+  const sidebar = document.createElement('div');
+  sidebar.className = 'inspire-rev-sidebar';
+  sidebar.innerHTML = `
+    <div style="padding: 24px 20px 20px 20px; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: flex-end; position: relative;">
+      <div style="position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 16px;">
+        <img src="../brand/logos/PIN-BrandMark-Sidebar.svg" style="height: 35px; width: auto; display: block; object-fit: contain;" alt="PIN">
+        <span style="color: #6B7280; font-family: 'Public Sans', sans-serif; font-weight: 400; font-size: 14px; font-style: italic; opacity: 0.8; transform: translateY(-4px);">by</span>
+        <img src="../brand/logos/IDC_BRANDMARKICON.svg" style="height: 36px; width: auto; display: block; object-fit: contain; transform: translateY(-6px);" alt="Inspire Designs Collective">
+      </div>
+      <button class="inspire-rev-close-btn" id="btn-close-sidebar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+    <div class="inspire-rev-sidebar-header" style="padding-top: 20px; flex-direction: column; align-items: flex-start; gap: 12px;">
+      <h3 class="inspire-rev-sidebar-heading" style="margin: 0;">Revisions</h3>
+      <div id="pipeline-counts" style="display: flex; gap: 6px; flex-wrap: wrap;"></div>
+    </div>
+    <div class="inspire-rev-sidebar-content" id="sidebar-content"></div>
+    <div class="inspire-rev-sidebar-footer">
+      <div style="height: 1px; background: rgba(255,255,255,0.08); width: 100%; margin-bottom: 2px;"></div>
+      <button onclick="window.restartTutorial()" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 50px; padding: 6px 16px; color: #4B5563; font-family: 'Public Sans', sans-serif; font-size: 12px; display: flex; align-items: center; gap: 6px; cursor: pointer; justify-content: center; align-self: center;">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        Restart Tutorial
+      </button>
+      <button id="btn-submit-designer" style="width: 100%; justify-content: center; background: linear-gradient(135deg, #2F80ED, #8E54E9, #E34C89, #FF7F50); color: white; border: none; border-radius: 50px; padding: 12px 24px; font-weight: 700; font-family: 'Public Sans', sans-serif; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease;">
+        Submit to Designer
+      </button>
+
+    </div>
+  `;
+  appRoot.appendChild(sidebar);
+  
+  document.body.appendChild(appRoot);
+
+  // Logic Functions
+
+  const adjustNoteCardPosition = () => {
+    const card = document.querySelector('.inspire-note-card');
+    if (!card) return;
+    
+    const pinEl = card.closest('.inspire-pin');
+    if (!pinEl) return;
+    
+    // Reset to measure default
+    card.classList.remove('note-card-top', 'note-card-left', 'note-card-right');
+    
+    const pinRect = pinEl.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+    
+    const vW = window.innerWidth;
+    const vH = window.innerHeight;
+    
+    let isTop = false;
+    let isLeft = false;
+    let isRight = false;
+    
+    // Vertical: 24px buffer
+    if (pinRect.bottom + cardRect.height + 24 > vH && pinRect.top - cardRect.height - 24 > 0) {
+      isTop = true;
+    }
+    
+    // Horizontal: 12px buffer
+    const pinCenter = pinRect.left + pinRect.width / 2;
+    if (pinCenter + cardRect.width / 2 > vW - 12) {
+      isLeft = true;
+    } else if (pinCenter - cardRect.width / 2 < 12) {
+      isRight = true;
+    }
+    
+    if (isTop) card.classList.add('note-card-top');
+    if (isLeft) card.classList.add('note-card-left');
+    if (isRight) card.classList.add('note-card-right');
+  };
+
+  const saveToDb = () => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(pins));
+    renderAll();
+  };
+
+  const getDropContext = (target) => {
+    if (target.closest('.navbar')) return 'header';
+    if (target.closest('footer.site-footer')) return 'footer';
+    return 'main';
+  };
+
+  const startPinMode = () => {
+    isPinMode = true;
+    selectedPinId = null;
+    activeCanvasPinId = null;
+    document.body.classList.add('inspire-pinning-active');
+    captureIndicator.style.display = 'block';
+    const btn = document.getElementById('btn-drop-pin');
+    btn.classList.add('inspire-rev-active');
+    btn.style.backgroundColor = '#E34C89';
+    btn.style.color = 'white';
+    btn.innerHTML = `<span style="display:inline-block; width:8px; height:8px; background-color:white; border-radius:50%; animation: pin-pulse-anim 1s infinite;"></span><span class="inspire-rev-btn-label">Stop Pinning</span>`;
+    renderAll();
+  };
+
+  const stopPinMode = () => {
+    isPinMode = false;
+    document.body.classList.remove('inspire-pinning-active');
+    captureIndicator.style.display = 'none';
+    const btn = document.getElementById('btn-drop-pin');
+    btn.classList.remove('inspire-rev-active');
+    btn.style.backgroundColor = '';
+    btn.style.color = '';
+    btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="4 4"></rect><circle cx="12" cy="12" r="2" fill="currentColor"></circle></svg><span class="inspire-rev-btn-label">Pin or Box</span>`;
+  };
+
+
+
+  window.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') stopPinMode();
+  });
+  
+  const updateMainPinPositions = () => {
+    const docH = document.documentElement.scrollHeight;
+    const overlay = document.querySelector('.inspire-rev-global-overlay-wrapper');
+    if (overlay) overlay.style.height = docH + 'px';
+    
+    adjustNoteCardPosition();
+    setTimeout(() => {
+      const textarea = document.getElementById('rev-comment');
+      if (textarea) {
+        textarea.focus();
+        textarea.selectionStart = textarea.selectionEnd = textarea.value.length;
+      }
+    }, 10);
+  };
+  
+  window.addEventListener('scroll', updateMainPinPositions, { passive: true });
+  window.addEventListener('resize', updateMainPinPositions, { passive: true });
+
+  // Clicking the overlay passes click to document but we handle it globally
+  // Wait, if captureOverlay is active, it blocks clicks.
+  
+  let isDrawingBox = false;
+  let startX = 0;
+  let startY = 0;
+  let drawBoxEl = null;
+
+  const isPinpointUI = (el) => {
+    if (!el) return false;
+    return el.closest('.inspire-rev-sidebar') || 
+           el.closest('.inspire-rev-control-bar') || 
+           el.closest('.inspire-pin') || 
+           el.closest('.inspire-note-card') || 
+           el.closest('button');
+  };
+
+  window.addEventListener('mousedown', (e) => {
+    if (!isPinMode || isPinpointUI(e.target)) return;
+    
+    e.preventDefault(); // Prevents text selection during drag drawing
+    
+    isDrawingBox = true;
+    startX = e.pageX;
+    startY = e.pageY;
+    
+    drawBoxEl = document.createElement('div');
+    drawBoxEl.style.position = 'absolute';
+    drawBoxEl.style.border = '2px dashed #E34C89';
+    drawBoxEl.style.backgroundColor = 'rgba(227, 76, 137, 0.08)';
+    drawBoxEl.style.pointerEvents = 'none';
+    drawBoxEl.style.zIndex = '150';
+    document.body.appendChild(drawBoxEl);
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if(isPinMode) {
+      if (isPinpointUI(e.target)) {
+        captureIndicator.style.display = 'none';
+      } else {
+        captureIndicator.style.display = 'block';
+        captureIndicator.style.left = e.clientX + 'px';
+        captureIndicator.style.top = e.clientY + 'px';
+      }
+    }
+    if (isDrawingBox && drawBoxEl) {
+      const currentX = e.pageX;
+      const currentY = e.pageY;
+      const x = Math.min(startX, currentX);
+      const y = Math.min(startY, currentY);
+      const w = Math.abs(currentX - startX);
+      const h = Math.abs(currentY - startY);
+      
+      drawBoxEl.style.left = x + 'px';
+      drawBoxEl.style.top = y + 'px';
+      drawBoxEl.style.width = w + 'px';
+      drawBoxEl.style.height = h + 'px';
+    }
+  });
+
+  window.addEventListener('mouseup', (e) => {
+    if (!isDrawingBox) return;
+    isDrawingBox = false;
+    
+    const currentX = e.pageX;
+    const currentY = e.pageY;
+    const wPx = Math.abs(currentX - startX);
+    const hPx = Math.abs(currentY - startY);
+    
+    if (drawBoxEl) drawBoxEl.remove();
+    drawBoxEl = null;
+    
+    // Determine if it's a box or a pin based on threshold
+    const isBox = wPx > 10 || hPx > 10;
+    
+    const centerX = isBox ? (startX + currentX) / 2 : currentX;
+    const centerY = isBox ? (startY + currentY) / 2 : currentY;
+    
+
+    const target = document.elementFromPoint(centerX - window.scrollX, centerY - window.scrollY) || document.body;
+    
+    const context = getDropContext(target);
+    
+    let computedSectionName = 'Main Content';
+    if (context === 'header') computedSectionName = 'Header';
+    else if (context === 'footer') computedSectionName = 'Footer';
+    else {
+      const section = target.closest('section, .section, article, .hero');
+      if (section) {
+        const h = section.querySelector('h1, h2, h3, h4');
+        if (h && h.innerText) computedSectionName = h.innerText.trim().substring(0, 25);
+        else if (section.id) computedSectionName = section.id;
+        else if (section.className) computedSectionName = section.className.split(' ')[0];
+      }
+    }
+    
+    const docW = document.documentElement.scrollWidth;
+    const docH = document.documentElement.scrollHeight;
+    
+    let xPct, yPct, widthPct, heightPct;
+    
+    if (context === 'header') {
+      const rect = document.querySelector('.navbar').getBoundingClientRect();
+      const headX = Math.min(startX, currentX) - (window.scrollX + rect.left);
+      const headY = Math.min(startY, currentY) - (window.scrollY + rect.top);
+      xPct = isBox ? (headX / rect.width) * 100 : ((e.clientX - rect.left) / rect.width) * 100;
+      yPct = isBox ? (headY / rect.height) * 100 : ((e.clientY - rect.top) / rect.height) * 100;
+      if (isBox) {
+        widthPct = (wPx / rect.width) * 100;
+        heightPct = (hPx / rect.height) * 100;
+      }
+    } else if (context === 'footer') {
+      const rect = document.querySelector('footer.site-footer').getBoundingClientRect();
+      const footX = Math.min(startX, currentX) - (window.scrollX + rect.left);
+      const footY = Math.min(startY, currentY) - (window.scrollY + rect.top);
+      xPct = isBox ? (footX / rect.width) * 100 : ((e.clientX - rect.left) / rect.width) * 100;
+      yPct = isBox ? (footY / rect.height) * 100 : ((e.clientY - rect.top) / rect.height) * 100;
+      if (isBox) {
+        widthPct = (wPx / rect.width) * 100;
+        heightPct = (hPx / rect.height) * 100;
+      }
+    } else {
+      xPct = isBox ? (Math.min(startX, currentX) / docW) * 100 : (currentX / docW) * 100;
+      yPct = isBox ? (Math.min(startY, currentY) / docH) * 100 : (currentY / docH) * 100;
+      if (isBox) {
+        widthPct = (wPx / docW) * 100;
+        heightPct = (hPx / docH) * 100;
+      }
+    }
+    
+    const newPin = {
+      id: "pin_" + Date.now(),
+      type: isBox ? 'box' : 'pin',
+      x_coord: xPct,
+      y_coord: yPct,
+      ...(isBox && { width: widthPct, height: heightPct }),
+      context: context,
+      sectionName: computedSectionName,
+      label: "New Revision",
+      comment: "",
+      priority: "guided",
+      author: "Client",
+      status: "draft",
+      created_at: new Date().toISOString(),
+      isNew: true,
+      messages: []
+    };
+    
+    pins.push(newPin);
+    selectedPinId = newPin.id;
+    activeCanvasPinId = newPin.id;
+    window.userTutorialPinId = newPin.id;
+    captureIndicator.style.display = 'block';
+    renderAll();
+    
+    if (!window.pinpointLatchOn) {
+      stopPinMode();
+    }
+    
+    if (window.currentTutorialStep === 4) {
+      setTimeout(() => {
+        const ta = document.getElementById('rev-comment');
+        if (ta) {
+          ta.focus({ preventScroll: true });
+          ta.selectionStart = ta.selectionEnd = ta.value.length;
+        }
+      }, 50);
+      setTimeout(() => advanceTutorial(), 300);
+    }
+  });
+
+  // Interactions
+  
+  // Toggle Events
+  window.updatePinpointToggleUI = function() {
+    const btnLatch = document.getElementById('pin-latch-toggle');
+    if(!btnLatch) return;
+    
+    if(window.pinpointLatchOn) {
+      btnLatch.style.background = '#E34C89';
+      btnLatch.style.color = 'white';
+      btnLatch.style.boxShadow = '0 0 8px rgba(227,76,137,0.6)';
+    } else {
+      btnLatch.style.background = 'transparent';
+      btnLatch.style.color = '#4B5563';
+      btnLatch.style.boxShadow = 'none';
+    }
+  };
+
+
+
+  document.getElementById('btn-drop-pin').onclick = () => {
+    if (isPinMode) stopPinMode();
+    else startPinMode();
+  };
+
+  document.getElementById('btn-sidebar').onclick = () => {
+    if (window.currentTutorialStep === 7) {
+      isSidebarOpen = true; // Force open in step 7 so it doesn't close accidentally
+      renderAll();
+      window.advanceTutorial(true); // transition immediately with no delay
+    } else {
+      isSidebarOpen = !isSidebarOpen;
+      renderAll();
+    }
+  };
+  
+  document.getElementById('btn-close-sidebar').onclick = () => {
+    isSidebarOpen = false;
+    renderAll();
+  };
+
+  // Drag logic
+  let dragData = null;
+  const onMouseMove = (e) => {
+    if (!dragData) return;
+    
+    const context = dragData.pin.context;
+    let xPct, yPct;
+    
+    if (context === 'header') {
+      const rect = document.querySelector('.navbar').getBoundingClientRect();
+      xPct = ((e.clientX - rect.left) / rect.width) * 100;
+      yPct = ((e.clientY - rect.top) / rect.height) * 100;
+      dragData.pinEl.style.left = xPct + '%';
+      dragData.pinEl.style.top = yPct + '%';
+    } else if (context === 'footer') {
+      const rect = document.querySelector('footer.site-footer').getBoundingClientRect();
+      xPct = ((e.clientX - rect.left) / rect.width) * 100;
+      yPct = ((e.clientY - rect.top) / rect.height) * 100;
+      dragData.pinEl.style.left = xPct + '%';
+      dragData.pinEl.style.top = yPct + '%';
+    } else {
+      const docW = document.documentElement.scrollWidth;
+      const docH = document.documentElement.scrollHeight;
+      xPct = (e.pageX / docW) * 100;
+      yPct = (e.pageY / docH) * 100;
+      
+      dragData.pinEl.style.left = xPct + '%';
+      dragData.pinEl.style.top = yPct + '%';
+    }
+    adjustNoteCardPosition();
+    dragData.currentX = xPct;
+    dragData.currentY = yPct;
+  };
+  
+  const onMouseUp = () => {
+    document.body.style.userSelect = '';
+    document.body.style.webkitUserSelect = '';
+    if (!dragData) return;
+    
+    if (dragData.pinEl) {
+      dragData.pinEl.classList.remove('is-dragging');
+    }
+    
+    // Update db
+    const p = pins.find(p => p.id === dragData.pin.id);
+    if(p) {
+      p.x_coord = dragData.currentX;
+      p.y_coord = dragData.currentY;
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(pins));
+      
+      // Delay renderAll to allow CSS transition to finish smoothly
+      setTimeout(() => {
+        renderAll();
+      }, 150);
+    }
+    dragData = null;
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  };
+
+  window.handleSaveNote = (id) => {
+    const commentEl = document.getElementById('rev-comment');
+    const commentVal = commentEl ? commentEl.value.trim() : '';
+
+    if (window.currentTutorialStep === 5) {
+       if (commentVal === "") {
+          const err = document.getElementById('tut-error-msg');
+          if (err) {
+             err.innerText = "Please type a revision note before saving.";
+             err.style.display = 'block';
+          }
+          return;
+       }
+       const err = document.getElementById('tut-error-msg');
+       if (err) err.style.display = 'none';
+    }
+
+    const priorityEl = document.getElementById('rev-priority');
+    const priorityVal = priorityEl ? priorityEl.value : 'guided';
+
+    const p = pins.find(p => p.id === id);
+    if (p) {
+      p.comment = commentVal || (commentEl ? commentEl.value : '');
+      p.priority = priorityVal;
+      delete p.isNew;
+      p.messages = [{ role: 'client', text: p.comment }];
+      selectedPinId = null;
+      activeCanvasPinId = null;
+      window.userTutorialPinId = p.id;
+      saveToDb();
+      if (window.currentTutorialStep === 5) {
+        setTimeout(() => window.advanceTutorial(), 50);
+      }
+    }
+  };
+
+  window.handleCancelNote = (id) => {
+    const p = pins.find(p => p.id === id);
+    if (p && p.isNew) {
+      pins = pins.filter(p => p.id !== id);
+    }
+    selectedPinId = null;
+    activeCanvasPinId = null;
+    saveToDb();
+  };
+  
+  window.handleDeletePin = (id) => {
+    const overlay = document.createElement('div');
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.right = '0';
+    overlay.style.bottom = '0';
+    overlay.style.backgroundColor = 'rgba(0,0,0,0.6)';
+    overlay.style.zIndex = '600';
+    overlay.style.display = 'flex';
+    overlay.style.alignItems = 'center';
+    overlay.style.justifyContent = 'center';
+    overlay.style.opacity = '0';
+    overlay.style.transition = 'opacity 0.2s ease';
+    
+    const modal = document.createElement('div');
+    modal.style.position = 'relative';
+    modal.style.background = '#1A1A24';
+    modal.style.border = '1px solid rgba(255,255,255,0.12)';
+    modal.style.borderRadius = '16px';
+    modal.style.padding = '32px';
+    modal.style.width = '100%';
+    modal.style.maxWidth = '400px';
+    modal.style.boxShadow = '0 8px 32px rgba(0,0,0,0.5)';
+    modal.style.textAlign = 'center';
+    modal.style.transform = 'scale(0.95)';
+    modal.style.transition = 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)';
+    modal.style.overflow = 'hidden';
+    
+    const topBar = document.createElement('div');
+    topBar.style.position = 'absolute';
+    topBar.style.top = '0';
+    topBar.style.left = '0';
+    topBar.style.right = '0';
+    topBar.style.height = '1.5px';
+    topBar.style.background = 'linear-gradient(135deg, #2F80ED, #8E54E9, #E34C89, #FF7F50)';
+    
+    modal.innerHTML = `
+      <img src="../brand/logos/IDC_BRANDMARKICON.svg" alt="IDC" style="width: 40px; height: 40px; margin: 0 auto 16px auto; display: block;">
+      <h3 style="color: white; font-family: 'Public Sans', sans-serif; font-weight: 700; font-size: 20px; margin: 0 0 12px 0;">Delete this revision?</h3>
+      <p style="color: #E5E7EB; font-family: 'Public Sans', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.5; margin: 0 0 24px 0;">This cannot be undone. The pin and all of its notes will be permanently removed.</p>
+      <div style="display: flex; gap: 12px; justify-content: center;">
+        <button id="modal-btn-cancel" style="flex: 1; padding: 10px; border-radius: 999px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); color: white; font-family: 'Public Sans', sans-serif; font-weight: 600; font-size: 14px; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">Cancel</button>
+        <button id="modal-btn-confirm" style="flex: 1; padding: 10px; border-radius: 999px; background: #EF4444; border: none; color: white; font-family: 'Public Sans', sans-serif; font-weight: 600; font-size: 14px; cursor: pointer; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">Yes, Delete</button>
+      </div>
+    `;
+    
+    modal.prepend(topBar);
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
+    
+    requestAnimationFrame(() => {
+      overlay.style.opacity = '1';
+      modal.style.transform = 'scale(1)';
+    });
+    
+    const closeModal = () => {
+      overlay.style.opacity = '0';
+      modal.style.transform = 'scale(0.95)';
+      setTimeout(() => overlay.remove(), 200);
+    };
+    
+    document.getElementById('modal-btn-cancel').onclick = closeModal;
+    document.getElementById('modal-btn-confirm').onclick = () => {
+      pins = pins.filter(p => p.id !== id);
+      if (selectedPinId === id) selectedPinId = null;
+      if (activeCanvasPinId === id) activeCanvasPinId = null;
+      saveToDb();
+      closeModal();
+    };
+    
+    overlay.onclick = (e) => {
+      if (e.target === overlay) closeModal();
+    };
+  };
+
+  
+  // Set up submit button listener (safe to re-attach every render or once at startup)
+  // We'll attach it in renderAll just to be safe, or just attach it via event delegation.
+  
+  window.handleLocatePin = (id) => {
+    const el = document.getElementById('dom_' + id);
+    if (!el) return;
+    
+    const rect = el.getBoundingClientRect();
+    const absoluteY = window.scrollY + rect.top;
+    const viewportX = rect.left;
+    
+    // Calculate target scroll to center the pin
+    const targetScrollY = absoluteY - (window.innerHeight / 2);
+    
+    // Smart Sidebar Close
+    if (isSidebarOpen) {
+      let sidebarWidth = window.innerWidth <= 540 ? window.innerWidth : 380;
+      let sidebarLeftEdge = window.innerWidth - sidebarWidth;
+      
+      // Close only if the pin or box itself (right edge) is visually covered by the sidebar
+      if (rect.right > sidebarLeftEdge) {
+        isSidebarOpen = false;
+        renderAll();
+      }
+    }
+    
+    window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
+    
+    // Pulse animation
+    el.classList.remove('pin-pulse');
+    void el.offsetWidth; // trigger reflow
+    el.classList.add('pin-pulse');
+    setTimeout(() => el.classList.remove('pin-pulse'), 2000);
+  };
+
+  window.handleEditPin = (id) => {
+    selectedPinId = id;
+    activeCanvasPinId = id;
+    
+    const el = document.getElementById('dom_' + id);
+    if (!el) {
+      isSidebarOpen = false;
+      renderAll();
+      return;
+    }
+    
+    const rect = el.getBoundingClientRect();
+    const absoluteY = window.scrollY + rect.top;
+    const viewportX = rect.left;
+    const targetScrollY = absoluteY - (window.innerHeight / 2);
+    
+    let sidebarWidth = window.innerWidth <= 540 ? window.innerWidth : 380;
+    if (viewportX + 250 > window.innerWidth - sidebarWidth) {
+      isSidebarOpen = false;
+    }
+    
+    renderAll();
+    window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
+    
+    const updatedEl = document.getElementById('dom_' + id);
+    if (updatedEl) {
+      updatedEl.classList.remove('pin-pulse');
+      void updatedEl.offsetWidth;
+      updatedEl.classList.add('pin-pulse');
+      setTimeout(() => updatedEl.classList.remove('pin-pulse'), 2000);
+    }
+  };
+
+  window.handleSelectPin = (id) => {
+    const isExpanding = selectedPinId !== id;
+    selectedPinId = isExpanding ? id : null;
+    activeCanvasPinId = null;
+    isSidebarOpen = true;
+    renderAll();
+    
+    if (isExpanding) {
+      setTimeout(() => {
+        const card = document.querySelector('.inspire-rev-selected-card');
+        const container = document.getElementById('sidebar-content');
+        if (card && container) {
+          const cardRect = card.getBoundingClientRect();
+          const containerRect = container.getBoundingClientRect();
+          const buffer = 16;
+          
+          if (cardRect.bottom > containerRect.bottom - buffer) {
+            const scrollAmount = cardRect.bottom - containerRect.bottom + buffer;
+            container.scrollBy({ top: scrollAmount, behavior: 'smooth' });
+          } else if (cardRect.top < containerRect.top + buffer) {
+            const scrollAmount = cardRect.top - containerRect.top - buffer;
+            container.scrollBy({ top: scrollAmount, behavior: 'smooth' });
+          }
+        }
+      }, 50);
+    }
+  };
+
+  const renderNoteCard = (pin) => {
+    return `
+      <div class="inspire-note-card" onmousedown="event.stopPropagation()">
+        <span style="font-size: 11px; font-weight: 700; color: var(--inspire-slate-gray); letter-spacing: 0.05em; text-transform: uppercase;">
+          ${pin.isNew ? 'New Revision' : 'Edit Revision'}
+        </span>
+        <textarea id="rev-comment" class="inspire-rev-input inspire-rev-textarea" placeholder="Describe the change you need...">${pin.comment}</textarea>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <label style="font-size: 10px; color: var(--inspire-slate-gray); text-transform: uppercase; font-weight: 700;">Guidance Level</label>
+          <div style="display: flex; gap: 4px; background: rgba(255,255,255,0.03); padding: 4px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06);">
+            <button type="button" class="inspire-prio-btn ${pin.priority === 'flexible' ? 'active' : ''}" data-val="flexible" onclick="document.querySelectorAll('.inspire-prio-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active'); document.getElementById('rev-priority').value='flexible';">Flexible</button>
+            <button type="button" class="inspire-prio-btn ${pin.priority === 'guided' || !pin.priority ? 'active' : ''}" data-val="guided" onclick="document.querySelectorAll('.inspire-prio-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active'); document.getElementById('rev-priority').value='guided';">Guided</button>
+            <button type="button" class="inspire-prio-btn ${pin.priority === 'exact' ? 'active' : ''}" data-val="exact" onclick="document.querySelectorAll('.inspire-prio-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active'); document.getElementById('rev-priority').value='exact';">Exact</button>
+          </div>
+          <input type="hidden" id="rev-priority" value="${pin.priority || 'guided'}">
+          <div style="font-size: 12px; color: #E5E7EB; line-height: 1.4; padding: 4px 4px;">
+            <span style="color: #2F80ED;">Flexible:</span> I trust the designer's creativity.<br>
+            <span style="color: #FF7F50;">Guided:</span> Interpret my direction.<br>
+            <span style="color: #E34C89;">Exact:</span> Follow precisely.
+          </div>
+        </div>
+        <div class="inspire-rev-popover-actions">
+          <button class="inspire-rev-btn inspire-rev-btn-text" onclick="handleCancelNote('${pin.id}')">Cancel</button>
+          <button class="inspire-rev-btn inspire-rev-btn-primary" onclick="handleSaveNote('${pin.id}')">Save Revision</button>
+        </div>
+      </div>
+    `;
+  };
+
+  const renderAll = () => {
+    // Render Sidebar
+    sidebar.classList.toggle('inspire-rev-open', isSidebarOpen);
+    document.getElementById('revisions-count').innerText = `(${pins.length})`;
+    document.getElementById('btn-sidebar').classList.toggle('inspire-rev-active', isSidebarOpen);
+    
+    const renderCommLog = (pin) => {
+      const msgs = (pin.messages && pin.messages.length > 0)
+        ? pin.messages
+        : (pin.comment ? [{ role: 'client', text: pin.comment }] : []);
+      if (!msgs.length) return '';
+      return msgs.map((msg, idx) => {
+        const isClient = msg.role === 'client';
+        const label = isClient ? 'You' : 'Designer';
+        const labelColor = isClient ? 'var(--inspire-slate-gray)' : '#2F80ED';
+        const textColor = isClient ? 'var(--inspire-light-gray)' : 'var(--inspire-white)';
+        const bgColor = isClient ? 'transparent' : 'rgba(47, 128, 237, 0.08)';
+        const borderStyle = isClient ? 'none' : '1px solid rgba(47, 128, 237, 0.2)';
+        const isLast = idx === msgs.length - 1;
+        const pad = isClient ? '0' : '10px';
+        const br = isClient ? '0' : '4px';
+        const borderBottom = (!isLast) ? (isClient ? '1px solid rgba(255,255,255,0.06)' : '1px solid rgba(47, 128, 237, 0.2)') : borderStyle;
+        const marginB = (!isLast && !isClient) ? '12px' : (isClient ? '12px' : '0');
+        const padB = (!isLast && isClient) ? '12px' : pad;
+        
+        return `
+          <div style="padding: ${pad}; background: ${bgColor}; border: ${borderStyle}; border-bottom: ${borderBottom}; border-radius: ${br}; margin-bottom: ${marginB}; padding-bottom: ${padB};">
+            <div style="font-size: 10px; color: ${labelColor}; font-weight: 700; margin-bottom: 4px; text-transform: uppercase;">${label}</div>
+            <div class="inspire-rev-card-comment" style="font-size: 11.5px; color: ${textColor}; line-height: 1.5;">${msg.text}</div>
+          </div>
+        `;
+      }).join('');
+    };
+
+    const renderActionBlock = (pin) => {
+      if (pin.status === 'pending') {
+        if (window.replyingToId === pin.id) {
+          return `
+            <div style="margin-top: 12px; margin-bottom: 12px;">
+              <textarea id="needs-work-textarea" placeholder="Tell us more about what you are looking for..." style="width: 100%; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 8px; padding: 12px; font-family: 'Public Sans', sans-serif; font-size: 12px; min-height: 80px; resize: none; outline: none; margin-bottom: 8px; box-sizing: border-box;"></textarea>
+              <div style="display: flex; gap: 8px;">
+                <button class="inspire-rev-btn" style="background: rgba(255,255,255,0.05); color: white; flex: 1; padding: 8px; font-size: 11px; justify-content: center; font-weight: 600;" onclick="event.stopPropagation(); window.handleNeedsWorkCancel();">Cancel</button>
+                <button class="inspire-rev-btn" style="background: linear-gradient(135deg, #2F80ED, #8E54E9, #E34C89, #FF7F50); color: white; flex: 1; padding: 8px; font-size: 11px; justify-content: center; font-weight: 600; border: none;" onclick="event.stopPropagation(); window.handleSubmitNeedsWork('${pin.id}')">Submit</button>
+              </div>
+            </div>
+          `;
+        } else {
+          return `
+            <div style="display: flex; gap: 8px; margin-top: 12px; margin-bottom: 12px;">
+              <button class="inspire-rev-btn" style="background: #10B981; color: white; flex: 1; padding: 8px; font-size: 11px; justify-content: center; font-weight: 600; border: none;" onclick="event.stopPropagation(); window.handleAcceptRevision('${pin.id}')">Accept Revision</button>
+              <button class="inspire-rev-btn" style="background: #F59E0B; color: white; flex: 1; padding: 8px; font-size: 11px; justify-content: center; font-weight: 600; border: none;" onclick="event.stopPropagation(); window.handleNeedsWorkInit('${pin.id}');">Needs More Work</button>
+            </div>
+          `;
+        }
+      }
+      return '';
+    };
+
+    const sidebarContent = document.getElementById('sidebar-content');
+    const renderCardHtml = (pin, globalIndex) => {
+      const isExpanded = selectedPinId === pin.id;
+      const previewText = pin.comment ? (pin.comment.length > 25 ? pin.comment.substring(0, 22) + '...' : pin.comment) : 'Empty note...';
+      const secName = pin.sectionName || (pin.context === 'header' ? 'Header' : pin.context === 'footer' ? 'Footer' : 'Main Content');
+      
+      return `
+        <div class="inspire-rev-card ${isExpanded ? 'inspire-rev-selected-card expanded' : ''}" data-pin-id="${pin.id}" data-pin-status="${pin.status}">
+          <div class="inspire-rev-card-header-line" onclick="handleSelectPin('${pin.id}')" style="cursor: default;">
+            <div class="inspire-rev-card-title-group">
+              <span class="inspire-rev-dot pin-bg-${pin.status}"></span>
+              <span class="inspire-rev-pin-label pin-text-${pin.status}">PIN ${globalIndex + 1}</span>
+              <span class="inspire-rev-section-name">(${secName})</span>
+              ${!isExpanded ? `<span class="inspire-rev-preview">- ${previewText}</span>` : ''}
+            </div>
+            <div class="inspire-rev-card-actions">
+              <button class="inspire-rev-card-btn inspire-rev-card-btn-locate" onclick="event.stopPropagation(); handleLocatePin('${pin.id}')" title="Locate Pin">
+                🎯
+              </button>
+              <button class="inspire-rev-card-btn inspire-rev-card-btn-edit" onclick="event.stopPropagation(); handleEditPin('${pin.id}')" title="Edit Revision">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+              </button>
+              <button class="inspire-rev-card-btn inspire-rev-card-btn-danger" onclick="event.stopPropagation(); handleDeletePin('${pin.id}')" title="Delete">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+              </button>
+            </div>
+            <svg class="inspire-rev-chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B5563" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.2s ease; flex-shrink: 0; margin-left: 4px; transform: rotate(${isExpanded ? '180deg' : '0deg'}); display: block; opacity: 1; visibility: visible; cursor: pointer;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+          ${isExpanded ? `
+            <div class="inspire-rev-card-body" style="margin-top: 12px;">
+              ${renderCommLog(pin)}
+              ${renderActionBlock(pin)}
+              <div class="inspire-rev-card-meta" style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-top: ${pin.status === 'pending' ? '0' : '12px'};">
+                <span class="inspire-rev-card-priority inspire-rev-prio-${pin.priority}">${pin.priority}</span>
+                <span class="inspire-rev-card-author" style="font-size: 10px; color: var(--inspire-slate-gray); font-weight: 600;">${pin.author || 'Client'}</span>
+              </div>
+            </div>
+          ` : ''}
+        </div>
+      `;
+    };
+
+    
+    const draftPins = pins.filter(p => p.status === 'draft');
+    const openPins = pins.filter(p => p.status === 'open');
+    const pendingPins = pins.filter(p => p.status === 'pending');
+    const resolvedPins = pins.filter(p => p.status === 'resolved');
+    
+    const countsEl = document.getElementById('pipeline-counts');
+    if (countsEl) {
+      countsEl.innerHTML = `
+        <div style="background: ${draftPins.length ? '#E34C89' : 'rgba(227, 76, 137, 0.15)'}; color: ${draftPins.length ? '#fff' : 'rgba(227, 76, 137, 0.7)'}; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 999px;">${draftPins.length} Draft</div>
+        <div style="background: ${openPins.length ? '#2F80ED' : 'rgba(47, 128, 237, 0.15)'}; color: ${openPins.length ? '#fff' : 'rgba(47, 128, 237, 0.7)'}; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 999px;">${openPins.length} Open</div>
+        <div style="background: ${pendingPins.length ? '#F59E0B' : 'rgba(245, 158, 11, 0.15)'}; color: ${pendingPins.length ? '#fff' : 'rgba(245, 158, 11, 0.7)'}; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 999px;">${pendingPins.length} Pending</div>
+        <div style="background: ${resolvedPins.length ? '#10B981' : 'rgba(16, 185, 129, 0.15)'}; color: ${resolvedPins.length ? '#fff' : 'rgba(16, 185, 129, 0.7)'}; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 999px;">${resolvedPins.length} Resolved</div>
+      `;
+    }
+    
+    const renderGroup = (title, count, groupPins, colorStr, isOpen) => {
+      const hasSelected = groupPins.some(p => p.id === selectedPinId);
+      const shouldBeOpen = isOpen || hasSelected;
+      if (groupPins.length === 0 && title !== 'Draft' && title !== 'Open' && title !== 'Pending Approval') return '';
+      return `
+      <div class="inspire-rev-group group-${title.toLowerCase().replace(/\s+/g, '-')}" style="${shouldBeOpen ? '' : 'margin-top: 24px;'}">
+        <div class="inspire-rev-group-header" onclick="const c = this.nextElementSibling; c.style.display = c.style.display === 'none' ? 'block' : 'none';" style="cursor: pointer;">
+          <h4 style="color: ${colorStr};">${title}</h4>
+          <span class="inspire-rev-group-count" style="background: ${colorStr}22; color: ${colorStr};">${count}</span>
+        </div>
+        <div class="inspire-rev-group-cards" style="display: ${shouldBeOpen ? 'block' : 'none'};">
+          ${count === 0 ? `<div style="font-size: 11px; color: var(--inspire-slate-gray); padding: 12px;">No ${title.toLowerCase()} revisions.</div>` : groupPins.map(p => renderCardHtml(p, pins.indexOf(p))).join('')}
+        </div>
+      </div>
+      `;
+    };
+
+    sidebarContent.innerHTML = 
+      renderGroup('Draft', draftPins.length, draftPins, '#E34C89', true) +
+      renderGroup('Open', openPins.length, openPins, '#2F80ED', true) +
+      renderGroup('Pending Approval', pendingPins.length, pendingPins, '#F59E0B', true) +
+      renderGroup('Resolved', resolvedPins.length, resolvedPins, '#10B981', false);
+
+    // Render Pins
+    
+    // Reattach submit designer button event
+    const btnSubmit = document.getElementById('btn-submit-designer');
+    if (btnSubmit) {
+      btnSubmit.onclick = function() {
+        let changed = false;
+        pins.forEach(p => {
+          if (p.status === 'draft') { p.status = 'open'; changed = true; }
+        });
+        if (changed) saveToDb();
+        
+        const originalHTML = this.innerHTML;
+        this.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Revisions Submitted!';
+        this.style.background = '#10B981'; // Green
+        setTimeout(() => {
+          this.innerHTML = originalHTML;
+          this.style.background = 'linear-gradient(135deg, #2F80ED, #8E54E9, #E34C89, #FF7F50)';
+        }, 3000);
+      };
+    }
+    
+    setTimeout(adjustNoteCardPosition, 0);
+    
+    document.querySelectorAll('.inspire-pin').forEach(el => el.remove());
+    
+    pins.forEach((pin, i) => {
+      if (pin.status === 'resolved') return; // Hide resolved pins from the main page
+      
+      const pinEl = document.createElement('div');
+      pinEl.id = 'dom_' + pin.id;
+      pinEl.setAttribute('draggable', 'false');
+      
+      const docW = document.documentElement.scrollWidth;
+      const docH = document.documentElement.scrollHeight;
+      
+      if (pin.type === 'box') {
+        pinEl.className = `inspire-pin inspire-box pin-border-${pin.status} ${pin.id === activeCanvasPinId ? 'selected' : ''}`;
+        pinEl.innerHTML = `
+          <div class="pin-number pin-bg-${pin.status}">${i + 1}</div>
+          ${pin.id === activeCanvasPinId ? renderNoteCard(pin) : ''}
+        `;
+        pinEl.style.left = pin.x_coord + '%';
+        pinEl.style.top = pin.y_coord + '%';
+        pinEl.style.width = pin.width + '%';
+        pinEl.style.height = pin.height + '%';
+      } else {
+        pinEl.className = `inspire-pin ${pin.id === activeCanvasPinId ? 'selected' : ''}`;
+        pinEl.innerHTML = `
+          <div class="pin-number pin-bg-${pin.status}">${i + 1}</div>
+          ${pin.id === activeCanvasPinId ? renderNoteCard(pin) : ''}
+        `;
+        pinEl.style.left = pin.x_coord + '%';
+        pinEl.style.top = pin.y_coord + '%';
+      }
+      
+      pinEl.onmousedown = (e) => {
+        if (e.target.closest('.inspire-note-card')) return;
+        e.preventDefault();
+        document.body.style.userSelect = 'none';
+        document.body.style.webkitUserSelect = 'none';
+        
+        let activeEl = pinEl;
+        if (selectedPinId !== pin.id || activeCanvasPinId !== pin.id) {
+          selectedPinId = pin.id;
+          activeCanvasPinId = pin.id;
+          renderAll();
+          activeEl = document.getElementById('dom_' + pin.id);
+        }
+        
+        if (activeEl) {
+          activeEl.classList.add('is-dragging');
+          dragData = {
+            pin: pin,
+            pinEl: activeEl,
+            currentX: pin.x_coord,
+            currentY: pin.y_coord
+          };
+          document.addEventListener('mousemove', onMouseMove);
+          document.addEventListener('mouseup', onMouseUp);
+        }
+      };
+      
+      if (pin.context === 'header') {
+        const nav = document.querySelector('.navbar');
+        if(nav) {
+           nav.style.position = 'sticky';
+           nav.appendChild(pinEl);
+        }
+      } else if (pin.context === 'footer') {
+        const footer = document.querySelector('footer.site-footer');
+        if(footer) footer.appendChild(pinEl);
+      } else {
+        globalOverlay.appendChild(pinEl);
+      }
+    });
+
+    // Autofocus note card textarea the moment it renders
+    if (activeCanvasPinId) {
+      const activeTextarea = document.getElementById('rev-comment');
+      if (activeTextarea) {
+        setTimeout(() => {
+          const ta = document.getElementById('rev-comment');
+          if (ta) {
+            ta.focus({ preventScroll: true });
+            ta.selectionStart = ta.selectionEnd = ta.value.length;
+          }
+        }, 0);
+      }
+    }
+  };
+
+
+  // Check for URL parameter to open sidebar by default
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('sidebar') === 'open') {
+    isSidebarOpen = true;
+  }
+
+  // Initial render
+  renderAll();
+
+  // Tutorial bridge — exposes internal state to the tutorial script block,
+  // which runs in a separate <script> and cannot see let/const vars declared
+  // inside this DOMContentLoaded callback.
+  window._tutPins = () => pins;
+  window._tutSetSelectedPinId = (id) => { selectedPinId = id; activeCanvasPinId = null; };
+  window._tutSetSidebarOpen = (val) => { isSidebarOpen = val; };
+  window._tutRenderAll = () => renderAll();
+});
+
+</script>
+
+  <!-- FOOTER SECTION -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-columns">
+        
+        <!-- LEFT COLUMN -->
+        <div class="footer-col">
+          <img src="../assets/church-concept/GCC-Logo.svg" alt="Grace Community Church Logo" class="footer-logo" loading="lazy">
+          <div class="footer-contact">
+            4200 Grace Community Drive<br>
+            Houston, TX 77001<br>
+            (713) 555-0192<br>
+            hello@gracecommunity.church
+          </div>
+        </div>
+
+        <!-- CENTER COLUMN -->
+        <div class="footer-col">
+          <span class="footer-label">QUICK LINKS</span>
+          <div class="footer-links">
+            <a href="#" class="footer-link">Watch</a>
+            <a href="#about" class="footer-link">About</a>
+            <a href="#next-gen" class="footer-link">Next Gen</a>
+            <a href="#" class="footer-link">Give</a>
+            <a href="#" class="footer-link">Plan a Visit</a>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="footer-col">
+          <span class="footer-label">STAY CONNECTED</span>
+          <p class="footer-copy">Get updates, announcements, and encouragement delivered to your inbox.</p>
+          <form onsubmit="event.preventDefault();">
+            <input type="text" placeholder="Name" class="footer-input">
+            <input type="email" placeholder="Email" class="footer-input footer-input-email">
+            <button type="submit" class="footer-submit">Subscribe</button>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- SOCIAL ICONS -->
+      <div class="footer-socials">
+        <a href="#" class="footer-social-icon" aria-label="Facebook">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+        </a>
+        <a href="#" class="footer-social-icon" aria-label="Instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+        </a>
+        <a href="#" class="footer-social-icon" aria-label="YouTube">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- BOTTOM BAR -->
+    <div class="footer-bottom">
+      <p class="footer-copyright">© 2026 Grace Community Church. All rights reserved.</p>
+    </div>
+  </footer>
+
+
+  <!-- MODALS STYLES -->
+  <style>
+    .church-modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 99999;
+      display: flex; justify-content: center; align-items: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
+      padding: 24px;
+    }
+    .church-modal-overlay.active { opacity: 1; pointer-events: auto; }
+    .church-modal-card {
+      background: #1A1A1A; border-top: 2px solid #C9933A; border-radius: 16px;
+      padding: 40px; width: 100%; max-width: 480px; position: relative;
+      display: flex; flex-direction: column; align-items: center;
+      transform: translateY(20px); transition: transform 0.2s ease;
+      box-sizing: border-box;
+    }
+    .church-modal-overlay.active .church-modal-card { transform: translateY(0); }
+    .church-modal-close {
+      position: absolute; top: 16px; right: 16px; background: none; border: none;
+      color: #FFFFFF; font-size: 28px; cursor: pointer; opacity: 0.5; transition: opacity 0.2s;
+      line-height: 1; padding: 2px 6px;
+    }
+    .church-modal-close:hover { opacity: 1; }
+    .church-modal-logo { width: 60px; height: auto; margin: 0 auto; display: block; }
+    
+    .church-modal-headline {
+      font-family: 'Playfair Display', serif; font-weight: 900; font-size: 28px;
+      color: #FFFFFF; text-align: center; margin-top: 16px; margin-bottom: 0;
+    }
+    .church-modal-body {
+      font-family: 'Public Sans', sans-serif; font-weight: 400; font-size: 15px;
+      color: #E5E7EB; text-align: center; margin-top: 12px; margin-bottom: 0; line-height: 1.5;
+    }
+
+    /* Modal 1 Specifics */
+    .church-modal-amounts { display: flex; gap: 16px; width: 100%; margin-top: 24px; }
+    .church-modal-amt-btn {
+      flex: 1; background: transparent; border: 1px solid #C9933A; color: #C9933A;
+      border-radius: 50px; padding: 12px 28px; font-family: 'Public Sans', sans-serif;
+      font-weight: 700; font-size: 16px; cursor: pointer; transition: background 0.2s;
+    }
+    .church-modal-amt-btn:hover { background: rgba(201,147,58,0.1); }
+    
+    .church-modal-input {
+      width: 100%; background: #2A2A2A; border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; padding: 12px 16px; color: #FFFFFF; font-family: 'Public Sans', sans-serif;
+      font-size: 15px; margin-top: 12px; outline: none; transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+    .church-modal-input:focus { border-color: #C9933A; }
+    .church-modal-input::placeholder { color: rgba(255,255,255,0.4); }
+    
+    .church-modal-submit {
+      width: 100%; background: #C9933A; color: #FFFFFF; border: none; border-radius: 50px;
+      padding: 12px; font-family: 'Public Sans', sans-serif; font-weight: 700; font-size: 16px;
+      margin-top: 16px; cursor: pointer; transition: opacity 0.2s;
+    }
+    .church-modal-submit:hover { opacity: 0.9; }
+    
+    .church-modal-note {
+      font-family: 'Public Sans', sans-serif; font-size: 12px; font-style: italic;
+      color: #4B5563; text-align: center; margin-top: 16px; margin-bottom: 0;
+    }
+
+    /* Modal 2 Specifics */
+    .church-modal-form { width: 100%; margin-top: 20px; }
+    .church-modal-row { display: flex; gap: 12px; width: 100%; }
+    .church-modal-row .church-modal-input { margin-top: 0; }
+    
+    .church-modal-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+      background-repeat: no-repeat; background-position: right 16px center; background-size: 12px;
+    }
+    
+    .church-modal-check-wrap {
+      display: flex; align-items: flex-start; gap: 12px; margin-top: 12px; cursor: pointer;
+    }
+    .church-modal-checkbox { margin-top: 4px; accent-color: #C9933A; }
+    .church-modal-check-text { font-family: 'Public Sans', sans-serif; font-size: 14px; color: #FFFFFF; line-height: 1.4; }
+    .church-modal-check-note { font-size: 13px; font-style: italic; color: #4B5563; margin-left: 4px; }
+
+    @media (max-width: 600px) {
+      .church-modal-card { width: 90%; padding: 32px 20px; }
+    }
+
+  </style>
+
+  <!-- MODAL 1: GIVING -->
+  <div class="church-modal-overlay" id="modal-give">
+    <div class="church-modal-card">
+      <button class="church-modal-close" aria-label="Close">&times;</button>
+      <img src="../assets/church-concept/GCC-Logo.svg" alt="GCC Logo" class="church-modal-logo" loading="lazy">
+      <h2 class="church-modal-headline">Give Online</h2>
+      <p class="church-modal-body">Your generosity makes a difference. Every gift supports our church, our community, and our mission.</p>
+      
+      <div class="church-modal-amounts">
+        <button class="church-modal-amt-btn">$25</button>
+        <button class="church-modal-amt-btn">$50</button>
+      </div>
+      
+      <input type="text" class="church-modal-input" placeholder="$Other Amount">
+      <button class="church-modal-submit">Give Now</button>
+      
+      <p class="church-modal-note">You will be redirected to our secure giving platform.</p>
+    </div>
+  </div>
+
+  <!-- MODAL 2: PLAN A VISIT -->
+  <div class="church-modal-overlay" id="modal-visit">
+    <div class="church-modal-card">
+      <button class="church-modal-close" aria-label="Close">&times;</button>
+      <img src="../assets/church-concept/GCC-Logo.svg" alt="GCC Logo" class="church-modal-logo" loading="lazy">
+      <h2 class="church-modal-headline">Plan Your Visit</h2>
+      <p class="church-modal-body">We would love to see you this Sunday. Fill out the form below and we will make sure you feel right at home.</p>
+      
+      <form class="church-modal-form" onsubmit="event.preventDefault();">
+        <div class="church-modal-row">
+          <input type="text" class="church-modal-input" placeholder="First Name">
+          <input type="text" class="church-modal-input" placeholder="Last Name">
+        </div>
+        <input type="email" class="church-modal-input" placeholder="Email">
+        <input type="tel" class="church-modal-input" placeholder="Phone">
+        
+        <select class="church-modal-input church-modal-select">
+          <option value="" disabled selected>Which service will you attend?</option>
+          <option value="9am">9AM Service</option>
+          <option value="11am">11AM Service</option>
+        </select>
+        
+        <label class="church-modal-check-wrap">
+          <input type="checkbox" class="church-modal-checkbox">
+          <span class="church-modal-check-text">I will be bringing children<span class="church-modal-check-note">We will have Grace Kids ready for them.</span></span>
+        </label>
+        
+        <button class="church-modal-submit">See You Sunday</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODALS SCRIPT -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const modalGive = document.getElementById('modal-give');
+      const modalVisit = document.getElementById('modal-visit');
+      
+      // Open Give Modal
+      document.querySelectorAll('a, button').forEach(el => {
+        if (el.textContent.trim() === 'Give') {
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            modalGive.classList.add('active');
+          });
+        }
+      });
+
+      // Open Plan a Visit Modal
+      document.querySelectorAll('a, button').forEach(el => {
+        if (el.textContent.trim().includes('Plan a Visit') || el.textContent.trim().includes('Plan A Visit')) {
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            modalVisit.classList.add('active');
+          });
+        }
+      });
+
+      // Close Modals
+      document.querySelectorAll('.church-modal-close').forEach(btn => {
+        btn.addEventListener('click', () => {
+          modalGive.classList.remove('active');
+          modalVisit.classList.remove('active');
+        });
+      });
+
+      document.querySelectorAll('.church-modal-overlay').forEach(overlay => {
+        overlay.addEventListener('click', (e) => {
+          if (e.target === overlay) {
+            overlay.classList.remove('active');
+          }
+        });
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          modalGive.classList.remove('active');
+          modalVisit.classList.remove('active');
+        }
+      });
+    });
+  </script>
+
+
+  
+  
+
+  <!-- NEW TUTORIAL VISUAL SYSTEM -->
+  <style>
+    #tutorial-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 8999;
+      background: radial-gradient(circle at center, rgba(10,10,15,0.72) 0%, rgba(10,10,15,0.88) 100%);
+      pointer-events: none;
+      display: none;
+    }
+    
+    #tutorial-spotlight {
+      position: fixed;
+      z-index: 9001;
+      pointer-events: none;
+      --spotlight-size: 320px;
+      width: var(--spotlight-size);
+      height: var(--spotlight-size);
+      border-radius: 8px;
+      
+      border: 3px solid rgba(227,76,137,0.3);
+      animation: breathe 2s ease-in-out infinite;
+      
+      display: none;
+      transform: translate(-50%, -50%);
+    }
+    
+    @keyframes breathe {
+      0% { border-color: rgba(227,76,137,0.3); }
+      50% { border-color: rgba(227,76,137,0.6); }
+      100% { border-color: rgba(227,76,137,0.3); }
+    }
+
+    #tutorial-blocker-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: 9000;
+      background: transparent;
+      pointer-events: auto;
+      display: none;
+    }
+
+    body.tutorial-active #dom_pin_3 {
+      display: none !important;
+    }
+    body.tutorial-active #dom_pin_3,
+    body.tutorial-active #dom_pin_3 *,
+    body.tutorial-active #dom_pin_1,
+    body.tutorial-active #dom_pin_1 * {
+      pointer-events: none !important;
+      cursor: default !important;
+    }
+
+    #tut-skip-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9300;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #E5E7EB;
+      font-family: 'Public Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      border-radius: 50px;
+      padding: 8px 18px;
+      cursor: pointer;
+      display: none;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+    #tut-skip-btn:hover {
+      border-color: rgba(255, 255, 255, 0.4);
+      color: #FFFFFF;
+    }
+
+  </style>
+
+  <div id="tutorial-overlay"></div>
+  <div id="tutorial-blocker-overlay"></div>
+  <button id="tut-skip-btn" onclick="skipTutorialBtnClick()">Skip Tutorial</button>
+  <div id="tut-instruction-card">
+    <div id="tut-step-ind" style="color: #4B5563; font-family: 'Public Sans', sans-serif; font-weight: 400; font-size: 11px; text-transform: uppercase;">Step X of 11</div>
+    <h3 id="tut-headline" style="color: white; font-family: 'Public Sans', sans-serif; font-weight: 700; font-size: 16px; margin: 8px 0 0;">Headline</h3>
+    <p id="tut-body" style="color: #E5E7EB; font-family: 'Public Sans', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.6; margin: 8px 0 0;">Body</p>
+    <div id="tut-error-msg"></div>
+    <button id="tut-next-btn" class="tut-next-btn" onclick="advanceTutorial()">Next</button>
+  </div>
+
+
+  <div id="pinpoint-welcome-card">
+    <img src="../brand/logos/IDC_BRANDMARKICON.svg" alt="IDC Logo" style="width: 48px; height: auto; display: block; margin: 0 auto;">
+    <img src="../brand/logos/PIN-BrandMark.svg" alt="Pinpoint Logo" style="width: 140px; height: auto; display: block; margin: 16px auto 0;">
+    
+    <h2 style="color: white; font-family: 'Public Sans', sans-serif; font-weight: 700; font-size: 26px; margin: 20px 0 0;">Welcome to Pinpoint.</h2>
+    
+    <p style="color: #E5E7EB; font-family: 'Public Sans', sans-serif; font-weight: 400; font-size: 15px; line-height: 1.6; margin: 12px 0 0;">This quick tutorial walks you through everything you need to know to start submitting revisions. It takes about two minutes.</p>
+    
+    <div style="display: flex; justify-content: center; gap: 12px; margin-top: 24px;">
+      <button onclick="startTutorialFromCard()" style="background: linear-gradient(135deg, #2F80ED, #8E54E9, #E34C89, #FF7F50); color: white; font-family: 'Public Sans', sans-serif; font-weight: 700; font-size: 14px; padding: 12px 28px; border-radius: 50px; border: none; cursor: pointer;">Start Tutorial</button>
+      <button onclick="skipTutorialFromCard()" style="background: rgba(255,255,255,0.06); color: #E5E7EB; font-family: 'Public Sans', sans-serif; font-weight: 700; font-size: 14px; padding: 12px 28px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.15); cursor: pointer;">Skip for Now</button>
+    </div>
+  </div>
+
+  <div id="tutorial-spotlight"></div>
+<script>
+    
+    function startTutorialFromCard() {
+      document.getElementById('pinpoint-welcome-card').style.display = 'none';
+      localStorage.setItem('pinpoint_onboarding_completed_v2', 'true');
+      
+      if (window._tutSetSidebarOpen) {
+        window._tutSetSidebarOpen(true);
+        window._tutRenderAll();
+      } else {
+        const sidebar = document.querySelector('.inspire-rev-sidebar');
+        const sidebarBtn = document.getElementById('btn-sidebar');
+        if (sidebar && !sidebar.classList.contains('inspire-rev-open') && sidebarBtn) {
+          sidebarBtn.click();
+        }
+      }
+      
+      window.currentTutorialStep = 0;
+      advanceTutorial();
+    }
+
+    function skipTutorialFromCard() {
+      document.getElementById('pinpoint-welcome-card').style.display = 'none';
+      hideTutorialOverlay();
+      localStorage.setItem('pinpoint_onboarding_completed_v2', 'true');
+    }
+
+    function skipTutorialBtnClick() {
+      const current = tutorialSteps[window.currentTutorialStep - 1];
+      if (current && current.onExit) current.onExit();
+      if (window.tut3ClickListener) { document.removeEventListener('click', window.tut3ClickListener, true); window.tut3ClickListener = null; }
+      if (window.tut4ClickListener) { document.removeEventListener('click', window.tut4ClickListener, true); window.tut4ClickListener = null; }
+      localStorage.setItem('pinpoint_onboarding_completed_v2', 'true');
+      hideTutorialOverlay();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      showTutorialOverlay();
+      document.getElementById('pinpoint-welcome-card').style.display = 'block';
+    });
+
+    
+    function showTutorialOverlay() {
+      document.getElementById('tutorial-overlay').style.display = 'block';
+      const blocker = document.getElementById('tutorial-blocker-overlay');
+      if (blocker) {
+        blocker.style.display = 'block';
+        blocker.style.pointerEvents = 'auto';
+      }
+      document.body.classList.add('tutorial-active');
+    }
+
+    function hideTutorialOverlay() {
+      if (window._tutGlobalRaf) { cancelAnimationFrame(window._tutGlobalRaf); window._tutGlobalRaf = null; }
+      if (window._step5Raf) { cancelAnimationFrame(window._step5Raf); window._step5Raf = null; }
+      const overlay = document.getElementById('tutorial-overlay');
+      const spotlight = document.getElementById('tutorial-spotlight');
+      const blocker = document.getElementById('tutorial-blocker-overlay');
+      const tutCard = document.getElementById('tut-instruction-card');
+      const skipBtn = document.getElementById('tut-skip-btn');
+      if (overlay) {
+        overlay.style.display = 'none';
+        overlay.style.maskImage = 'none';
+        overlay.style.webkitMaskImage = 'none';
+      }
+      if (spotlight) spotlight.style.display = 'none';
+      if (blocker) {
+        blocker.style.display = 'none';
+        blocker.style.pointerEvents = 'none';
+      }
+      if (tutCard) tutCard.style.display = 'none';
+      if (skipBtn) skipBtn.style.display = 'none';
+      const gWrap = document.querySelector('.inspire-rev-global-overlay-wrapper');
+      if (gWrap) gWrap.style.zIndex = '100';
+      ['dom_pin_3', 'dom_pin_1'].forEach(pinId => {
+        const pinEl = document.getElementById(pinId);
+        if (pinEl) {
+          pinEl.style.display = '';
+          pinEl.style.visibility = '';
+          pinEl.style.pointerEvents = '';
+          pinEl.style.cursor = '';
+        }
+      });
+      ['tut-lockdown-css', 'tut-step5-css', 'tut-step6-css', 'tut-step8-css', 'tut-step10-css'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.remove();
+      });
+      document.body.classList.remove('tutorial-active');
+      if (window._tutRenderAll) window._tutRenderAll();
+    }
+
+    function updateTutorialLockdown(stepId) {
+      const blocker = document.getElementById('tutorial-blocker-overlay');
+      if (blocker) {
+        blocker.style.display = 'block';
+        blocker.style.pointerEvents = (stepId === 4) ? 'none' : 'auto';
+      }
+
+      let lockdownStyle = document.getElementById('tut-lockdown-css');
+      if (!lockdownStyle) {
+        lockdownStyle = document.createElement('style');
+        lockdownStyle.id = 'tut-lockdown-css';
+        document.head.appendChild(lockdownStyle);
+      }
+
+      let css = `
+        #tut-instruction-card { pointer-events: auto !important; z-index: 9200 !important; }
+        #tut-next-btn { pointer-events: auto !important; cursor: pointer !important; }
+        #dom_pin_3, #dom_pin_3 *,
+        #dom_pin_1, #dom_pin_1 * {
+          pointer-events: none !important;
+          cursor: default !important;
+        }
+      `;
+      if (stepId <= 9) {
+        css += `
+          #dom_pin_3 {
+            display: none !important;
+          }
+          .group-pending-approval,
+          .inspire-rev-card[data-pin-status="pending"] {
+            display: none !important;
+          }
+        `;
+      } else {
+        css += `
+          #dom_pin_3 {
+            display: none !important;
+          }
+        `;
+      }
+      switch (stepId) {
+        case 1:
+        case 2:
+          css += `
+            .inspire-rev-control-bar, .inspire-rev-sidebar { pointer-events: none !important; }
+          `;
+          break;
+
+        case 3:
+          css += `
+            .inspire-rev-control-bar { z-index: 9002 !important; pointer-events: none !important; }
+            .inspire-rev-control-bar * { pointer-events: none !important; }
+            #btn-drop-pin, #btn-drop-pin * { pointer-events: auto !important; cursor: pointer !important; }
+            .inspire-rev-sidebar { pointer-events: none !important; }
+          `;
+          break;
+
+        case 4:
+          css += `
+            .inspire-rev-control-bar { pointer-events: none !important; }
+            .inspire-rev-sidebar { pointer-events: none !important; }
+            #tut-instruction-card { pointer-events: none !important; }
+          `;
+          break;
+
+        case 5:
+          css += `
+            .inspire-rev-global-overlay-wrapper,
+            .inspire-rev-root,
+            .navbar,
+            footer.site-footer {
+              z-index: 9002 !important;
+              pointer-events: none !important;
+            }
+            .navbar { overflow: visible !important; }
+            .inspire-pin:not(.selected) {
+              pointer-events: none !important;
+              cursor: default !important;
+            }
+            .inspire-pin:not(.selected) * {
+              pointer-events: none !important;
+              cursor: default !important;
+            }
+            .inspire-pin.selected,
+            .inspire-note-card {
+              z-index: 9003 !important;
+              pointer-events: auto !important;
+              pointer-events: all !important;
+            }
+            .inspire-note-card * {
+              pointer-events: auto !important;
+              pointer-events: all !important;
+            }
+            .inspire-note-card textarea,
+            #rev-comment {
+              pointer-events: auto !important;
+              pointer-events: all !important;
+              cursor: text !important;
+            }
+            .inspire-note-card .inspire-prio-btn,
+            .inspire-prio-btn {
+              pointer-events: auto !important;
+              pointer-events: all !important;
+              cursor: pointer !important;
+            }
+            .inspire-note-card .inspire-rev-btn-primary {
+              pointer-events: auto !important;
+              pointer-events: all !important;
+              cursor: pointer !important;
+            }
+            .inspire-note-card .inspire-rev-btn-text {
+              display: none !important;
+              pointer-events: none !important;
+            }
+            .inspire-rev-control-bar, .inspire-rev-sidebar { pointer-events: none !important; }
+            #tut-next-btn { display: none !important; }
+          `;
+          break;
+
+        case 6:
+          css += `
+            .inspire-rev-control-bar { z-index: 9002 !important; pointer-events: none !important; }
+            .inspire-rev-control-bar * { pointer-events: none !important; }
+            #workflow-toggle, #pin-latch-toggle, #pin-latch-toggle * { pointer-events: auto !important; cursor: pointer !important; }
+            .inspire-rev-sidebar { pointer-events: none !important; }
+          `;
+          break;
+
+        case 7:
+          css += `
+            .inspire-rev-control-bar { z-index: 9002 !important; pointer-events: none !important; }
+            .inspire-rev-control-bar * { pointer-events: none !important; }
+            #btn-sidebar, #btn-sidebar * { pointer-events: auto !important; cursor: pointer !important; }
+            .inspire-rev-sidebar { pointer-events: none !important; }
+          `;
+          break;
+
+        case 8:
+          css += `
+            .inspire-rev-control-bar { pointer-events: none !important; }
+            .inspire-rev-sidebar { z-index: 9002 !important; pointer-events: none !important; }
+            .inspire-rev-card-btn, .inspire-rev-chevron, #btn-submit-designer, #btn-close-sidebar { pointer-events: none !important; cursor: default !important; }
+          `;
+          break;
+
+        case 9:
+          css += `
+            .inspire-rev-control-bar { pointer-events: none !important; }
+            .inspire-rev-sidebar { z-index: 9002 !important; pointer-events: none !important; }
+            #btn-submit-designer { pointer-events: none !important; cursor: default !important; }
+            .inspire-rev-card-btn, .inspire-rev-chevron, #btn-close-sidebar { pointer-events: none !important; }
+          `;
+          break;
+
+        case 10:
+          css += `
+            .inspire-rev-control-bar { pointer-events: none !important; }
+            .inspire-rev-sidebar { z-index: 9002 !important; pointer-events: none !important; }
+            button[onclick*="handleAcceptRevision"], button[onclick*="handleNeedsWorkInit"] { pointer-events: none !important; cursor: default !important; }
+            .inspire-rev-card-btn, .inspire-rev-chevron, #btn-submit-designer, #btn-close-sidebar { pointer-events: none !important; }
+          `;
+          break;
+
+        case 11:
+          css += `
+            .inspire-rev-control-bar, .inspire-rev-sidebar { pointer-events: none !important; }
+          `;
+          break;
+      }
+      lockdownStyle.textContent = css;
+    }
+
+    function positionSpotlight(targetSelector, padding = 0, specificRect = null) {
+      const spotlight = document.getElementById('tutorial-spotlight');
+      const overlay = document.getElementById('tutorial-overlay');
+
+      // Cancel any existing rAF loop before starting a new one
+      if (window._tutGlobalRaf) {
+        cancelAnimationFrame(window._tutGlobalRaf);
+        window._tutGlobalRaf = null;
+      }
+
+      if (!targetSelector && !specificRect) {
+        spotlight.style.opacity = '0';
+        spotlight.style.display = 'none';
+        overlay.style.maskImage = 'none';
+        overlay.style.webkitMaskImage = 'none';
+        return;
+      }
+
+      // Single unified rAF loop: updates spotlight position AND SVG mask in the same frame
+      // from one getBoundingClientRect() call — eliminates the inter-loop timing gap that
+      // caused the spotlight to glitch/jump when the user scrolled the page.
+      const loop = () => {
+        let targetEl = null;
+        if (targetSelector && typeof targetSelector === 'string') {
+          targetEl = document.querySelector(targetSelector);
+        } else if (targetSelector instanceof Element) {
+          targetEl = targetSelector;
+        }
+
+        // One getBoundingClientRect call — always viewport-relative coordinates
+        const rect = specificRect || (targetEl ? targetEl.getBoundingClientRect() : null);
+
+        if (rect) {
+          const paddedW = rect.width + padding * 2;
+          const paddedH = rect.height + padding * 2;
+
+          // Viewport center of the target
+          const vpCX = rect.left + rect.width / 2;
+          const vpCY = rect.top + rect.height / 2;
+
+          // Inherit border-radius from target element, or default to 8px
+          let br = '8px';
+          if (targetEl) {
+            const computed = window.getComputedStyle(targetEl);
+            br = (computed.borderRadius && computed.borderRadius !== '0px') ? computed.borderRadius : '8px';
+          }
+
+          // Update spotlight using position: fixed + viewport coordinates.
+          // This correctly tracks fixed UI elements (control bar, sidebar, toolbar buttons)
+          // AND scrollable elements (note cards, revision cards) — no scroll offset math needed.
+          spotlight.style.position = 'fixed';
+          spotlight.style.boxSizing = 'border-box';
+          spotlight.style.borderRadius = br;
+          spotlight.style.width = paddedW + 'px';
+          spotlight.style.height = paddedH + 'px';
+          spotlight.style.left = vpCX + 'px';
+          spotlight.style.top = vpCY + 'px';
+          spotlight.style.display = 'block';
+          spotlight.style.opacity = '1';
+
+          // Update SVG mask using the SAME frame's rect values.
+          // No second getBoundingClientRect call — both spotlight and mask share one reading.
+          const maskL = Math.round(vpCX - paddedW / 2);
+          const maskT = Math.round(vpCY - paddedH / 2);
+          const maskW = Math.round(paddedW);
+          const maskH = Math.round(paddedH);
+          let parsedRx = parseFloat(br);
+          if (isNaN(parsedRx)) parsedRx = 8;
+          if (parsedRx > maskH / 2) parsedRx = maskH / 2;
+          const maskRx = Math.round(parsedRx);
+
+          const svgMask = '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">' +
+            '<mask id="hole">' +
+            '<rect width="100%" height="100%" fill="white"/>' +
+            '<rect x="' + maskL + '" y="' + maskT + '" width="' + maskW + '" height="' + maskH + '" rx="' + maskRx + '" fill="black"/>' +
+            '</mask>' +
+            '<rect width="100%" height="100%" fill="black" mask="url(#hole)"/>' +
+            '</svg>';
+          const encoded = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgMask);
+          overlay.style.maskImage = 'url("' + encoded + '")';
+          overlay.style.webkitMaskImage = 'url("' + encoded + '")';
+        } else {
+          spotlight.style.opacity = '0';
+          overlay.style.maskImage = 'none';
+          overlay.style.webkitMaskImage = 'none';
+        }
+
+        if (document.body.classList.contains('tutorial-active')) {
+          window._tutGlobalRaf = requestAnimationFrame(loop);
+        }
+      };
+
+      window._tutGlobalRaf = requestAnimationFrame(loop);
+    }
+  
+    // --- TUTORIAL ENGINE ---
+    window.currentTutorialStep = 0;
+
+    const tutorialSteps = [
+      {
+        id: 1,
+        headline: "Your revision toolbar.",
+        body: "Everything you need to use Pinpoint lives right here at the bottom of your screen. Let's walk through how it works.",
+        target: ".inspire-rev-control-bar",
+        padding: 0,
+        cardPos: { bottom: '120px', left: '50%', transform: 'translateX(-50%)', top: 'auto', right: 'auto' },
+        showNext: true
+      },
+      {
+        id: 2,
+        headline: "Your revision toolbar.",
+        body: "Everything you need to use Pinpoint lives right here at the bottom of your screen. This is where you activate your revision tools and manage your session.",
+        target: null, 
+        cardPos: { top: '40%', left: '50%', transform: 'translate(-50%, -50%)', bottom: 'auto', right: 'auto' },
+        showNext: true,
+        onEnter: () => {
+          window.step2Phase = 1;
+
+          // Phase 1: Spotlight the control bar
+          positionSpotlight('.inspire-rev-control-bar', 0);
+
+          const updateContent = (headline, body) => {
+            const hlEl = document.getElementById('tut-headline');
+            const bodyEl = document.getElementById('tut-body');
+            if (!hlEl || !bodyEl) return;
+            if (window._step2FadeTimeout) {
+              clearTimeout(window._step2FadeTimeout);
+              window._step2FadeTimeout = null;
+            }
+            hlEl.style.transition = 'opacity 150ms ease';
+            bodyEl.style.transition = 'opacity 150ms ease';
+            hlEl.style.opacity = '0';
+            bodyEl.style.opacity = '0';
+            window._step2FadeTimeout = setTimeout(() => {
+              if (window.currentTutorialStep !== 2) return;
+              hlEl.innerText = headline;
+              bodyEl.innerHTML = body;
+              hlEl.style.opacity = '1';
+              bodyEl.style.opacity = '1';
+              window._step2FadeTimeout = null;
+            }, 150);
+          };
+
+          // User-controlled phase advance handler — no timers, no automation
+          window.step2Advance = () => {
+            if (window.currentTutorialStep !== 2) return;
+            window.step2Phase++;
+
+            if (window.step2Phase === 2) {
+              // Phase 2: Spotlight moves to the sidebar
+              positionSpotlight('.inspire-rev-sidebar', 0);
+              updateContent(
+                "Your revision sidebar.",
+                "This is where all of your revision cards live. Every pin you drop shows up here, organized by status so you always know where things stand."
+              );
+            } else if (window.step2Phase === 3) {
+              // Phase 3: Spotlight moves to the main website content area
+              const sb = document.querySelector('.inspire-rev-sidebar');
+              const sbWidth = sb && window.innerWidth > 768 && sb.classList.contains('inspire-rev-open') ? sb.offsetWidth : 0;
+              positionSpotlight(null, 0, { left: 0, top: 0, width: window.innerWidth - sbWidth, height: window.innerHeight });
+              updateContent(
+                "Your canvas.",
+                "This is the live website. You can scroll through it, find anything you want changed, and drop a pin directly on it. Everything you see here is exactly what your designer sees."
+              );
+            } else if (window.step2Phase > 3) {
+              // Advance to Step 3
+              window.advanceTutorial();
+            }
+          };
+
+          // Override Next button to call step2Advance
+          const nextBtn = document.getElementById('tut-next-btn');
+          if (nextBtn) {
+            nextBtn.onclick = null;
+            nextBtn.setAttribute('onclick', 'window.step2Advance()');
+            nextBtn.style.display = 'inline-block';
+          }
+        },
+        onExit: () => {
+          if (window._step2FadeTimeout) {
+            clearTimeout(window._step2FadeTimeout);
+            window._step2FadeTimeout = null;
+          }
+          const hlEl = document.getElementById('tut-headline');
+          const bodyEl = document.getElementById('tut-body');
+          if (hlEl) {
+            hlEl.style.transition = '';
+            hlEl.style.opacity = '1';
+          }
+          if (bodyEl) {
+            bodyEl.style.transition = '';
+            bodyEl.style.opacity = '1';
+          }
+
+          const nextBtn = document.getElementById('tut-next-btn');
+          if (nextBtn) {
+            nextBtn.onclick = null;
+            nextBtn.setAttribute('onclick', 'advanceTutorial()');
+          }
+          window.step2Phase = null;
+          window.step2Advance = null;
+
+          if (window._tutSetSidebarOpen) {
+            window._tutSetSidebarOpen(false);
+            window._tutRenderAll();
+          } else {
+            const closeBtn = document.getElementById('btn-close-sidebar');
+            if (closeBtn) closeBtn.click();
+          }
+        }
+      },
+      {
+        id: 3,
+        headline: "Activate your revision tool.",
+        body: "Click the Pin or Box button below to turn on pinning mode. Once active, you can click anywhere on the page to drop a pin, or click and drag to draw a box around an entire section.",
+        target: "#btn-drop-pin",
+        padding: 0,
+        cardPos: { bottom: '120px', left: 'calc(50% - 150px)', transform: 'none', top: 'auto', right: 'auto' },
+        showNext: false,
+        onEnter: () => {
+          window.tut3ClickListener = (e) => {
+            if (window.currentTutorialStep !== 3) return;
+            if (!e.target.closest('#btn-drop-pin')) {
+              e.preventDefault();
+              e.stopPropagation();
+              const err = document.getElementById('tut-error-msg');
+              if (err) {
+                  err.innerText = "Please click the Pin or Box button in the toolbar below.";
+                  err.style.display = 'block';
+              }
+            } else {
+              const err = document.getElementById('tut-error-msg');
+              if (err) err.style.display = 'none';
+              setTimeout(() => window.advanceTutorial(), 50);
+            }
+          };
+          document.addEventListener('click', window.tut3ClickListener, true);
+        },
+        onExit: () => {
+          document.removeEventListener('click', window.tut3ClickListener, true);
+        }
+      },
+      {
+        id: 4,
+        headline: "Drop your first pin.",
+        body: "Click anywhere on the page to place a pin. Try clicking on an element you would like to change.",
+        target: null,
+        cardPos: { top: '32px', left: '32px', transform: 'none', bottom: 'auto', right: 'auto' },
+        showNext: false,
+        onEnter: () => {
+          const contentRect = document.body.getBoundingClientRect();
+          positionSpotlight(null, 0, { left: 0, top: 0, width: window.innerWidth, height: window.innerHeight });
+          
+          window.tut4ClickListener = (e) => {
+            if (window.currentTutorialStep !== 4) return;
+            const isSidebar = e.target.closest('.inspire-rev-sidebar');
+            const isControlBar = e.target.closest('.inspire-rev-control-bar');
+            
+            const isCard = e.target.closest('#tut-instruction-card');
+            if (isSidebar || isControlBar || isCard) {
+              e.preventDefault();
+              e.stopPropagation();
+              const err = document.getElementById('tut-error-msg');
+              if (err) {
+                  err.innerText = "Click anywhere on the page above to drop a pin.";
+                  err.style.display = 'block';
+              }
+            } else {
+              const err = document.getElementById('tut-error-msg');
+              if (err) err.style.display = 'none';
+              // DO NOT auto-advance here. The pin drop mouseup logic already handles advancing when the pin is successfully created.
+            }
+          };
+          document.addEventListener('click', window.tut4ClickListener, true);
+        },
+        onExit: () => {
+          document.removeEventListener('click', window.tut4ClickListener, true);
+        }
+      },
+      {
+        id: 5,
+        headline: "Tell us what you want changed.",
+        body: 'Type your revision note in the box, choose your guidance level below, and click Save when you are done.<span style="display: block; margin-top: 12px; font-family: \'Public Sans\', sans-serif; font-style: italic; font-size: 13px; color: #E5E7EB; opacity: 0.85; line-height: 1.5;">Flexible lets your designer decide the details. Guided provides creative direction. Exact requires following your note precisely.</span>',
+        target: ".inspire-note-card",
+        padding: 0,
+        cardPos: { transform: 'none' },
+        showNext: false,
+        onEnter: () => {
+          const nextBtn = document.getElementById('tut-next-btn');
+          if (nextBtn) nextBtn.style.display = 'none';
+
+          const gWrap = document.querySelector('.inspire-rev-global-overlay-wrapper');
+          if (gWrap) gWrap.style.zIndex = '9002';
+
+          // Autofocus note card textarea the moment note card appears in Step 5
+          const focusNoteTextarea = () => {
+            const ta = document.getElementById('rev-comment');
+            if (ta) {
+              ta.focus();
+              ta.selectionStart = ta.selectionEnd = ta.value.length;
+            }
+          };
+          focusNoteTextarea();
+          setTimeout(focusNoteTextarea, 50);
+          setTimeout(focusNoteTextarea, 150);
+
+          // Real-time intelligent collision-free positioning via requestAnimationFrame
+          const positionStep5Card = () => {
+            if (window.currentTutorialStep !== 5) return;
+
+            const card = document.getElementById('tut-instruction-card');
+            if (!card) return;
+
+            const noteCard = document.querySelector('.inspire-note-card');
+            if (!noteCard) {
+              window._step5Raf = requestAnimationFrame(positionStep5Card);
+              return;
+            }
+
+            const noteRect = noteCard.getBoundingClientRect();
+            if (noteRect.width === 0 && noteRect.height === 0) {
+              window._step5Raf = requestAnimationFrame(positionStep5Card);
+              return;
+            }
+
+            const vw = window.innerWidth;
+            const vh = window.innerHeight;
+            const cardWidth = card.offsetWidth || 340;
+            const cardHeight = card.offsetHeight || 240;
+
+            const isNearTop = noteRect.top < 140;
+            const isNearBottom = noteRect.bottom > vh - 160;
+            const isLeftHalf = (noteRect.left + noteRect.width / 2) < vw / 2;
+
+            let targetLeft, targetTop;
+
+            if (isNearTop) {
+              // If near top of screen -> position below it
+              targetTop = noteRect.bottom + 20;
+              if (isLeftHalf) {
+                targetLeft = (noteRect.right + 20 + cardWidth <= vw - 16) ? (noteRect.right + 20) : noteRect.left;
+              } else {
+                targetLeft = (noteRect.left - cardWidth - 20 >= 16) ? (noteRect.left - cardWidth - 20) : (noteRect.right - cardWidth);
+              }
+            } else if (isNearBottom) {
+              // If near bottom of screen -> position above it
+              targetTop = noteRect.top - cardHeight - 20;
+              if (isLeftHalf) {
+                targetLeft = (noteRect.right + 20 + cardWidth <= vw - 16) ? (noteRect.right + 20) : noteRect.left;
+              } else {
+                targetLeft = (noteRect.left - cardWidth - 20 >= 16) ? (noteRect.left - cardWidth - 20) : (noteRect.right - cardWidth);
+              }
+            } else {
+              // Left half -> position to the right with at least 20px clearance
+              // Right half -> position to the left with at least 20px clearance
+              targetLeft = isLeftHalf ? (noteRect.right + 20) : (noteRect.left - cardWidth - 20);
+              targetTop = noteRect.top;
+            }
+
+            // Boundary checks: minimum 16px padding on all 4 edges
+            let left = Math.max(16, Math.min(vw - cardWidth - 16, targetLeft));
+            let top = Math.max(16, Math.min(vh - cardHeight - 16, targetTop));
+
+            // Guarantee zero overlap with at least 20px clearance
+            const isOverlapping = (
+              left < noteRect.right + 20 &&
+              left + cardWidth > noteRect.left - 20 &&
+              top < noteRect.bottom + 20 &&
+              top + cardHeight > noteRect.top - 20
+            );
+
+            if (isOverlapping) {
+              if (noteRect.bottom + 20 + cardHeight <= vh - 16) {
+                top = noteRect.bottom + 20;
+                left = Math.max(16, Math.min(vw - cardWidth - 16, isLeftHalf ? noteRect.left : noteRect.right - cardWidth));
+              } else if (noteRect.top - 20 - cardHeight >= 16) {
+                top = noteRect.top - cardHeight - 20;
+                left = Math.max(16, Math.min(vw - cardWidth - 16, isLeftHalf ? noteRect.left : noteRect.right - cardWidth));
+              } else if (isLeftHalf && noteRect.left - cardWidth - 20 >= 16) {
+                left = noteRect.left - cardWidth - 20;
+                top = Math.max(16, Math.min(vh - cardHeight - 16, noteRect.top));
+              } else if (!isLeftHalf && noteRect.right + 20 + cardWidth <= vw - 16) {
+                left = noteRect.right + 20;
+                top = Math.max(16, Math.min(vh - cardHeight - 16, noteRect.top));
+              }
+            }
+
+            card.style.top = top + 'px';
+            card.style.left = left + 'px';
+            card.style.bottom = 'auto';
+            card.style.right = 'auto';
+            card.style.transform = 'none';
+
+            window._step5Raf = requestAnimationFrame(positionStep5Card);
+          };
+
+          // Cancel any previous loop and start positioning
+          if (window._step5Raf) cancelAnimationFrame(window._step5Raf);
+          positionStep5Card();
+        },
+        onExit: () => {
+          if (window._step5Raf) {
+            cancelAnimationFrame(window._step5Raf);
+            window._step5Raf = null;
+          }
+          const gWrap = document.querySelector('.inspire-rev-global-overlay-wrapper');
+          if (gWrap) gWrap.style.zIndex = '100';
+        }
+      },
+      {
+        id: 6,
+        headline: "Stay active or drop one at a time.",
+        body: "LATCH controls how your revision tool behaves. When LATCH is off, the tool automatically turns off after placing a single pin. When LATCH is on, the tool stays active so you can continue placing pins without reactivating it each time.",
+        target: "#workflow-toggle",
+        padding: 0,
+        cardPos: { bottom: '100px', left: '50%', transform: 'translateX(-50%)', top: 'auto', right: 'auto' },
+        showNext: true,
+        onEnter: () => {
+          const style = document.createElement('style');
+          style.id = 'tut-step6-css';
+          style.innerHTML = `
+            #workflow-toggle { background: rgba(255,255,255,0.15) !important; border: 1px solid rgba(255,255,255,0.3) !important; }
+            #pin-latch-toggle { color: #FFFFFF !important; }
+          `;
+          document.head.appendChild(style);
+        },
+        onExit: () => {
+           const stepCss = document.getElementById('tut-step6-css');
+           if (stepCss) stepCss.remove();
+        }
+      },
+      {
+        id: 7,
+        headline: "See all your revisions in one place.",
+        body: "Click Revisions to open your sidebar. Every pin you have placed is organized here as an individual revision card.",
+        target: "#btn-sidebar",
+        padding: 0,
+        cardPos: { bottom: '100px', left: '50%', transform: 'translateX(-50%)' },
+        showNext: false,
+        onExit: () => {}
+      },
+      {
+        id: 8,
+        headline: "Your revision card controls.",
+        body: "Let us walk you through everything you can do with a revision card.",
+        target: ".inspire-rev-sidebar",
+        showNext: true,
+        cardPos: { top: '50%', left: 'calc(50% - 190px)', transform: 'translate(-50%, -50%)', bottom: 'auto', right: 'auto' },
+        onEnter: () => {
+          window.step8Phase = 1;
+
+          // Open sidebar and auto-expand the exact revision card the user created in Step 4/5
+          const pinsArr = window._tutPins ? window._tutPins() : [];
+          const userPin = (window.userTutorialPinId && pinsArr.find(p => p.id === window.userTutorialPinId)) ||
+                          pinsArr.find(p => p.status === 'draft') ||
+                          pinsArr.find(p => p.id !== 'pin_3') ||
+                          pinsArr[pinsArr.length - 1];
+          if (userPin) {
+            window._tutSetSelectedPinId(userPin.id);
+            window._tutSetSidebarOpen(true);
+            window._tutRenderAll();
+          }
+
+          // Disable card action buttons and chevron during Step 8 — visible but not clickable
+          setTimeout(() => {
+            const cardEl = document.querySelector('.inspire-rev-card.expanded');
+            const scrollContainer = document.getElementById('sidebar-content');
+            if (cardEl && scrollContainer) {
+              const containerRect = scrollContainer.getBoundingClientRect();
+              const cardRect = cardEl.getBoundingClientRect();
+              const cardOffsetTop = scrollContainer.scrollTop + (cardRect.top - containerRect.top);
+              const desiredScrollTop = Math.max(0, cardOffsetTop - 20);
+              scrollContainer.scrollTo({ top: desiredScrollTop, behavior: 'smooth' });
+            }
+          }, 50);
+
+          const setStep8Detail = (iconHtml, captionText) => {
+            let dynContainer = document.getElementById('tut-dynamic-text');
+            if (!dynContainer) {
+              dynContainer = document.createElement('div');
+              dynContainer.id = 'tut-dynamic-text';
+              dynContainer.style.marginTop = '16px';
+              dynContainer.style.display = 'flex';
+              dynContainer.style.flexDirection = 'column';
+              dynContainer.style.alignItems = 'center';
+              dynContainer.style.textAlign = 'center';
+              dynContainer.style.opacity = '0';
+              dynContainer.style.transition = 'opacity 300ms ease';
+              const tutBody = document.getElementById('tut-body');
+              if (tutBody && tutBody.parentNode) {
+                tutBody.parentNode.insertBefore(dynContainer, tutBody.nextSibling);
+              }
+            }
+
+            const newContent = `
+              ${iconHtml ? `<div style="display: flex; justify-content: center; align-items: center; width: 28px; height: 28px; margin: 0 auto 8px auto;">${iconHtml}</div>` : ''}
+              <div style="color: #E5E7EB; font-family: 'Public Sans', sans-serif; font-style: italic; font-size: 13px; line-height: 1.5;">${captionText}</div>
+            `;
+
+            const currentOpacity = parseFloat(window.getComputedStyle(dynContainer).opacity);
+            if (currentOpacity === 0) {
+              dynContainer.innerHTML = newContent;
+              requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                  dynContainer.style.opacity = '1';
+                });
+              });
+            } else {
+              dynContainer.style.opacity = '0';
+              let transitioned = false;
+              const onFadeOut = () => {
+                if (transitioned) return;
+                transitioned = true;
+                dynContainer.removeEventListener('transitionend', onFadeOut);
+                dynContainer.innerHTML = newContent;
+                requestAnimationFrame(() => {
+                  requestAnimationFrame(() => {
+                    dynContainer.style.opacity = '1';
+                  });
+                });
+              };
+              dynContainer.addEventListener('transitionend', onFadeOut, { once: true });
+              setTimeout(onFadeOut, 350);
+            }
+          };
+
+          // User-controlled phase advance handler — no timers, no automation
+          window.step8Advance = () => {
+            if (window.currentTutorialStep !== 8) return;
+            window.step8Phase++;
+
+            const sidebar = document.querySelector('.inspire-rev-sidebar');
+            if (sidebar) positionSpotlight(sidebar, 0);
+
+            const nextBtn = document.getElementById('tut-next-btn');
+
+            if (window.step8Phase === 2) {
+              // Phase 2: Chevron icon (#4B5563) + caption
+              const chevronIcon = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4B5563" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display: block;"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
+              setStep8Detail(chevronIcon, "Expand or collapse this card.");
+              if (nextBtn) nextBtn.style.display = 'inline-block';
+
+            } else if (window.step8Phase === 3) {
+              // Phase 3: Locate / target icon (🎯) + caption
+              const locateIcon = `<span style="font-size: 28px; line-height: 1; display: inline-block;">🎯</span>`;
+              setStep8Detail(locateIcon, "Jump directly to this pin on the page.");
+              if (nextBtn) nextBtn.style.display = 'inline-block';
+
+            } else if (window.step8Phase === 4) {
+              // Phase 4: Pencil / edit icon (Amber #F59E0B) + caption
+              const editIcon = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: block;"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>`;
+              setStep8Detail(editIcon, "Update your note or guidance level.");
+              if (nextBtn) nextBtn.style.display = 'inline-block';
+
+            } else if (window.step8Phase === 5) {
+              // Phase 5: Trash / delete icon (#EF4444) + caption
+              const deleteIcon = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: block;"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>`;
+              setStep8Detail(deleteIcon, "Permanently delete this revision.");
+              if (nextBtn) nextBtn.style.display = 'inline-block';
+
+            } else if (window.step8Phase > 5) {
+              // Advance to Step 9
+              window.advanceTutorial();
+            }
+          };
+
+          // Override Next button to call step8Advance
+          const nextBtn = document.getElementById('tut-next-btn');
+          if (nextBtn) {
+            nextBtn.onclick = null;
+            nextBtn.setAttribute('onclick', 'window.step8Advance()');
+            nextBtn.style.display = 'inline-block';
+          }
+
+          // Phase 1: Spotlight full sidebar
+          const sidebar = document.querySelector('.inspire-rev-sidebar');
+          if (sidebar) positionSpotlight(sidebar, 0);
+        },
+        onExit: () => {
+          const nextBtn = document.getElementById('tut-next-btn');
+          if (nextBtn) {
+            nextBtn.onclick = null;
+            nextBtn.setAttribute('onclick', 'advanceTutorial()');
+          }
+          window.step8Phase = null;
+          window.step8Advance = null;
+          const dynText = document.getElementById('tut-dynamic-text');
+          if (dynText) dynText.remove();
+        }
+      },
+      {
+        id: 9,
+        headline: "Send your revisions to your designer.",
+        body: "When you are ready, click Submit to Designer to send all your revisions at once. You can place multiple pins beforehand, as each submission counts as a single revision round. Your designer will be notified immediately and begin work.",
+        target: "#btn-submit-designer",
+        padding: 0,
+        cardPos: { bottom: '40px', right: 'calc(380px + 20px)', maxWidth: 'min(340px, calc(100vw - 420px))' },
+        showNext: true
+      },
+      {
+        id: 10,
+        headline: "When your designer responds.",
+        body: "When your designer completes an update, they return it for your review and approval. Cards pending your approval appear in amber. Review their work, then either accept the revision or request additional changes.",
+        target: null,
+        padding: 0,
+        showNext: true,
+        cardPos: { top: '50%', right: 'calc(380px + 20px)', transform: 'translateY(-50%)', maxWidth: 'min(340px, calc(100vw - 420px))' },
+        onEnter: () => {
+          // Open the sidebar with the pending card selected
+          const pinsArr = window._tutPins ? window._tutPins() : [];
+          const pendingPin = pinsArr.find(p => p.status === 'pending') || pinsArr.find(p => p.id === 'pin_3') || pinsArr[0];
+          if (pendingPin) {
+            window._tutSetSelectedPinId(pendingPin.id);
+            window._tutSetSidebarOpen(true);
+            window._tutRenderAll();
+          }
+
+          // Give renderAll one frame to paint, then expand, scroll, and spotlight the card
+          setTimeout(() => {
+            if (window.currentTutorialStep !== 10) return;
+
+            const scrollContainer = document.getElementById('sidebar-content');
+
+            // Expand the card if needed so Accept and Needs More Work are in the DOM
+            let cardEl = document.querySelector('.inspire-rev-card.expanded') ||
+                         document.querySelector('.inspire-rev-card');
+            if (cardEl && !cardEl.classList.contains('expanded')) {
+              const headerLine = cardEl.querySelector('.inspire-rev-card-header-line');
+              if (headerLine) headerLine.click();
+              cardEl = document.querySelector('.inspire-rev-card.expanded') ||
+                       document.querySelector('.inspire-rev-card');
+            }
+
+            // Scroll the card fully into view with 40px breathing room
+            if (cardEl && scrollContainer) {
+              const containerRect = scrollContainer.getBoundingClientRect();
+              const cardRect = cardEl.getBoundingClientRect();
+              const cardOffsetTop = scrollContainer.scrollTop + (cardRect.top - containerRect.top);
+              const desiredScrollTop = Math.max(0, cardOffsetTop - 40);
+              if (cardRect.top < containerRect.top + 40 ||
+                  cardRect.bottom > containerRect.bottom - 40) {
+                scrollContainer.scrollTo({ top: desiredScrollTop, behavior: 'smooth' });
+              }
+            }
+
+            // Spotlight the full pending approval card
+            const card = document.querySelector('.inspire-rev-card.expanded') ||
+                         document.querySelector('.inspire-rev-card');
+            if (card) positionSpotlight(card, 0);
+
+            // One Next button advances directly to Step 11
+            const nextBtn = document.getElementById('tut-next-btn');
+            if (nextBtn) {
+              nextBtn.onclick = null;
+              nextBtn.setAttribute('onclick', 'advanceTutorial()');
+              nextBtn.style.display = 'inline-block';
+            }
+          }, 150);
+        },
+        onExit: () => {}
+      },
+      {
+        id: 11,
+        headline: "You're all set!",
+        body: "You now have everything you need to start reviewing pages and submitting revisions with Pinpoint.",
+        target: null,
+        padding: 0,
+        showNext: true,
+        btnText: "Start Using Pinpoint",
+        cardPos: { top: '50%', left: '50%', transform: 'translate(-50%, -50%)', bottom: 'auto', right: 'auto' },
+        onEnter: () => {
+          positionSpotlight(null);
+          const nextBtn = document.getElementById('tut-next-btn');
+          if (nextBtn) {
+            nextBtn.innerText = "Start Using Pinpoint";
+            nextBtn.style.display = 'inline-block';
+          }
+        },
+        onExit: () => {
+          const nextBtn = document.getElementById('tut-next-btn');
+          if (nextBtn) {
+            nextBtn.innerText = "Next";
+          }
+        }
+      }
+    ];
+
+    
+    window.restartTutorial = function() {
+      localStorage.removeItem('pinpoint_onboarding_completed_v2');
+      window.location.reload();
+    };
+
+    window.advanceTutorial = function() {
+      if (window._tutGlobalRaf) { cancelAnimationFrame(window._tutGlobalRaf); window._tutGlobalRaf = null; }
+      const current = tutorialSteps[window.currentTutorialStep - 1];
+      if (current && current.onExit) current.onExit();
+      
+      const nextStepIndex = window.currentTutorialStep; 
+      if (nextStepIndex >= tutorialSteps.length) {
+        hideTutorialOverlay();
+        document.getElementById('tut-instruction-card').style.display = 'none';
+        return;
+      }
+      
+      const step = tutorialSteps[nextStepIndex];
+      window.currentTutorialStep = step.id;
+      
+      const skipBtn = document.getElementById('tut-skip-btn');
+      if (skipBtn) {
+        skipBtn.style.display = (step.id >= 1 && step.id <= 10) ? 'block' : 'none';
+      }
+
+      const card = document.getElementById('tut-instruction-card');
+      
+      document.getElementById('tut-step-ind').innerText = "Step " + step.id + " of 11";
+      document.getElementById('tut-headline').innerText = step.headline;
+      document.getElementById('tut-body').innerHTML = step.body;
+      const nextBtn = document.getElementById('tut-next-btn');
+      if (nextBtn) {
+        nextBtn.innerText = step.btnText || "Next";
+        nextBtn.style.display = step.showNext ? 'inline-block' : 'none';
+        nextBtn.onclick = null;
+        nextBtn.setAttribute('onclick', 'advanceTutorial()');
+      }
+      
+      card.style.top = 'auto';
+      card.style.bottom = 'auto';
+      card.style.left = 'auto';
+      card.style.right = 'auto';
+      card.style.transform = 'none';
+      card.style.maxWidth = '340px';
+      Object.assign(card.style, step.cardPos);
+      
+      if (step.target) {
+        positionSpotlight(step.target, step.padding !== undefined ? step.padding : 0);
+      } else {
+        positionSpotlight(null);
+      }
+      
+      if (typeof updateTutorialLockdown === 'function') {
+        updateTutorialLockdown(step.id);
+      }
+
+      if (step.onEnter) step.onEnter();
+      card.style.display = 'block';
+      card.className = 'tut-card-enter';
+    };
+</script>
+</body>
+</html>

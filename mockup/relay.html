@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Relay Client Portal - Cal Industries</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --color-bg: #0D0D12;
+      --color-card: #1A1A24;
+      --color-sidebar: #111118;
+      --color-white: #FFFFFF;
+      --color-light: #A0A8B8;
+      --color-slate: #6B7280;
+      --color-blue: #2F80ED;
+      --color-pink: #E34C89;
+      --color-orange: #FF7F50;
+      --color-green: #10B981;
+      
+      --gradient-brand: linear-gradient(135deg, var(--color-blue), #8E54E9, var(--color-pink), var(--color-orange));
+      --glass-border: rgba(255,255,255,0.08);
+      
+      --nav-height: 70px;
+      --sidebar-width: 240px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { overflow-x: hidden; max-width: 100vw; }
+    body {
+      font-family: 'Public Sans', sans-serif;
+      background-color: var(--color-bg);
+      color: var(--color-white);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.5;
+      overflow-x: hidden; max-width: 100vw;
+      /* Mobile default */
+    .card-title { font-size: 11px; letter-spacing: 0.05em; color: var(--color-slate); }
+
+      padding-top: var(--nav-height);
+      padding-bottom: 70px; /* space for bottom tab bar */
+    }
+
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    button { border: none; background: none; font-family: inherit; cursor: pointer; }
+
+    /* Typography */
+    .text-gradient {
+      background: var(--gradient-brand);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .text-slate { color: var(--color-slate); font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; }
+    .text-light { color: var(--color-light); }
+    .text-blue { color: var(--color-blue); }
+    .text-violet { color: var(--color-violet); }
+    .text-green { color: var(--color-green); }
+    .font-bold { font-weight: 700; }
+    .text-sm { font-size: 11px; }
+    .text-xs { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-slate); opacity: 0.8; }
+    .uppercase { text-transform: uppercase; letter-spacing: 0.05em; }
+    .italic { font-style: italic; }
+
+    /* Layout & Liquid Glass */
+    
+    .glass-card {
+      position: relative;
+      background: var(--color-card);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      padding: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    }
+    .glass-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1.5px; background: var(--gradient-brand); opacity: 1; border-top-left-radius: inherit; border-top-right-radius: inherit; z-index: 10; }
+
+    
+    /* Top Nav */
+    .top-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 100;
+      border-bottom: 1px solid var(--glass-border);
+      background: var(--color-bg);
+    }
+    .nav-left { display: flex; align-items: center; gap: 8px; }
+    .nav-left .logo-icon { width: 24px; height: 24px; background: var(--color-blue); border-radius: 4px; }
+    .nav-left .logo-text { font-size: 1.125rem; }
+    
+    .nav-right { display: flex; align-items: center; gap: 24px; }
+    .powered-by-group { display: none; }
+    .nav-actions { display: flex; align-items: center; gap: 8px; }
+    
+    .bell-icon-wrap { position: relative; width: 24px; height: 24px; color: var(--color-slate); }
+    .bell-badge {
+      position: absolute; top: -4px; right: -4px;
+      background: var(--color-pink); color: white;
+      font-size: 0.625rem; font-weight: 700;
+      width: 16px; height: 16px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .user-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--color-blue); }
+
+    /* Sidebar / Bottom Tab Bar */
+    .sidebar { border-right: 1px solid rgba(255,127,80,0.3);
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      z-index: 90;
+      padding: 0 10px;
+      border-right: 1px solid var(--glass-border);
+      border-top: 1px solid var(--glass-border);
+      background: var(--color-sidebar);
+    }
+    
+    @media (min-width: 960px) {
+      body {
+        padding-top: var(--nav-height);
+        padding-bottom: 0;
+        /* overflow: hidden; */
+      }
+      .powered-by-group { display: flex; align-items: center; gap: 8px; font-size: 11px; }
+      
+      .sidebar { border-right: 1px solid rgba(255,127,80,0.3);
+        bottom: 0; left: 0; top: var(--nav-height);
+        width: var(--sidebar-width); height: calc(100vh - var(--nav-height));
+        flex-direction: column; align-items: stretch; justify-content: flex-start;
+        padding: 24px 0; border-top: none; border-right: 1px solid var(--glass-border);
+        background: var(--color-sidebar);
+      }
+      
+      .sidebar-header { display: flex; flex-direction: column; padding: 0 24px 24px 24px; gap: 4px; border-bottom: 1px solid var(--glass-border); margin-bottom: 16px; }
+      .sidebar-footer { display: flex; align-items: center; gap: 8px; padding: 24px; border-top: 1px solid var(--glass-border); margin-top: auto; }
+      
+      .nav-menu { display: flex; width: 100%; justify-content: space-around; }
+    .nav-item {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      color: var(--color-slate); text-decoration: none; font-size: 0.625rem;
+      padding: 8px 4px; min-width: 44px; min-height: 44px;
+    }
+    .nav-item svg { width: 20px; height: 20px; }
+        .nav-item span { display: none; }
+    @media (min-width: 960px) {
+      .nav-item span { display: inline; }
+    }
+    .nav-item.active { color: var(--color-white); }
+    .nav-item.active span { color: var(--color-orange) !important; }
+      .nav-item.active svg { color: var(--color-orange) !important; }
+    
+    /* Main Content */
+    .dashboard-content { padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+    
+    /* Row 1: Stat Cards */
+    .stat-unified-card {
+      position: relative;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      padding: 24px 32px;
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      justify-content: flex-start;
+      margin: 16px 0;
+    }
+    .stat-unified-card::before {
+      content: "";
+      position: absolute; top: 0; left: 0; right: 0; height: 1.5px;
+      background: var(--gradient-brand);
+      border-top-left-radius: inherit; border-top-right-radius: inherit;
+      z-index: 10;
+    }
+
+    .stat-cards { display: flex; flex-direction: row; gap: 8px; }
+    .stat-card { display: flex; flex-direction: column; gap: 8px; }
+        .stat-number {
+      color: var(--color-white);
+      display: inline-block;
+      line-height: 1;
+      margin: 4px 0;
+    }
+    
+    .progress-bar-wrap { width: 100%; height: 8px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden; margin-top: 8px; }
+    .progress-fill { height: 100%; width: 66.66%; background: var(--color-blue); border-radius: 4px; }
+    
+    .tag { display: inline-flex; align-items: center; background: rgba(47, 128, 237, 0.15); color: var(--color-blue); padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; width: max-content; margin-top: 8px; }
+    
+    .status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+    .status-dot.green { background: var(--color-green); box-shadow: 0 0 8px rgba(16, 185, 129, 0.5); }
+    .status-dot.pink { background: var(--color-pink); }
+    .status-dot.violet { background: var(--color-violet); }
+    .status-dot.blue { background: var(--color-blue); }
+    .status-dot.amber { background: var(--color-amber); }
+    
+    .status-line { display: flex; align-items: center; margin-top: 8px; font-size: 11px; color: var(--color-light); }
+
+    /* Row 2: Composer & Activity */
+    .row-2 { display: grid; grid-template-columns: 1fr; gap: 8px; }
+    
+    .composer-card { display: flex; flex-direction: column; }
+    .composer-card textarea {
+      width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; padding: 16px; color: var(--color-white); font-family: inherit; font-size: 1rem;
+      resize: none; margin: 16px 0; outline: none; transition: border-color 0.2s ease;
+    }
+    .composer-card textarea:focus { border-color: var(--color-blue); }
+    .composer-actions { display: flex; justify-content: space-between; align-items: center; }
+    .attach-btn { display: flex; align-items: center; gap: 8px; color: var(--color-slate); font-size: 11px; min-height: 44px; }
+    .btn-pill {
+      background: var(--color-blue); color: white; border-radius: 50px; padding: 10px 24px;
+      font-weight: 700; font-size: 11px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center;
+    }
+
+    .activity-list { margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
+    .activity-item { display: flex; align-items: flex-start; gap: 8px; font-size: 11px; }
+    .activity-item .status-dot { margin-top: 6px; flex-shrink: 0; }
+    .activity-details { flex-grow: 1; color: var(--color-light); font-size: 13px; }
+    .activity-time { color: var(--color-slate); font-size: 11px; margin-top: 2px; }
+
+    .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .link-blue { color: var(--color-blue); text-decoration: none; font-size: 11px; }
+    
+    .revision-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+    .revision-table tr { border-bottom: 1px solid var(--glass-border); }
+    .revision-table tr:last-child { border-bottom: none; }
+    .revision-table td { padding: 12px 0; color: var(--color-light); }
+    .revision-table td:nth-child(1) { color: var(--color-slate); width: 15%; }
+    .revision-table td:nth-child(2) { width: 45%; }
+    .revision-table td:nth-child(3) { color: var(--color-slate); width: 20%; }
+    .revision-table td:nth-child(4) { text-align: right; width: 20%; }
+
+    .badge { padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; }
+    .badge-pink { background: rgba(227, 76, 137, 0.15); color: var(--color-pink); }
+
+    .btn-download {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--color-light);
+      transition: border-color 0.2s ease;
+      text-decoration: none;
+    }
+    .btn-download:hover {
+      border-color: var(--color-blue);
+    }
+    .badge-green { background: rgba(16, 185, 129, 0.15); color: var(--color-green); }
+    .badge-amber { background: rgba(245, 158, 11, 0.15); color: var(--color-amber); }
+
+    .quick-actions { display: flex; flex-direction: column; gap: 8px; }
+    .action-btn { display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-radius: 6px; text-align: left; width: 100%; background: var(--gradient-brand); color: white; border: none; cursor: pointer; }
+                .action-btn-icon { width: 18px; height: 18px; flex-shrink: 0; color: white; display: block; }
+    .action-btn-content { display: flex; flex-direction: column; gap: 2px; }
+    .action-btn-title { color: white; font-weight: 700; font-size: 12px; font-family: 'Public Sans', sans-serif; }
+    
+    /* Invoices */
+    .invoice-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+    .invoice-table tr { border-bottom: 1px solid var(--glass-border); }
+    .invoice-table tr:last-child { border-bottom: none; }
+    .invoice-table td { padding: 12px 0; color: var(--color-light); font-size: 13px; vertical-align: middle; }
+    .invoice-table td:nth-child(1) { color: var(--color-slate); width: 15%; }
+    .invoice-table td:nth-child(2) { width: 40%; color: var(--color-light); }
+    .invoice-table td:nth-child(3) { font-weight: 700; width: 15%; color: var(--color-white); }
+    .invoice-table td:nth-child(4) { color: var(--color-slate); width: 15%; }
+    .invoice-table td:nth-child(5) { text-align: right; width: 15%; vertical-align: middle; }
+
+    /* Site Info & Footer */
+    .site-info-bar { display: flex; flex-direction: column; gap: 8px; padding: 24px; font-size: 13px; color: var(--color-slate); border-top: 1px solid var(--glass-border); }
+    .footer { padding: 20px 24px; text-align: center; font-size: 13px; color: var(--color-slate); border-top: 1px solid var(--glass-border); }
+
+    
+    /* FOOTER */
+    .site-footer {
+      position: relative;
+      padding: 40px 24px;
+      overflow: hidden;
+      border-top: 1.5px solid transparent;
+      margin-top: auto;
+    }
+    
+    .site-footer::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 1.5px;
+      background: var(--gradient-brand);
+      z-index: 10;
+    }
+
+    .site-footer-bg {
+      position: absolute;
+      top: -30px;
+      left: -30px;
+      right: -30px;
+      bottom: -30px;
+      z-index: 0;
+      background-color: rgba(0,0,0,0.45);
+      backdrop-filter: url(#liquid-prism-intense) blur(12px);
+      -webkit-backdrop-filter: blur(12px); /* Safari fallback */
+    }
+    .site-footer-glass {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-image: url('../assets/backgrounds/transparent-glass.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      opacity: 0.11;
+      pointer-events: none;
+    }
+
+    .footer-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 1320px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      align-items: center;
+    }
+    
+    @media (min-width: 960px) {
+      .footer-inner {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+    
+    .footer-left,
+    .footer-center,
+    .footer-right {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    
+    @media (min-width: 960px) {
+      .footer-left {
+        align-items: flex-start;
+        text-align: left;
+        flex: 1;
+      }
+      .footer-center {
+        flex: 1;
+        align-items: center;
+      }
+      .footer-right {
+        align-items: flex-end;
+        text-align: right;
+        flex: 1;
+      }
+    }
+
+    .footer-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .footer-contact a {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 400;
+      font-size: 0.9375rem;
+      color: #E5E7EB;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .footer-contact a:hover { color: #FFFFFF; }
+
+    .footer-center {
+      gap: 12px;
+    }
+
+    .footer-logo img {
+      height: 72px;
+      width: auto;
+    }
+    
+    .footer-tagline {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 400;
+      font-size: 0.8125rem;
+      font-style: italic;
+      color: #E5E7EB;
+      margin: 0;
+      max-width: 260px;
+    }
+
+    .footer-social {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .social-icon.icon-only {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #FFFFFF;
+      text-decoration: none;
+      transition: background 0.2s ease, opacity 0.2s ease;
+    }
+    .social-icon.icon-only:hover {
+      background: rgba(255,255,255,0.15);
+      opacity: 0.9;
+    }
+    
+    .footer-bottom {
+      position: relative;
+      z-index: 2;
+      max-width: 1320px;
+      margin: 40px auto 0;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 24px;
+      width: 100%;
+    }
+    
+    .footer-copy {
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 400;
+      font-size: 0.75rem;
+      color: #4B5563;
+      margin: 0;
+    }
+
+    /* Desktop Layout Overrides */
+    @media (min-width: 960px) {
+      body {
+        padding-top: var(--nav-height);
+        padding-bottom: 0;
+        /* overflow: hidden; */
+      }
+      .powered-by-group { display: flex; align-items: center; gap: 8px; font-size: 11px; }
+      
+      .sidebar { border-right: 1px solid rgba(255,127,80,0.3);
+        bottom: 0; left: 0; top: var(--nav-height);
+        width: var(--sidebar-width); height: calc(100vh - var(--nav-height));
+        flex-direction: column; align-items: stretch; justify-content: flex-start;
+        padding: 24px 0; border-top: none; border-right: 1px solid rgba(255,255,255,0.15);
+      }
+      
+      .sidebar-header { display: flex; flex-direction: column; padding: 0 24px 24px 24px; gap: 4px; border-bottom: 1px solid var(--glass-border); margin-bottom: 16px; }
+      .sidebar-footer { display: flex; align-items: center; gap: 8px; padding: 24px; border-top: 1px solid var(--glass-border); margin-top: auto; }
+      
+      .nav-menu { flex-direction: column; justify-content: flex-start; gap: 4px; padding: 0 12px; width: 100%; }
+      .nav-item { flex-direction: row; justify-content: flex-start; gap: 8px; padding: 10px 16px; font-size: 11px; border-radius: 6px; }
+      .nav-item.active { position: relative; background: rgba(255, 127, 80, 0.1) !important; color: var(--color-white); }
+      .nav-item.active::before { content: ''; position: absolute; left: -12px; top: 10%; height: 80%; width: 3px; background: var(--color-orange) !important; border-radius: 0 4px 4px 0; }
+      
+      .dashboard-content {
+        margin-left: var(--sidebar-width);
+        min-height: calc(100vh - var(--nav-height));
+        overflow-y: visible;
+        overflow-x: hidden;
+        padding: 16px;
+        gap: 8px;
+      }
+      
+      
+      .row-2 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      
+      
+      
+      .site-info-bar { flex-direction: row; justify-content: space-between; align-items: center; border-top: none; padding: 0; margin-top: 16px; }
+    }
+
+    
+    .full-bleed {
+      margin-left: -16px;
+      margin-right: -16px;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+    @media (min-width: 960px) {
+    }
+    
+    
+    /* Sticky FAB */
+    .fab-message {
+      position: fixed;
+      bottom: 94px; /* 70px bottom bar + 24px padding on mobile */
+      right: 16px;
+      background: var(--color-blue);
+      color: white;
+      font-weight: 700;
+      font-size: 11px;
+      padding: 8px 16px;
+      border-radius: 50px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 1000;
+      text-decoration: none;
+    }
+    @media (min-width: 960px) {
+      .fab-message {
+        bottom: 24px;
+        right: 24px;
+        padding: 10px 20px;
+        font-size: 12px;
+      }
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
+
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <nav class="top-nav">
+    <!-- Left Side (Empty to maintain true center balance) -->
+    <div class="nav-left" style="flex: 1; display: flex; justify-content: flex-start; align-items: center;">
+    </div>
+
+    <!-- Center -->
+    <div class="nav-center" style="flex: 0 0 auto; display: flex; justify-content: center; align-items: center; gap: 24px;">
+      
+      <!-- Client Logo -->
+      <img src="../brand/logos/CAL-INDUSTRIES_PRIMARY_LOGO.svg" alt="Cal Industries" style="width: 125px; height: auto; position: relative; top: 2px;">
+      
+      <!-- Interlocking Chevrons -->
+      <svg width="60" height="50" viewBox="-60 -30 120 60">
+        <!-- Left chevron pointing right -->
+        <polyline points="-50,-20 -15,0 -50,20" stroke="#E34C89" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+        <polyline points="-30,-20 5,0 -30,20" stroke="#E34C89" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.4" />
+        <!-- Right chevron pointing left -->
+        <polyline points="50,-20 15,0 50,20" stroke="#E34C89" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+        <polyline points="30,-20 -5,0 30,20" stroke="#E34C89" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.4" />
+      </svg>
+      
+      <!-- Relay Logo -->
+      <img src="../brand/relay-logo.svg" alt="Relay Brand Mark" style="width: 105px; height: auto; position: relative; top: 7px;">
+
+    </div>
+
+    <!-- Right Side -->
+    <div class="nav-right" style="flex: 1; display: flex; justify-content: flex-end; align-items: center; gap: 16px;">
+      <div class="nav-actions" style="display: flex; align-items: center; gap: 16px;">
+        <button class="bell-icon-wrap" style="background:none; border:none; padding:8px; margin:-8px; cursor:pointer;" onclick="document.getElementById('notification-dropdown').style.display = document.getElementById('notification-dropdown').style.display === 'none' ? 'block' : 'none'; event.stopPropagation();">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+          <span class="bell-badge">2</span>
+        </button>
+        <div id="notification-dropdown" style="display: none; position: absolute; top: 60px; right: 60px; background: #1A1A1A; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; width: 300px; z-index: 1000; box-shadow: 0 8px 32px rgba(0,0,0,0.4); padding: 16px; text-align: left;">
+          <h4 style="font-family: 'Public Sans', sans-serif; font-size: 14px; font-weight: 700; color: white; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px;">Notifications</h4>
+          <div style="font-family: 'Public Sans', sans-serif; font-size: 13px; color: var(--color-light); margin-bottom: 8px; line-height: 1.4;"><strong style="color: white;">Pinpoint</strong><br>3 new comments on Homepage.</div>
+          <div style="font-family: 'Public Sans', sans-serif; font-size: 13px; color: var(--color-light); line-height: 1.4;"><strong style="color: white;">System</strong><br>Your monthly report is ready.</div>
+        </div>
+        <img src="../brand/logos/CAL-INDUSTRIES_SECONDARY_ICON.svg" alt="Profile" style="width: 32px; height: 32px;">
+      </div>
+    </div>
+  </nav>
+
+  <!-- Left Sidebar (Bottom Tab on Mobile) -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <span class="font-bold">Cal Industries</span>
+      <span class="text-xs text-blue font-bold uppercase" style="margin-top: 4px;">Tier 02 Plan</span>
+      <div class="status-line" style="margin-top: 12px;">
+        <span class="status-dot green"></span> Site Live
+      </div>
+    </div>
+
+    <div class="nav-menu">
+      <a href="#" class="nav-item active" data-target="view-overview">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+        <span class="font-bold">Overview</span>
+      </a>
+      <a href="#" class="nav-item" data-target="view-messages">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        <span>Messages</span>
+      </a>
+      <a href="#" class="nav-item" data-target="view-revisions">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+        <span>Revision Log</span>
+      </a>
+      <a href="#" class="nav-item" data-target="view-invoices">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+        <span>Invoices</span>
+      </a>
+    </div>
+
+    <div class="sidebar-footer" style="flex-direction: column; justify-content: center; text-align: center; gap: 24px;">
+      
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+        <img src="../brand/logos/IDC_BRANDMARKICON.svg" alt="IDC Logo" style="width: 40px; height: auto;">
+        <span class="text-xs text-slate" style="font-size: 0.65rem;">Powered by<br>Inspire Designs Collective.</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Scrollable Content -->
+    <main class="dashboard-content">
+    
+    <div id="view-overview" class="view-panel active" style="display: flex; flex-direction: column; gap: 8px;">
+    <!-- ROW ONE: 3 Stat Cards -->
+        <div class="stat-unified-card stat-cards">
+      
+      <!-- Stat 1 -->
+      <div style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 8px; border-right: 1px solid rgba(255,255,255,0.08); padding-right: 24px;">
+        
+        <span class="font-bold" style="font-size: 42px; color: var(--color-white); line-height: 1; font-family: 'Public Sans', sans-serif;">2 of 3</span>
+        <span class="text-slate uppercase font-bold" style="font-size: 10px; letter-spacing: 0.05em; color: var(--color-slate);">REVISION ROUNDS THIS MONTH</span>
+      </div>
+      
+      <!-- Stat 2 -->
+      <div style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 8px; border-right: 1px solid rgba(255,255,255,0.08); padding-left: 24px; padding-right: 24px;">
+        <span class="text-slate uppercase font-bold" style="font-size: 10px; letter-spacing: 0.05em; color: var(--color-slate);">Unread Messages</span>
+        <span class="font-bold" style="font-size: 42px; color: var(--color-white); line-height: 1; font-family: 'Public Sans', sans-serif;">2</span>
+        <span style="color: var(--color-light); font-size: 11px;">Awaiting response</span>
+      </div>
+      
+      <!-- Stat 3 -->
+      <div style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 8px; padding-left: 24px;">
+        <span class="text-slate uppercase font-bold" style="font-size: 10px; letter-spacing: 0.05em; color: var(--color-slate);">Last Updated</span>
+        <span class="font-bold" style="font-size: 42px; color: var(--color-white); line-height: 1; font-family: 'Public Sans', sans-serif;">September 12, 2025</span>
+        <div style="display: flex; align-items: center; gap: 6px; color: var(--color-light); font-size: 11px;">
+          <span class="status-dot green" style="margin:0; width: 6px; height: 6px;"></span> All changes live
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ROW TWO: 3 Equal Columns -->
+    <div class="row-2" style="flex: 0 0 auto;">
+      
+      <!-- Quick Actions -->
+      <div class="glass-card" style="padding: 16px; display: flex; flex-direction: column; min-width: 0;">
+        <span class="card-title text-slate uppercase font-bold" style="display:block; margin-bottom: 12px; ">QUICK ACTIONS</span>
+        <div class="quick-actions" >
+          
+          <button class="action-btn" onclick="document.getElementById('modal-pinpoint').classList.add('active')">
+            <svg class="action-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <div class="action-btn-content">
+              <span class="action-btn-title">Launch Pinpoint</span>
+            </div>
+          </button>
+          
+          <button class="action-btn" onclick="document.getElementById('modal-upload').classList.add('active')">
+            <svg class="action-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+            <div class="action-btn-content">
+              <span class="action-btn-title">Upload Media</span>
+            </div>
+          </button>
+          
+          <button class="action-btn" onclick="window.open('https://cal-industries.com', '_blank')">
+            <svg class="action-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            <div class="action-btn-content">
+              <span class="action-btn-title">View Live Site</span>
+            </div>
+          </button>
+          
+          <button class="action-btn" onclick="document.querySelector('.sidebar .nav-item[data-target=\'view-messages\']').click()">
+            <svg class="action-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <div class="action-btn-content">
+              <span class="action-btn-title">Send a Message</span>
+            </div>
+          </button>
+          
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="glass-card" style="padding: 16px; display: flex; flex-direction: column; min-width: 0;">
+        <span class="card-title text-slate uppercase font-bold" style="display:block; margin-bottom: 12px; ">RECENT ACTIVITY</span>
+        <div class="activity-list" >
+          <div class="activity-item">
+            <span class="status-dot pink"></span>
+            <div class="activity-details">
+              <div>Revision submitted: Update hero image</div>
+              <div class="activity-time">September 26, 2026</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <span class="status-dot green"></span>
+            <div class="activity-details">
+              <div>Invoice paid: October Retainer</div>
+              <div class="activity-time">September 23, 2026</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <span class="status-dot blue"></span>
+            <div class="activity-details">
+              <div>Message received: Michael</div>
+              <div class="activity-time">September 21, 2026</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Invoice History -->
+      <div class="glass-card" style="padding: 16px; display: flex; flex-direction: column; min-width: 0;">
+        <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <span class="card-title text-slate uppercase font-bold" style="">INVOICE HISTORY</span>
+          <a href="#" class="link-blue" style="font-size: 11px;">View All</a>
+        </div>
+        <div>
+          <table class="invoice-table">
+            <tr>
+              <td>INV-003</td>
+              <td>Website Management</td>
+              <td>$250</td>
+              <td>October 1, 2026</td>
+              <td>
+                <div style="display: flex; justify-content: flex-end; align-items: center; gap: 8px;">
+                  <span class="badge badge-amber">Due</span>
+                  <a href="#" class="btn-download" title="Download Invoice">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                  </a>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>INV-002</td>
+              <td>Website Management</td>
+              <td>$250</td>
+              <td>September 1, 2026</td>
+              <td>
+                <div style="display: flex; justify-content: flex-end; align-items: center; gap: 8px;">
+                  <span class="badge badge-green">Paid</span>
+                  <a href="#" class="btn-download" title="Download Invoice">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                  </a>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>INV-001</td>
+              <td>Tier 02 Website Build</td>
+              <td>$1,499</td>
+              <td>August 1, 2026</td>
+              <td>
+                <div style="display: flex; justify-content: flex-end; align-items: center; gap: 8px;">
+                  <span class="badge badge-green">Paid</span>
+                  <a href="#" class="btn-download" title="Download Invoice">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                  </a>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+    </div>
+    <!-- ROW THREE: Site Info Horizontal -->
+    <div class="glass-card" style="padding: 16px; display: flex; flex-direction: column; align-items: flex-start; gap: 12px; flex: 0 0 auto;">
+      <span class="card-title text-slate uppercase font-bold" style=" white-space: nowrap;">SITE INFO</span>
+      <div style="display: flex; align-items: center; justify-content: flex-start; gap: 16px; flex-wrap: wrap; width: 100%; font-size: 11px;">
+        
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span class="text-slate uppercase" style="">Domain</span>
+          <span class="text-light font-bold">cal-industries.com</span>
+        </div>
+        
+        
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span class="text-slate uppercase" style="">Domain Registrar</span>
+          <span class="text-light font-bold">Namecheap</span>
+        </div>
+        
+        
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span class="text-slate uppercase" style="">Hosting</span>
+          <span class="text-light font-bold">Netlify</span>
+        </div>
+        
+        
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span class="text-slate uppercase" style="">Domain Renewal</span>
+          <span class="text-light font-bold">October 1, 2026</span>
+        </div>
+        
+        
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span class="text-slate uppercase" style="">Plan</span>
+          <span class="text-light font-bold">Tier 02 Multi-Page Website</span>
+        </div>
+        
+        
+                <div style="display: flex; align-items: center; gap: 8px;">
+          <span class="text-slate uppercase" style="">Next Billing Date</span>
+          <span class="text-light font-bold">October 1, 2026</span>
+        </div>
+        
+      </div>
+
+    
+    </div>
+
+
+    </div>
+
+
+    
+    
+    </div> <!-- Close view-overview -->
+
+    <!-- VIEW: MESSAGES -->
+    <div id="view-messages" class="view-panel" style="display: none; height: 100%; min-height: 600px; gap: 16px;">
+      <!-- Left Panel -->
+      <div class="glass-card" style="width: 35%; display: flex; flex-direction: column; overflow: hidden; padding: 0;">
+        <div class="card-title text-slate uppercase font-bold" style="padding: 16px; border-bottom: 1px solid var(--glass-border);">Message Threads</div>
+        <div style="overflow-y: auto; flex: 1;">
+          <style>
+            .msg-thread { padding: 16px; border-bottom: 1px solid var(--glass-border); cursor: pointer; position: relative; border-left: 2px solid transparent; transition: background 0.2s, border-color 0.2s; }
+            .msg-thread:hover { background: rgba(255,255,255,0.02); }
+            .msg-thread.active { background: rgba(255,127,80,0.05); border-left: 2px solid var(--color-coral); }
+          </style>
+          <!-- Thread 1 -->
+          <div class="msg-thread active" onclick="switchThread(1, this)">
+            <span class="status-dot green" style="background: var(--color-orange); position: absolute; left: 16px; top: 22px; width: 6px; height: 6px; box-shadow: none;"></span>
+            <div style="margin-left: 14px;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                <span style="font-weight: 700; font-size: 13px; color: var(--color-white);">Michael at Inspire Designs</span>
+                <span style="font-size: 10px; color: var(--color-slate);">Sep 24, 2026</span>
+              </div>
+              <div style="font-size: 11px; color: var(--color-slate); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Your hero section update is complete and live...</div>
+            </div>
+          </div>
+          <!-- Thread 2 -->
+          <div class="msg-thread" onclick="switchThread(2, this)">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+              <span style="font-weight: 700; font-size: 13px; color: var(--color-white);">Cal Industries</span>
+              <span style="font-size: 10px; color: var(--color-slate);">Sep 21, 2026</span>
+            </div>
+            <div style="font-size: 11px; color: var(--color-slate); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Thanks! One more thing, can we also update...</div>
+          </div>
+          <!-- Thread 3 -->
+          <div class="msg-thread" onclick="switchThread(3, this)">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+              <span style="font-weight: 700; font-size: 13px; color: var(--color-white);">Michael at Inspire Designs</span>
+              <span style="font-size: 10px; color: var(--color-slate);">Sep 18, 2026</span>
+            </div>
+            <div style="font-size: 11px; color: var(--color-slate); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Just a heads up your October invoice...</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Right Panel Thread 1 -->
+      <div id="thread-content-1" class="glass-card thread-content-panel" style="width: 65%; display: flex; flex-direction: column; overflow: hidden; position: relative; padding: 0;">
+        <div class="card-title text-slate uppercase font-bold" style="padding: 16px; border-bottom: 1px solid var(--glass-border);">Michael at Inspire Designs</div>
+        
+        <div style="flex: 1; padding: 24px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px;">
+          <div style="align-self: flex-start; max-width: 80%; background: rgba(255,255,255,0.05); padding: 12px 16px; border-radius: 12px 12px 12px 0; font-size: 13px; color: var(--color-light);">
+            Hey! Just wanted to let you know the hero section image has been updated and is now live on your site. Let me know if you want any adjustments.
+          </div>
+          <div style="align-self: flex-end; max-width: 80%; background: rgba(255,127,80,0.15); border: 1px solid rgba(255,127,80,0.3); padding: 12px 16px; border-radius: 12px 12px 0 12px; font-size: 13px; color: var(--color-white);">
+            Looks great! Thank you so much. Can we also get the phone number updated in the footer?
+          </div>
+          <div style="align-self: flex-start; max-width: 80%; background: rgba(255,255,255,0.05); padding: 12px 16px; border-radius: 12px 12px 12px 0; font-size: 13px; color: var(--color-light);">
+            Absolutely, I will get that taken care of today and send you a confirmation once it is live.
+          </div>
+        </div>
+        
+        <!-- Input Area -->
+        <div style="padding: 16px; border-top: 1px solid var(--glass-border); display: flex; gap: 12px; align-items: center;">
+          <input type="text" placeholder="Type a message..." style="flex: 1; background: transparent; border: 1px solid var(--glass-border); border-radius: 20px; padding: 10px 16px; color: var(--color-white); font-size: 13px; outline: none; font-family: inherit;">
+          <button style="background: var(--color-orange); color: var(--color-white); border: none; border-radius: 20px; padding: 10px 24px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit;">Send</button>
+        </div>
+      </div>
+
+      <!-- Right Panel Thread 2 -->
+      <div id="thread-content-2" class="glass-card thread-content-panel" style="width: 65%; display: none; flex-direction: column; overflow: hidden; position: relative; padding: 0;">
+        <div class="card-title text-slate uppercase font-bold" style="padding: 16px; border-bottom: 1px solid var(--glass-border);">Cal Industries</div>
+        
+        <div style="flex: 1; padding: 24px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px;">
+          <div style="align-self: flex-end; max-width: 80%; background: rgba(255,127,80,0.15); border: 1px solid rgba(255,127,80,0.3); padding: 12px 16px; border-radius: 12px 12px 0 12px; font-size: 13px; color: var(--color-white);">
+            Thanks! One more thing, can we also update the staff photos on the about page?
+          </div>
+          <div style="align-self: flex-start; max-width: 80%; background: rgba(255,255,255,0.05); padding: 12px 16px; border-radius: 12px 12px 12px 0; font-size: 13px; color: var(--color-light);">
+            Of course. Just upload them using the Upload Media button on your dashboard and we'll swap them out.
+          </div>
+        </div>
+        
+        <div style="padding: 16px; border-top: 1px solid var(--glass-border); display: flex; gap: 12px; align-items: center;">
+          <input type="text" placeholder="Type a message..." style="flex: 1; background: transparent; border: 1px solid var(--glass-border); border-radius: 20px; padding: 10px 16px; color: var(--color-white); font-size: 13px; outline: none; font-family: inherit;">
+          <button style="background: var(--color-orange); color: var(--color-white); border: none; border-radius: 20px; padding: 10px 24px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit;">Send</button>
+        </div>
+      </div>
+
+      <!-- Right Panel Thread 3 -->
+      <div id="thread-content-3" class="glass-card thread-content-panel" style="width: 65%; display: none; flex-direction: column; overflow: hidden; position: relative; padding: 0;">
+        <div class="card-title text-slate uppercase font-bold" style="padding: 16px; border-bottom: 1px solid var(--glass-border);">Michael at Inspire Designs</div>
+        
+        <div style="flex: 1; padding: 24px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px;">
+          <div style="align-self: flex-start; max-width: 80%; background: rgba(255,255,255,0.05); padding: 12px 16px; border-radius: 12px 12px 12px 0; font-size: 13px; color: var(--color-light);">
+            Just a heads up your October invoice has been posted to your account.
+          </div>
+        </div>
+        
+        <div style="padding: 16px; border-top: 1px solid var(--glass-border); display: flex; gap: 12px; align-items: center;">
+          <input type="text" placeholder="Type a message..." style="flex: 1; background: transparent; border: 1px solid var(--glass-border); border-radius: 20px; padding: 10px 16px; color: var(--color-white); font-size: 13px; outline: none; font-family: inherit;">
+          <button style="background: var(--color-orange); color: var(--color-white); border: none; border-radius: 20px; padding: 10px 24px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit;">Send</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW: REVISION LOG -->
+    <div id="view-revisions" class="view-panel" style="display: none; flex-direction: column; gap: 16px;">
+      <div class="glass-card" style="padding: 24px;">
+        <input type="text" placeholder="Search revisions..." style="width: 100%; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: 8px; padding: 12px 16px; color: var(--color-white); font-size: 13px; outline: none; font-family: inherit; margin-bottom: 24px;">
+        
+        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+          <thead>
+            <tr style="border-bottom: 1px solid var(--glass-border);">
+              <th class="card-title text-slate" style="padding: 12px 16px; width: 10%;">ID</th>
+              <th class="card-title text-slate" style="padding: 12px 16px; width: 35%;">Description</th>
+              <th class="card-title text-slate" style="padding: 12px 16px; width: 15%;">Date</th>
+              <th class="card-title text-slate" style="padding: 12px 16px; width: 20%;">Submitted By</th>
+              <th class="card-title text-slate" style="padding: 12px 16px; width: 20%;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background: rgba(255,255,255,0.02); border-bottom: 1px solid rgba(255,255,255,0.04);">
+              <td style="padding: 16px; color: var(--color-white); font-size: 13px;">#008</td>
+              <td style="padding: 16px; color: var(--color-light); font-size: 13px;">Update phone number in footer</td>
+              <td style="padding: 16px; color: var(--color-slate); font-size: 13px;">Sep 24, 2026</td>
+              <td style="padding: 16px; color: var(--color-light); font-size: 13px;">Cal Industries</td>
+              <td style="padding: 16px;"><span class="badge badge-pink" style="display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; text-transform: uppercase; background: rgba(227, 76, 137, 0.15); color: var(--color-pink);">Open</span></td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.04);">
+              <td style="padding: 16px; color: var(--color-white); font-size: 13px;">#007</td>
+              <td style="padding: 16px; color: var(--color-light); font-size: 13px;">Update hero section image</td>
+              <td style="padding: 16px; color: var(--color-slate); font-size: 13px;">Sep 22, 2026</td>
+              <td style="padding: 16px; color: var(--color-light); font-size: 13px;">Cal Industries</td>
+              <td style="padding: 16px;"><span class="badge badge-amber" style="display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; text-transform: uppercase; background: rgba(245, 158, 11, 0.15); color: var(--color-amber);">In Progress</span></td>
+            </tr>
+            <tr style="background: rgba(255,255,255,0.02); border-bottom: 1px solid rgba(255,255,255,0.04);">
+              <td style="padding: 16px; color: var(--color-white); font-size: 13px;">#006</td>
+              <td style="padding: 16px; color: var(--color-light); font-size: 13px;">Fix mobile navigation menu</td>
+              <td style="padding: 16px; color: var(--color-slate); font-size: 13px;">Sep 18, 2026</td>
+              <td style="padding: 16px; color: var(--color-light); font-size: 13px;">Cal Industries</td>
+              <td style="padding: 16px;"><span class="badge badge-green" style="display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; text-transform: uppercase; background: rgba(16, 185, 129, 0.15); color: var(--color-green);">Resolved</span></td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.04);">
+              <td style="padding: 16px; color: var(--color-white); font-size: 13px;">#005</td>
+              <td style="padding: 16px; color: var(--color-light); font-size: 13px;">Add new service to services page</td>
+              <td style="padding: 16px; color: var(--color-slate); font-size: 13px;">Sep 12, 2026</td>
+              <td style="padding: 16px; color: var(--color-light); font-size: 13px;">Cal Industries</td>
+              <td style="padding: 16px;"><span class="badge badge-green" style="display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; text-transform: uppercase; background: rgba(16, 185, 129, 0.15); color: var(--color-green);">Resolved</span></td>
+            </tr>
+            <tr style="background: rgba(255,255,255,0.02); border-bottom: 1px solid rgba(255,255,255,0.04);">
+              <td style="padding: 16px; color: var(--color-white); font-size: 13px;">#004</td>
+              <td style="padding: 16px; color: var(--color-light); font-size: 13px;">Update business hours</td>
+              <td style="padding: 16px; color: var(--color-slate); font-size: 13px;">Sep 5, 2026</td>
+              <td style="padding: 16px; color: var(--color-light); font-size: 13px;">Cal Industries</td>
+              <td style="padding: 16px;"><span class="badge badge-green" style="display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; text-transform: uppercase; background: rgba(16, 185, 129, 0.15); color: var(--color-green);">Resolved</span></td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.04);">
+              <td style="padding: 16px; color: var(--color-white); font-size: 13px;">#003</td>
+              <td style="padding: 16px; color: var(--color-light); font-size: 13px;">Fix contact form submission</td>
+              <td style="padding: 16px; color: var(--color-slate); font-size: 13px;">Aug 28, 2026</td>
+              <td style="padding: 16px; color: var(--color-light); font-size: 13px;">Cal Industries</td>
+              <td style="padding: 16px;"><span class="badge badge-green" style="display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; text-transform: uppercase; background: rgba(16, 185, 129, 0.15); color: var(--color-green);">Resolved</span></td>
+            </tr>
+            <tr style="background: rgba(255,255,255,0.02); border-bottom: 1px solid rgba(255,255,255,0.04);">
+              <td style="padding: 16px; color: var(--color-white); font-size: 13px;">#002</td>
+              <td style="padding: 16px; color: var(--color-light); font-size: 13px;">Add new staff photo</td>
+              <td style="padding: 16px; color: var(--color-slate); font-size: 13px;">Aug 20, 2026</td>
+              <td style="padding: 16px; color: var(--color-light); font-size: 13px;">Cal Industries</td>
+              <td style="padding: 16px;"><span class="badge badge-green" style="display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; text-transform: uppercase; background: rgba(16, 185, 129, 0.15); color: var(--color-green);">Resolved</span></td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.04);">
+              <td style="padding: 16px; color: var(--color-white); font-size: 13px;">#001</td>
+              <td style="padding: 16px; color: var(--color-light); font-size: 13px;">Initial site launch review</td>
+              <td style="padding: 16px; color: var(--color-slate); font-size: 13px;">Sep 12, 2025</td>
+              <td style="padding: 16px; color: var(--color-light); font-size: 13px;">Cal Industries</td>
+              <td style="padding: 16px;"><span class="badge badge-green" style="display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; text-transform: uppercase; background: rgba(16, 185, 129, 0.15); color: var(--color-green);">Resolved</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- VIEW: INVOICES -->
+    <div id="view-invoices" class="view-panel" style="display: none; flex-direction: column; gap: 16px;">
+      <!-- Stats -->
+      <div class="stat-unified-card stat-cards" style="margin:0;">
+        <div style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 8px; border-right: 1px solid rgba(255,255,255,0.08); padding-right: 24px; flex: 1;">
+          <span class="text-slate uppercase font-bold" style="font-size: 10px; letter-spacing: 0.05em; color: var(--color-slate);">INVOICES THIS YEAR</span>
+          <span class="font-bold" style="font-size: 42px; color: var(--color-white); line-height: 1; font-family: 'Public Sans', sans-serif;">3</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 8px; border-right: 1px solid rgba(255,255,255,0.08); padding-left: 24px; padding-right: 24px; flex: 1;">
+          <span class="text-slate uppercase font-bold" style="font-size: 10px; letter-spacing: 0.05em; color: var(--color-slate);">AMOUNT OUTSTANDING</span>
+          <span class="font-bold" style="font-size: 42px; color: var(--color-white); line-height: 1; font-family: 'Public Sans', sans-serif;">$250</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 8px; padding-left: 24px; flex: 1;">
+          <span class="text-slate uppercase font-bold" style="font-size: 10px; letter-spacing: 0.05em; color: var(--color-slate);">NEXT DUE</span>
+          <span class="font-bold" style="font-size: 42px; color: var(--color-white); line-height: 1; font-family: 'Public Sans', sans-serif;">October 1, 2026</span>
+        </div>
+      </div>
+      
+      <!-- Invoices Table -->
+      <div class="glass-card" style="padding: 24px;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+          <thead>
+            <tr style="border-bottom: 1px solid var(--glass-border);">
+              <th class="card-title text-slate" style="padding: 12px 16px; width: 10%;">Invoice</th>
+              <th class="card-title text-slate" style="padding: 12px 16px; width: 35%;">Description</th>
+              <th class="card-title text-slate" style="padding: 12px 16px; width: 10%;">Amount</th>
+              <th class="card-title text-slate" style="padding: 12px 16px; width: 15%;">Date Issued</th>
+              <th class="card-title text-slate" style="padding: 12px 16px; width: 15%;">Due Date</th>
+              <th class="card-title text-slate" style="padding: 12px 16px; width: 10%;">Status</th>
+              <th class="card-title text-slate" style="padding: 12px 16px; width: 5%;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background: rgba(255,255,255,0.02); border-bottom: 1px solid rgba(255,255,255,0.04);">
+              <td style="padding: 16px; color: var(--color-slate); font-size: 13px;">INV-003</td>
+              <td style="padding: 16px; color: var(--color-light); font-size: 13px;">Website Management</td>
+              <td style="padding: 16px; color: var(--color-white); font-weight: 700; font-size: 13px;">$250</td>
+              <td style="padding: 16px; color: var(--color-slate); font-size: 13px;">Sep 1, 2026</td>
+              <td style="padding: 16px; color: var(--color-light); font-size: 13px;">Oct 1, 2026</td>
+              <td style="padding: 16px;"><span class="badge badge-amber" style="display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; text-transform: uppercase; background: rgba(245, 158, 11, 0.15); color: var(--color-amber);">Due</span></td>
+              <td style="padding: 16px; text-align: right;"><a href="#" style="color: var(--color-light);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></a></td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.04);">
+              <td style="padding: 16px; color: var(--color-slate); font-size: 13px;">INV-002</td>
+              <td style="padding: 16px; color: var(--color-light); font-size: 13px;">Website Management</td>
+              <td style="padding: 16px; color: var(--color-white); font-weight: 700; font-size: 13px;">$250</td>
+              <td style="padding: 16px; color: var(--color-slate); font-size: 13px;">Sep 12, 2025</td>
+              <td style="padding: 16px; color: var(--color-light); font-size: 13px;">Sep 1, 2026</td>
+              <td style="padding: 16px;"><span class="badge badge-green" style="display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; text-transform: uppercase; background: rgba(16, 185, 129, 0.15); color: var(--color-green);">Paid</span></td>
+              <td style="padding: 16px; text-align: right;"><a href="#" style="color: var(--color-light);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></a></td>
+            </tr>
+            <tr style="background: rgba(255,255,255,0.02); border-bottom: 1px solid rgba(255,255,255,0.04);">
+              <td style="padding: 16px; color: var(--color-slate); font-size: 13px;">INV-001</td>
+              <td style="padding: 16px; color: var(--color-light); font-size: 13px;">Tier 02 Website Build</td>
+              <td style="padding: 16px; color: var(--color-white); font-weight: 700; font-size: 13px;">$1,499</td>
+              <td style="padding: 16px; color: var(--color-slate); font-size: 13px;">Jul 15, 2026</td>
+              <td style="padding: 16px; color: var(--color-light); font-size: 13px;">Aug 1, 2026</td>
+              <td style="padding: 16px;"><span class="badge badge-green" style="display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; text-transform: uppercase; background: rgba(16, 185, 129, 0.15); color: var(--color-green);">Paid</span></td>
+              <td style="padding: 16px; text-align: right;"><a href="#" style="color: var(--color-light);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></a></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <div style="margin-top: 16px; font-size: 11px; color: var(--color-slate);">
+          Invoice questions? Contact us at <a href="mailto:hello@inspiredesignscollective.com" style="color: var(--color-slate); text-decoration: underline;">hello@inspiredesignscollective.com</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Help Pill Centered -->
+    <div style="display: flex; justify-content: center; margin-top: 16px; margin-bottom: 24px;">
+      <div style="background: #1A1A24; border: 1px solid rgba(255,127,80,0.3); border-radius: 999px; display: flex; align-items: center; gap: 12px; padding: 8px 20px; box-shadow: 0 8px 24px rgba(0,0,0,0.4);">
+        <span style="color: #FF7F50; font-size: 11px; font-weight: 700; text-transform: uppercase; font-family: 'Public Sans', sans-serif; letter-spacing: 0.05em;">Need help?</span>
+        <div style="width: 1px; height: 12px; background: rgba(255,255,255,0.15);"></div>
+        <a href="tel:4702282440" style="color: #E5E7EB; font-size: 12px; font-weight: 600; font-family: 'Public Sans', sans-serif; text-decoration: none;">(470) 228-2440</a>
+        <a href="mailto:hello@inspiredesignscollective.com" style="color: #E5E7EB; font-size: 12px; font-weight: 600; font-family: 'Public Sans', sans-serif; text-decoration: none;">hello@inspiredesignscollective.com</a>
+      </div>
+    </div>
+    
+    <!-- SITE INFO & FOOTER -->
+    <footer class="site-footer full-bleed">
+      <div class="site-footer-bg"></div>
+      <div class="site-footer-glass"></div>
+      <div class="footer-inner">
+        
+        <div class="footer-left">
+          <div class="footer-contact">
+            <a href="tel:4702282440">(470) 228-2440</a>
+            <a href="mailto:hello@inspiredesignscollective.com">hello@inspiredesignscollective.com</a>
+          </div>
+        </div>
+
+        <div class="footer-center">
+          <a href="#" class="footer-logo" aria-label="Inspire Designs Collective home">
+            <img src="../brand/logos/INSPIRE DESIGNS COLLECTIVE MASTER LOGO (WHITE TEXT).svg" alt="Inspire Designs Collective">
+          </a>
+          <p class="footer-tagline">Handling the details, so you can focus on the ministry.</p>
+        </div>
+
+        <div class="footer-right">
+          <div class="footer-social">
+            <a href="#" class="social-icon icon-only" aria-label="Facebook">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="#" class="social-icon icon-only" aria-label="Instagram">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 Inspire Designs Collective, LLC.</p>
+      </div>
+    </footer>
+
+  </main>
+
+<svg width="0" height="0" style="position: absolute;">
+  <defs>
+    <filter id="liquid-prism-intense" x="-10%" y="-10%" width="120%" height="120%" filterUnits="objectBoundingBox">
+      <feTurbulence type="fractalNoise" baseFrequency="0.001 0.005" numOctaves="1" seed="17" result="turbulence" />
+      <feComponentTransfer in="turbulence" result="mapped">
+        <feFuncR type="gamma" amplitude="1" exponent="10" offset="0.5" />
+        <feFuncG type="gamma" amplitude="0" exponent="1" offset="0" />
+        <feFuncB type="gamma" amplitude="0" exponent="1" offset="0.5" />
+      </feComponentTransfer>
+      <feGaussianBlur in="turbulence" stdDeviation="3" result="softMap" />
+      <feSpecularLighting in="softMap" surfaceScale="5" specularConstant="1" specularExponent="100" lighting-color="white" result="specLight">
+        <fePointLight x="-200" y="-200" z="300" />
+      </feSpecularLighting>
+      <feComposite in="specLight" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="litImage" />
+      <feDisplacementMap in="SourceGraphic" in2="softMap" scale="200" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+  </defs>
+</svg>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const navItems = document.querySelectorAll(".sidebar .nav-item");
+    const views = document.querySelectorAll(".view-panel");
+    
+    navItems.forEach(item => {
+      item.addEventListener("click", function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute("data-target");
+        if(!targetId) return;
+        
+        // Update nav active state
+        navItems.forEach(nav => nav.classList.remove("active"));
+        this.classList.add("active");
+        
+        // Update views
+        views.forEach(view => {
+          if(view.id === targetId) {
+            view.style.display = view.id === "view-messages" ? "flex" : "flex"; // all use flex naturally
+          } else {
+            view.style.display = "none";
+          }
+        });
+        
+        // Scroll to top when switching
+        window.scrollTo(0,0);
+      });
+    });
+  });
+</script>
+<script>
+  window.addEventListener('click', function(e) {
+    const dropdown = document.getElementById('notification-dropdown');
+    if (dropdown && dropdown.style.display === 'block') {
+      dropdown.style.display = 'none';
+    }
+  });
+</script>
+
+  <!-- Modals CSS -->
+  <style>
+    .relay-modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 99999;
+      display: flex; justify-content: center; align-items: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
+      padding: 24px;
+    }
+    .relay-modal-overlay.active { opacity: 1; pointer-events: auto; }
+    .relay-modal-card {
+      background: #1A1A1A; border-top: 1.5px solid #C9933A; border-radius: 12px;
+      padding: 32px; width: 100%; max-width: 400px; position: relative;
+      display: flex; flex-direction: column; align-items: center;
+      transform: translateY(20px); transition: transform 0.2s ease;
+      box-sizing: border-box;
+    }
+    .relay-modal-overlay.active .relay-modal-card { transform: translateY(0); }
+    .relay-modal-card::before {
+      content: ''; position: absolute; top: -1.5px; left: 0; right: 0; height: 1.5px;
+      background: linear-gradient(135deg, var(--color-brand-blue), var(--color-brand-purple), var(--color-brand-pink));
+      border-radius: 12px 12px 0 0;
+    }
+    .relay-modal-close {
+      position: absolute; top: 16px; right: 16px; background: none; border: none;
+      color: #FFFFFF; font-size: 24px; cursor: pointer; opacity: 0.5; transition: opacity 0.2s;
+      line-height: 1; padding: 4px;
+    }
+    .relay-modal-close:hover { opacity: 1; }
+    .relay-modal-logo { width: 40px; height: auto; margin: 0 auto 16px; display: block; }
+    
+    .relay-modal-headline {
+      font-family: 'Public Sans', sans-serif; font-weight: 700; font-size: 24px;
+      color: #FFFFFF; text-align: center; margin-top: 0; margin-bottom: 12px;
+    }
+    .relay-modal-body {
+      font-family: 'Public Sans', sans-serif; font-weight: 400; font-size: 14px;
+      color: #E5E7EB; text-align: center; margin-top: 0; margin-bottom: 24px; line-height: 1.5;
+    }
+
+    .relay-modal-btn {
+      width: 100%; background: var(--color-brand-coral); color: #FFFFFF; border: none; border-radius: 50px;
+      padding: 14px 24px; font-family: 'Public Sans', sans-serif; font-weight: 700; font-size: 15px;
+      cursor: pointer; transition: opacity 0.2s; margin-top: 8px; text-align: center; display: inline-block;
+      text-decoration: none;
+    }
+    .relay-modal-btn:hover { opacity: 0.9; }
+
+    .relay-modal-btn.gradient { background: linear-gradient(135deg, var(--color-brand-blue), var(--color-brand-purple), var(--color-brand-pink)); }
+
+    /* Upload Form */
+    .upload-area {
+      border: 2px dashed rgba(255,255,255,0.2); border-radius: 8px; padding: 32px 16px;
+      text-align: center; cursor: pointer; transition: border-color 0.2s; width: 100%;
+    }
+    .upload-area:hover { border-color: rgba(255,255,255,0.4); }
+    .upload-text { font-family: 'Public Sans', sans-serif; font-size: 14px; color: #E5E7EB; margin-bottom: 8px; }
+    .upload-formats { font-size: 12px; color: var(--color-slate); }
+    
+    .relay-form-group { width: 100%; margin-top: 16px; text-align: left; }
+    .relay-label { display: block; font-family: 'Public Sans', sans-serif; font-size: 13px; font-weight: 700; color: #FFFFFF; margin-bottom: 8px; }
+    .relay-input, .relay-select, .relay-textarea {
+      width: 100%; background: #2A2A2A; border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; padding: 12px 14px; color: #FFFFFF; font-family: 'Public Sans', sans-serif;
+      font-size: 14px; outline: none; transition: border-color 0.2s; box-sizing: border-box;
+    }
+    .relay-input:focus, .relay-select:focus, .relay-textarea:focus { border-color: rgba(255,255,255,0.3); }
+    .relay-select {
+      appearance: none; background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+      background-repeat: no-repeat; background-position: right 14px center; background-size: 10px;
+    }
+    .relay-textarea { resize: vertical; min-height: 80px; }
+  </style>
+
+  <!-- MODAL: PINPOINT -->
+  <div class="relay-modal-overlay" id="modal-pinpoint">
+    <div class="relay-modal-card">
+      <button class="relay-modal-close" onclick="document.getElementById('modal-pinpoint').classList.remove('active')">&times;</button>
+      <img src="../brand/logos/IDC_BRANDMARKICON.svg" alt="IDC Logo" class="relay-modal-logo">
+      <h2 class="relay-modal-headline">Launching Pinpoint</h2>
+      <p class="relay-modal-body">Pinpoint will open on your live site. Drop a pin on anything you want changed, leave a note, and submit your revision. We will take it from there.</p>
+      <button class="relay-modal-btn" onclick="window.location.href='concept-church-pinpoint.html';">Open Pinpoint &rarr;</button>
+    </div>
+  </div>
+
+  <!-- MODAL: UPLOAD MEDIA -->
+  <div class="relay-modal-overlay" id="modal-upload">
+    <div class="relay-modal-card">
+      <button class="relay-modal-close" onclick="document.getElementById('modal-upload').classList.remove('active')">&times;</button>
+      <img src="../brand/logos/IDC_BRANDMARKICON.svg" alt="IDC Logo" class="relay-modal-logo">
+      <h2 class="relay-modal-headline">Upload Media</h2>
+      <p class="relay-modal-body">Upload photos, videos, or files for your site. Let us know what each file is for so we can place it correctly.</p>
+      
+      <div class="upload-area">
+        <div class="upload-text">Drag and drop files here or click to browse.</div>
+        <div class="upload-formats">JPG, PNG, MP4, PDF up to 25MB per file.</div>
+      </div>
+      
+      <div class="relay-form-group">
+        <label class="relay-label">File Label</label>
+        <input type="text" class="relay-input" placeholder="What is this file? Example: Pastor headshot, Hero background image, Staff photo">
+      </div>
+      
+      <div class="relay-form-group">
+        <label class="relay-label">Upload Type</label>
+        <select class="relay-select">
+          <option>Headshot</option>
+          <option>Staff Photo</option>
+          <option>Event Photo</option>
+          <option>Hero Image</option>
+          <option>Background Image</option>
+          <option>Video</option>
+          <option>Document</option>
+          <option>Other</option>
+        </select>
+      </div>
+      
+      <div class="relay-form-group">
+        <label class="relay-label">Notes for the Designer</label>
+        <textarea class="relay-textarea" placeholder="Any additional context about how or where this should be used."></textarea>
+      </div>
+      
+      <button class="relay-modal-btn gradient" style="margin-top: 24px;" onclick="document.getElementById('modal-upload').classList.remove('active')">Submit Files</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('relay-modal-overlay')) {
+        e.target.classList.remove('active');
+      }
+    });
+  </script>
+
+<script>
+  function switchThread(id, el) {
+    document.querySelectorAll('.msg-thread').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    document.querySelectorAll('.thread-content-panel').forEach(p => p.style.display = 'none');
+    document.getElementById('thread-content-' + id).style.display = 'flex';
+  }
+</script>
+</body>
+</html>

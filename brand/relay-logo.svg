@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="220" viewBox="0 0 500 220">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@700;900&amp;display=swap');
+      
+      .title {
+        font-family: 'Public Sans', sans-serif;
+        font-weight: 900;
+        font-size: 120px;
+        letter-spacing: -0.02em;
+      }
+      
+      .subtitle {
+        font-family: 'Public Sans', sans-serif;
+        font-weight: 700;
+        font-size: 32px;
+        letter-spacing: 0.25em;
+      }
+    </style>
+    
+    <!-- Mask that punches the text out of the box -->
+    <mask id="knockout-mask">
+      <rect width="500" height="150" fill="white" rx="12" />
+      <text class="title" x="250" y="75" dy="0.32em" text-anchor="middle" fill="black">RELAY</text>
+    </mask>
+  </defs>
+
+  <!-- The Vibrant Coral Box -->
+  <rect width="500" height="150" fill="#ff7f50" mask="url(#knockout-mask)" rx="12" />
+  
+  <!-- Subtle Inner Border -->
+  <rect width="498" height="148" x="1" y="1" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2" rx="11" />
+
+  <!-- Subtitle Area -->
+  <g transform="translate(0, 205)">
+    <!-- Accent Line -->
+    <!-- Slate Gray Subtitle -->
+    <text class="subtitle" x="250" y="0" text-anchor="middle" fill="#4b5563">CLIENT PORTAL</text>
+  </g>
+</svg>

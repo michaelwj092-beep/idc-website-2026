@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PIN Brand Mark (SVG Vector)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;900&display=swap" rel="stylesheet">
+  <style>
+    /* Force font load */
+    @font-face {
+      font-family: 'Public Sans';
+      font-style: normal;
+      font-weight: 900;
+      src: url(https://fonts.gstatic.com/s/publicsans/v14/ijwRs572Xtc6ZYQws9YVwnNGfJ4.woff2) format('woff2');
+    }
+    
+    body {
+      background: #1A1A24;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 64px 24px;
+      margin: 0;
+      font-family: 'Public Sans', sans-serif;
+    }
+    
+    #fontLoader {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+      font-family: 'Public Sans';
+      font-weight: 900;
+    }
+
+    .preview-container {
+      background: #0D0D12;
+      border-radius: 32px;
+      padding: 48px;
+      box-shadow: 0 24px 48px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+      margin-bottom: 32px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    /* Display the injected SVG beautifully */
+    .preview-container svg {
+      display: block;
+      width: 600px;
+      height: 300px;
+    }
+    
+    button {
+      background: #E34C89;
+      color: white;
+      border: none;
+      padding: 16px 36px;
+      border-radius: 99px;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 8px 24px rgba(227, 76, 137, 0.25);
+    }
+    button:hover {
+      background: #f05a96;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(227, 76, 137, 0.35);
+    }
+    button:active {
+      transform: translateY(1px);
+      box-shadow: 0 4px 12px rgba(227, 76, 137, 0.2);
+    }
+  </style>
+</head>
+<body>
+  
+  <div id="fontLoader">PIN REVISION TOOL</div>
+
+  <div class="preview-container" id="previewContainer">
+    <!-- Mathematical SVG will be injected here instantly -->
+  </div>
+  
+  <button id="downloadBtn">Export Vector SVG</button>
+
+  <script>
+    function generateSVG() {
+      // We use a hidden canvas purely to mathematically extract the exact kerning widths of the font 
+      // from the user's rendering engine so the generated SVG is universally perfect.
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      
+      const hotPink = '#E34C89';
+      const slateGray = '#6B7280';
+      
+      const pinFontSize = 270;
+      ctx.font = `900 ${pinFontSize}px "Public Sans"`;
+      
+      const wP = ctx.measureText("P").width;
+      const wI = ctx.measureText("I").width;
+      const wN = ctx.measureText("N").width;
+      
+      const tracking = -4; 
+      const pinStringWidth = wP + tracking + wI + tracking + wN;
+      
+      const capHeight = pinFontSize * 0.72;
+      const targetSpacing = 42; 
+      
+      const targetRadius = capHeight / 2;
+      const targetStroke = 16; 
+      const targetDotRadius = 24;
+      
+      const totalLockupWidth = pinStringWidth + targetSpacing + (targetRadius * 2);
+      
+      const width = 1200;
+      const height = 600;
+      
+      const startX = Math.round((width - totalLockupWidth) / 2);
+      const baseY = Math.round((height / 2) + (capHeight / 2) - 40);
+      
+      const targetCenterX = startX + pinStringWidth + targetSpacing + targetRadius;
+      const targetCenterY = baseY - (capHeight / 2);
+      
+      // Arc Math
+      const arcRadius = targetRadius - (targetStroke / 2);
+      const circum = 2 * Math.PI * arcRadius;
+      const dash60 = circum * (60/360);
+      const dash30 = circum * (30/360);
+      
+      const innerR = targetRadius - targetStroke;
+      const outerR = targetRadius;
+      
+      const lockupWidth = (targetCenterX + targetRadius) - startX;
+      const subtitleY = baseY + 70;
+      
+      // Inject pure SVG string
+      const svgString = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="100%" height="100%">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;900&display=swap');
+      .pin-text { font-family: 'Public Sans', sans-serif; font-weight: 900; font-size: ${pinFontSize}px; fill: ${hotPink}; }
+      .sub-text { font-family: 'Public Sans', sans-serif; font-weight: 500; font-size: 34px; fill: ${slateGray}; }
+    </style>
+  </defs>
+  
+  <!-- Main PIN Typography -->
+  <text x="${startX}" y="${baseY}" class="pin-text">P</text>
+  <text x="${startX + wP + tracking}" y="${baseY}" class="pin-text">I</text>
+  <text x="${startX + wP + tracking + wI + tracking}" y="${baseY}" class="pin-text">N</text>
+  
+  <!-- Precision Camera Reticle -->
+  <!-- Outer Ring with 4 Mathematical Breaks -->
+  <circle cx="${targetCenterX}" cy="${targetCenterY}" r="${arcRadius}" fill="none" stroke="${hotPink}" stroke-width="${targetStroke}" stroke-dasharray="${dash60} ${dash30}" transform="rotate(15, ${targetCenterX}, ${targetCenterY})" />
+  
+  <!-- 4 Alignment Ticks in the Gaps -->
+  <!-- Right -->
+  <line x1="${targetCenterX + innerR}" y1="${targetCenterY}" x2="${targetCenterX + outerR}" y2="${targetCenterY}" stroke="${hotPink}" stroke-width="6" />
+  <!-- Bottom -->
+  <line x1="${targetCenterX}" y1="${targetCenterY + innerR}" x2="${targetCenterX}" y2="${targetCenterY + outerR}" stroke="${hotPink}" stroke-width="6" />
+  <!-- Left -->
+  <line x1="${targetCenterX - innerR}" y1="${targetCenterY}" x2="${targetCenterX - outerR}" y2="${targetCenterY}" stroke="${hotPink}" stroke-width="6" />
+  <!-- Top -->
+  <line x1="${targetCenterX}" y1="${targetCenterY - innerR}" x2="${targetCenterX}" y2="${targetCenterY - outerR}" stroke="${hotPink}" stroke-width="6" />
+  
+  <!-- Solid Anchor Dot -->
+  <circle cx="${targetCenterX}" cy="${targetCenterY}" r="${targetDotRadius}" fill="${hotPink}" />
+  
+  <!-- Sub-Brand (textLength handles mathematical edge-to-edge justification natively in SVG) -->
+  <text x="${startX}" y="${subtitleY}" class="sub-text" textLength="${lockupWidth}" lengthAdjust="spacing">REVISION TOOL</text>
+</svg>`;
+      
+      document.getElementById('previewContainer').innerHTML = svgString;
+    }
+    
+    // Force a small delay to ensure web fonts are painted so text measurements are hyper-accurate
+    setTimeout(() => {
+      document.fonts.ready.then(() => {
+        generateSVG();
+      });
+    }, 100);
+
+    // Export Vector SVG functionality
+    document.getElementById('downloadBtn').addEventListener('click', () => {
+      const svgData = document.getElementById('previewContainer').innerHTML;
+      const blob = new Blob([svgData], {type: "image/svg+xml;charset=utf-8"});
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.download = 'PIN-BrandMark.svg';
+      link.href = url;
+      link.click();
+      URL.revokeObjectURL(url);
+    });
+  </script>
+</body>
+</html>

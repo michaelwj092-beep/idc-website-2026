@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Relay Brand Mark - Web Agency Concept</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;700;900&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: #0D0D12; /* Matching your dashboard background */
+      overflow: hidden;
+      font-family: 'Public Sans', sans-serif;
+    }
+
+    /* 
+      Ambient Glow to definitively prove the text is a transparent cutout. 
+      It slowly drifts behind the box, lighting up the hollow letters in Coral.
+    */
+    .ambient-glow {
+      position: absolute;
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, rgba(75, 85, 99, 0.45) 0%, rgba(75, 85, 99, 0) 70%);
+      border-radius: 50%;
+      animation: drift 8s infinite alternate ease-in-out;
+      z-index: 1;
+    }
+
+    @keyframes drift {
+      0% { transform: translate(-120px, 40px); }
+      100% { transform: translate(120px, -40px); }
+    }
+
+    .logo-container {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Center the accent text */
+    }
+
+    .svg-box {
+      /* Deep shadow to lift the Slate box off the dark background */
+      filter: drop-shadow(0 24px 40px rgba(0,0,0,0.6));
+    }
+
+    .subtitle-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 20px;
+      
+    }
+
+    .subtitle-line {
+      width: 60px;
+      height: 4px;
+      background: #4b5563; /* Slate Accent */
+      border-radius: 2px;
+    }
+
+    .subtitle {
+      color: #4b5563; /* Slate Accent */
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+  <!-- Ambient light passing BEHIND the cutout -->
+  <div class="ambient-glow"></div>
+
+  <div class="logo-container">
+    <!-- SVG Knockout Mask -->
+    <svg class="svg-box" width="500" height="220" viewBox="0 0 500 220">
+      <defs>
+        <mask id="knockout-mask">
+          <!-- The white rect represents the visible box -->
+          <rect width="100%" height="100%" fill="white" rx="12" />
+          <!-- The black text punches a hollow hole entirely through the mask -->
+          <text x="50%" y="50%" dy="0.32em" text-anchor="middle" font-family="'Public Sans', sans-serif" font-weight="900" font-size="120" letter-spacing="-0.02em" fill="black">RELAY</text>
+        </mask>
+      </defs>
+      
+      <!-- The visible Slate Gray box using the mask -->
+      <rect width="100%" height="100%" fill="#ff7f50" mask="url(#knockout-mask)" rx="12" />
+      
+      <!-- Subtle white border ring matching the dashboard cards -->
+      <rect width="498" height="148" x="1" y="1" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2" rx="11" />
+    </svg>
+
+    <div class="subtitle-wrapper">
+      <div class="subtitle">CLIENT PORTAL</div>
+    </div>
+  </div>
+</body>
+</html>
