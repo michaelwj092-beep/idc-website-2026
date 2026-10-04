@@ -1067,7 +1067,7 @@
       }
       .hero-left {
         width: 100%;
-        padding: 120px 24px 90px 24px;
+        padding: 24px 20px 60px 20px;
         min-height: auto;
         box-sizing: border-box;
       }
@@ -1083,17 +1083,17 @@
         flex-direction: column;
         width: calc(100% - 40px);
         max-width: 500px;
-        padding: 24px 20px;
-        gap: 20px;
+        padding: 12px 24px;
+        gap: 0;
         transform: translate(-50%, 40px);
         box-sizing: border-box;
       }
       .card-col {
-        padding: 0 0 20px 0;
+        padding: 20px 0;
+        border-right: none;
       }
       .card-col:not(:last-child) {
-        border-right: none;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       }
 
       /* WELCOME SECTION */
@@ -1202,6 +1202,13 @@
         opacity: 0.12;
         pointer-events: none;
       }
+      .nextgen-header::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: rgba(26, 26, 26, 0.4);
+        pointer-events: none;
+      }
       .nextgen-header > * {
         position: relative;
         z-index: 1;
@@ -1232,6 +1239,13 @@
         background-size: cover;
         background-position: center;
         opacity: 0.12;
+        pointer-events: none;
+      }
+      .nextgen-zone-left::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: rgba(26, 26, 26, 0.4);
         pointer-events: none;
       }
       .nextgen-zone-left > * {
