@@ -1039,65 +1039,78 @@
     }
 
     @media (max-width: 768px) {
-      .footer-columns {
-        grid-template-columns: 1fr;
-        gap: 32px;
+      html, body {
+        overflow-x: hidden;
+        max-width: 100%;
       }
 
-      .nextsteps-section {
-        padding: 60px 0;
+      /* NAVIGATION */
+      .nav-inner {
+        padding: 0 24px;
+        display: flex;
+        justify-content: space-between;
+        box-sizing: border-box;
       }
-      .nextsteps-grid {
-        grid-template-columns: 1fr;
+      .nav-links, .nav-btn {
+        display: none;
       }
-      .nextgen-zones {
+      .nav-hamburger {
+        display: block;
+      }
+
+      /* HERO SECTION */
+      .hero {
         flex-direction: column;
-      }
-      .nextgen-zone-left, .nextgen-zone-right {
+        height: auto;
         width: 100%;
-        padding: 40px 24px;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
+        position: relative;
+      }
+      .hero-left {
+        width: 100%;
+        padding: 120px 24px 90px 24px;
+        min-height: auto;
+        box-sizing: border-box;
+      }
+      .hero-headline {
+        font-size: clamp(38px, 9vw, 52px);
+        line-height: 1.15;
+      }
+      .hero-right {
+        display: none !important;
       }
 
-      .sermons-section {
+      .hero-card {
         flex-direction: column;
+        width: calc(100% - 40px);
+        max-width: 500px;
+        padding: 24px 20px;
+        gap: 20px;
+        transform: translate(-50%, 40px);
+        box-sizing: border-box;
       }
-      .sermons-left {
-        width: 100%;
-        padding: 32px 32px 0 32px;
+      .card-col {
+        padding: 0 0 20px 0;
       }
-      .sermons-image-wrapper {
-        width: 100%;
-      }
-      .sermons-right {
-        width: 100%;
-        padding: 32px;
-      }
-
-      .worship-section {
-        flex-direction: column-reverse;
-      }
-      .worship-left, .worship-right {
-        width: 100%;
-      }
-      .worship-right {
-        height: 350px;
-      }
-      .worship-container {
-        padding-left: 40px;
-        padding-right: 40px;
-      }
-      .worship-headline {
-        font-size: 36px;
+      .card-col:not(:last-child) {
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
       }
 
+      /* WELCOME SECTION */
       .welcome-section {
-        padding: 60px 0;
+        padding: 80px 0 60px 0;
+      }
+      .welcome-container {
+        padding: 0 24px;
+        box-sizing: border-box;
+        width: 100%;
       }
       .welcome-quote {
-        font-size: 36px;
+        font-size: clamp(28px, 7vw, 36px);
+      }
+      .welcome-paragraph {
+        margin: 40px auto 0 auto;
+        padding: 0 4px;
       }
       .welcome-stats {
         flex-direction: column;
@@ -1107,48 +1120,214 @@
         display: none;
       }
 
-      .nav-inner {
-        padding: 0 24px;
-        display: flex;
-        justify-content: space-between;
-      }
-      .nav-links, .nav-btn {
-        display: none;
-      }
-      .nav-hamburger {
-        display: block;
-      }
-
-      .hero {
-        flex-direction: column;
-        height: auto;
-      }
-      .hero-left {
+      /* WORSHIP SECTION */
+      .worship-section {
+        flex-direction: column-reverse;
         width: 100%;
-        padding: 120px 24px 80px 24px;
-        min-height: 70vh;
       }
-      .hero-headline {
-        font-size: 52px;
-      }
-      .hero-right {
+      .worship-left, .worship-right {
         width: 100%;
+      }
+      .worship-right {
         height: 300px;
       }
+      .worship-container {
+        padding: 48px 24px;
+        box-sizing: border-box;
+        width: 100%;
+      }
+      .worship-headline {
+        font-size: clamp(32px, 8vw, 42px);
+      }
 
-      .hero-card {
+      /* SERMONS SECTION */
+      .sermons-section {
         flex-direction: column;
-        width: 90%;
-        padding: 24px 20px;
+        width: 100%;
+        min-height: auto;
+      }
+      .sermons-left {
+        width: 100%;
+        padding: 40px 24px 16px 24px;
+        box-sizing: border-box;
+      }
+      .sermons-image-wrapper {
+        width: 80%;
+        max-width: 320px;
+      }
+      .sermons-right {
+        width: 100%;
+        padding: 16px 24px 48px 24px;
+        box-sizing: border-box;
+        align-items: center;
+        text-align: center;
+      }
+      .sermons-headline {
+        font-size: clamp(34px, 8vw, 48px);
+      }
+      .sermons-paragraph {
+        max-width: 100%;
+      }
+
+      /* NEXT GEN SECTION - VERTICAL STACK & HORIZONTAL DIVIDER */
+      .nextgen-bg-left,
+      .nextgen-bg-right,
+      .nextgen-accent-line {
+        display: none !important;
+      }
+      .nextgen-content {
+        padding-bottom: 0;
+      }
+      .nextgen-zones {
+        flex-direction: column;
+        margin-top: 0;
+        width: 100%;
+      }
+      .nextgen-header {
+        position: relative;
+        background-image: url('../assets/church-concept/backgrounds/grey-concrete.jpg');
+        background-size: cover;
+        background-position: center;
+        padding: 60px 24px 20px 24px;
+        box-sizing: border-box;
+        width: 100%;
+      }
+      .nextgen-header::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('../assets/church-concept/backgrounds/squares-black-white.jpg');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.12;
+        pointer-events: none;
+      }
+      .nextgen-header > * {
+        position: relative;
+        z-index: 1;
+      }
+      .nextgen-headline {
+        font-size: clamp(32px, 8vw, 42px);
+      }
+
+      /* Kids Zone - full width on top with concrete + squares texture */
+      .nextgen-zone-left {
+        width: 100%;
+        position: relative;
+        background-image: url('../assets/church-concept/backgrounds/grey-concrete.jpg');
+        background-size: cover;
+        background-position: center;
+        border-bottom: 2px solid #C9933A;
+        padding: 30px 24px 60px 24px;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        box-sizing: border-box;
+      }
+      .nextgen-zone-left::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('../assets/church-concept/backgrounds/squares-black-white.jpg');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.12;
+        pointer-events: none;
+      }
+      .nextgen-zone-left > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Youth Zone - full width below with solid charcoal + gold texture */
+      .nextgen-zone-right {
+        width: 100%;
+        position: relative;
+        background: #1A1A1A;
+        padding: 60px 24px;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        box-sizing: border-box;
+      }
+      .nextgen-zone-right::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('../assets/church-concept/backgrounds/black-gold-texture-2.jpg');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.40;
+        pointer-events: none;
+      }
+      .nextgen-zone-right > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      .editorial-image-wrapper {
+        width: calc(100% - 32px);
+        max-width: 400px;
+        margin: 16px auto;
+      }
+      .zone-info {
+        max-width: 440px;
+        width: 100%;
+        margin-top: 24px;
+        align-items: center;
+        text-align: center;
+      }
+      .nextgen-zone-right .zone-info {
+        align-items: center;
+        text-align: center;
+      }
+      .zone-label {
+        font-size: 28px;
+      }
+      .zone-desc {
+        font-size: 16px;
+      }
+      .zone-time {
+        font-size: 19px;
+      }
+
+      /* NEXT STEPS SECTION */
+      .nextsteps-section {
+        padding: 60px 0;
+      }
+      .nextsteps-container {
+        padding: 0 24px;
+        box-sizing: border-box;
+        width: 100%;
+      }
+      .nextsteps-headline {
+        font-size: clamp(32px, 8vw, 42px);
+      }
+      .nextsteps-grid {
+        grid-template-columns: 1fr;
         gap: 20px;
-        transform: translate(-50%, 40px); /* Adjust overlap slightly for mobile */
+        margin-top: 40px;
+        width: 100%;
       }
-      .card-col {
-        padding: 0 0 20px 0;
+      .nextsteps-card {
+        padding: 24px;
+        box-sizing: border-box;
       }
-      .card-col:not(:last-child) {
-        border-right: none;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
+
+      /* FOOTER */
+      .footer-content {
+        padding: 60px 24px 40px 24px;
+        box-sizing: border-box;
+        width: 100%;
+      }
+      .footer-columns {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .footer-bottom {
+        padding: 20px 24px;
+        box-sizing: border-box;
+        width: 100%;
       }
     }
   
