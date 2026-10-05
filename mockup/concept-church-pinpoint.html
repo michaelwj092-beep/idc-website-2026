@@ -1432,6 +1432,24 @@
       cursor: pointer;
       margin-top: 16px;
     }
+
+    .tut-back-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #E5E7EB;
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 12px 24px;
+      border-radius: 50px;
+      cursor: pointer;
+      margin-top: 16px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .tut-back-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
     
     #tut-error-msg {
       color: #FF7F50;
@@ -3102,7 +3120,7 @@ document.addEventListener("DOMContentLoaded", () => {
       stopPinMode();
     }
     
-    if (window.currentTutorialStep === 4) {
+    if (window.currentTutorialStep === 5) {
       setTimeout(() => {
         const ta = document.getElementById('rev-comment');
         if (ta) {
@@ -3140,8 +3158,8 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   document.getElementById('btn-sidebar').onclick = () => {
-    if (window.currentTutorialStep === 7) {
-      isSidebarOpen = true; // Force open in step 7 so it doesn't close accidentally
+    if (window.currentTutorialStep === 8) {
+      isSidebarOpen = true; // Force open in step 8 so it doesn't close accidentally
       renderAll();
       window.advanceTutorial(true); // transition immediately with no delay
     } else {
@@ -3219,7 +3237,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const commentEl = document.getElementById('rev-comment');
     const commentVal = commentEl ? commentEl.value.trim() : '';
 
-    if (window.currentTutorialStep === 5) {
+    if (window.currentTutorialStep === 6) {
        if (commentVal === "") {
           const err = document.getElementById('tut-error-msg');
           if (err) {
@@ -3245,7 +3263,7 @@ document.addEventListener("DOMContentLoaded", () => {
       activeCanvasPinId = null;
       window.userTutorialPinId = p.id;
       saveToDb();
-      if (window.currentTutorialStep === 5) {
+      if (window.currentTutorialStep === 6) {
         setTimeout(() => window.advanceTutorial(), 50);
       }
     }
@@ -3317,7 +3335,25 @@ document.addEventListener("DOMContentLoaded", () => {
       modal.style.transform = 'scale(1)';
     });
     
+    const handleKeyDown = (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        e.stopPropagation();
+        pins = pins.filter(p => p.id !== id);
+        if (selectedPinId === id) selectedPinId = null;
+        if (activeCanvasPinId === id) activeCanvasPinId = null;
+        saveToDb();
+        closeModal();
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        e.stopPropagation();
+        closeModal();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown, true);
+
     const closeModal = () => {
+      window.removeEventListener('keydown', handleKeyDown, true);
       overlay.style.opacity = '0';
       modal.style.transform = 'scale(0.95)';
       setTimeout(() => overlay.remove(), 200);
@@ -4167,11 +4203,14 @@ document.addEventListener("DOMContentLoaded", () => {
   <div id="tutorial-blocker-overlay"></div>
   <button id="tut-skip-btn" onclick="skipTutorialBtnClick()">Skip Tutorial</button>
   <div id="tut-instruction-card">
-    <div id="tut-step-ind" style="color: #4B5563; font-family: 'Public Sans', sans-serif; font-weight: 400; font-size: 11px; text-transform: uppercase;">Step X of 11</div>
+    <div id="tut-step-ind" style="color: #4B5563; font-family: 'Public Sans', sans-serif; font-weight: 400; font-size: 11px; text-transform: uppercase;">Orientation · 1 of 3</div>
     <h3 id="tut-headline" style="color: white; font-family: 'Public Sans', sans-serif; font-weight: 700; font-size: 16px; margin: 8px 0 0;">Headline</h3>
     <p id="tut-body" style="color: #E5E7EB; font-family: 'Public Sans', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.6; margin: 8px 0 0;">Body</p>
     <div id="tut-error-msg"></div>
-    <button id="tut-next-btn" class="tut-next-btn" onclick="advanceTutorial()">Next</button>
+    <div id="tut-btn-row" style="display: flex; gap: 8px; margin-top: 16px; align-items: center;">
+      <button id="tut-back-btn" class="tut-back-btn" onclick="previousTutorialStep()" style="margin-top: 0; display: none;">Back</button>
+      <button id="tut-next-btn" class="tut-next-btn" onclick="advanceTutorial()" style="margin-top: 0;">Next</button>
+    </div>
   </div>
 
 
@@ -4206,13 +4245,13 @@ document.addEventListener("DOMContentLoaded", () => {
       localStorage.setItem('pinpoint_onboarding_completed_v2', 'true');
       
       if (window._tutSetSidebarOpen) {
-        window._tutSetSidebarOpen(true);
+        window._tutSetSidebarOpen(false);
         window._tutRenderAll();
       } else {
         const sidebar = document.querySelector('.inspire-rev-sidebar');
-        const sidebarBtn = document.getElementById('btn-sidebar');
-        if (sidebar && !sidebar.classList.contains('inspire-rev-open') && sidebarBtn) {
-          sidebarBtn.click();
+        const closeBtn = document.getElementById('btn-close-sidebar');
+        if (sidebar && sidebar.classList.contains('inspire-rev-open') && closeBtn) {
+          closeBtn.click();
         }
       }
       
@@ -4294,7 +4333,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const blocker = document.getElementById('tutorial-blocker-overlay');
       if (blocker) {
         blocker.style.display = 'block';
-        blocker.style.pointerEvents = (stepId === 4) ? 'none' : 'auto';
+        blocker.style.pointerEvents = (stepId === 5) ? 'none' : 'auto';
       }
 
       let lockdownStyle = document.getElementById('tut-lockdown-css');
@@ -4306,14 +4345,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
       let css = `
         #tut-instruction-card { pointer-events: auto !important; z-index: 9200 !important; }
-        #tut-next-btn { pointer-events: auto !important; cursor: pointer !important; }
+        #tut-next-btn, #tut-back-btn { pointer-events: auto !important; cursor: pointer !important; }
         #dom_pin_3, #dom_pin_3 *,
         #dom_pin_1, #dom_pin_1 * {
           pointer-events: none !important;
           cursor: default !important;
         }
       `;
-      if (stepId <= 9) {
+      if (stepId <= 11) {
         css += `
           #dom_pin_3 {
             display: none !important;
@@ -4333,12 +4372,13 @@ document.addEventListener("DOMContentLoaded", () => {
       switch (stepId) {
         case 1:
         case 2:
+        case 3:
           css += `
             .inspire-rev-control-bar, .inspire-rev-sidebar { pointer-events: none !important; }
           `;
           break;
 
-        case 3:
+        case 4:
           css += `
             .inspire-rev-control-bar { z-index: 9002 !important; pointer-events: none !important; }
             .inspire-rev-control-bar * { pointer-events: none !important; }
@@ -4347,15 +4387,15 @@ document.addEventListener("DOMContentLoaded", () => {
           `;
           break;
 
-        case 4:
+        case 5:
           css += `
             .inspire-rev-control-bar { pointer-events: none !important; }
             .inspire-rev-sidebar { pointer-events: none !important; }
-            #tut-instruction-card { pointer-events: none !important; }
+            #tut-instruction-card { pointer-events: auto !important; }
           `;
           break;
 
-        case 5:
+        case 6:
           css += `
             .inspire-rev-global-overlay-wrapper,
             .inspire-rev-root,
@@ -4409,7 +4449,7 @@ document.addEventListener("DOMContentLoaded", () => {
           `;
           break;
 
-        case 6:
+        case 7:
           css += `
             .inspire-rev-control-bar { z-index: 9002 !important; pointer-events: none !important; }
             .inspire-rev-control-bar * { pointer-events: none !important; }
@@ -4418,7 +4458,7 @@ document.addEventListener("DOMContentLoaded", () => {
           `;
           break;
 
-        case 7:
+        case 8:
           css += `
             .inspire-rev-control-bar { z-index: 9002 !important; pointer-events: none !important; }
             .inspire-rev-control-bar * { pointer-events: none !important; }
@@ -4427,7 +4467,8 @@ document.addEventListener("DOMContentLoaded", () => {
           `;
           break;
 
-        case 8:
+        case 9:
+        case 10:
           css += `
             .inspire-rev-control-bar { pointer-events: none !important; }
             .inspire-rev-sidebar { z-index: 9002 !important; pointer-events: none !important; }
@@ -4435,7 +4476,7 @@ document.addEventListener("DOMContentLoaded", () => {
           `;
           break;
 
-        case 9:
+        case 11:
           css += `
             .inspire-rev-control-bar { pointer-events: none !important; }
             .inspire-rev-sidebar { z-index: 9002 !important; pointer-events: none !important; }
@@ -4444,7 +4485,7 @@ document.addEventListener("DOMContentLoaded", () => {
           `;
           break;
 
-        case 10:
+        case 12:
           css += `
             .inspire-rev-control-bar { pointer-events: none !important; }
             .inspire-rev-sidebar { z-index: 9002 !important; pointer-events: none !important; }
@@ -4453,7 +4494,7 @@ document.addEventListener("DOMContentLoaded", () => {
           `;
           break;
 
-        case 11:
+        case 13:
           css += `
             .inspire-rev-control-bar, .inspire-rev-sidebar { pointer-events: none !important; }
           `;
@@ -4561,109 +4602,19 @@ document.addEventListener("DOMContentLoaded", () => {
     window.currentTutorialStep = 0;
 
     const tutorialSteps = [
+      // ----------------------------------------------------
+      // PHASE 1 - ORIENTATION (3 steps)
+      // ----------------------------------------------------
       {
         id: 1,
+        phaseLabel: "Orientation · 1 of 3",
         headline: "Your revision toolbar.",
-        body: "Everything you need to use Pinpoint lives right here at the bottom of your screen. Let's walk through how it works.",
+        body: "Everything you need to use Pinpoint lives right here at the bottom of your screen. This is where you activate your revision tools and manage your session.",
         target: ".inspire-rev-control-bar",
         padding: 0,
         cardPos: { bottom: '120px', left: '50%', transform: 'translateX(-50%)', top: 'auto', right: 'auto' },
-        showNext: true
-      },
-      {
-        id: 2,
-        headline: "Your revision toolbar.",
-        body: "Everything you need to use Pinpoint lives right here at the bottom of your screen. This is where you activate your revision tools and manage your session.",
-        target: null, 
-        cardPos: { top: '40%', left: '50%', transform: 'translate(-50%, -50%)', bottom: 'auto', right: 'auto' },
         showNext: true,
         onEnter: () => {
-          window.step2Phase = 1;
-
-          // Phase 1: Spotlight the control bar
-          positionSpotlight('.inspire-rev-control-bar', 0);
-
-          const updateContent = (headline, body) => {
-            const hlEl = document.getElementById('tut-headline');
-            const bodyEl = document.getElementById('tut-body');
-            if (!hlEl || !bodyEl) return;
-            if (window._step2FadeTimeout) {
-              clearTimeout(window._step2FadeTimeout);
-              window._step2FadeTimeout = null;
-            }
-            hlEl.style.transition = 'opacity 150ms ease';
-            bodyEl.style.transition = 'opacity 150ms ease';
-            hlEl.style.opacity = '0';
-            bodyEl.style.opacity = '0';
-            window._step2FadeTimeout = setTimeout(() => {
-              if (window.currentTutorialStep !== 2) return;
-              hlEl.innerText = headline;
-              bodyEl.innerHTML = body;
-              hlEl.style.opacity = '1';
-              bodyEl.style.opacity = '1';
-              window._step2FadeTimeout = null;
-            }, 150);
-          };
-
-          // User-controlled phase advance handler — no timers, no automation
-          window.step2Advance = () => {
-            if (window.currentTutorialStep !== 2) return;
-            window.step2Phase++;
-
-            if (window.step2Phase === 2) {
-              // Phase 2: Spotlight moves to the sidebar
-              positionSpotlight('.inspire-rev-sidebar', 0);
-              updateContent(
-                "Your revision sidebar.",
-                "This is where all of your revision cards live. Every pin you drop shows up here, organized by status so you always know where things stand."
-              );
-            } else if (window.step2Phase === 3) {
-              // Phase 3: Spotlight moves to the main website content area
-              const sb = document.querySelector('.inspire-rev-sidebar');
-              const sbWidth = sb && window.innerWidth > 768 && sb.classList.contains('inspire-rev-open') ? sb.offsetWidth : 0;
-              positionSpotlight(null, 0, { left: 0, top: 0, width: window.innerWidth - sbWidth, height: window.innerHeight });
-              updateContent(
-                "Your canvas.",
-                "This is the live website. You can scroll through it, find anything you want changed, and drop a pin directly on it. Everything you see here is exactly what your designer sees."
-              );
-            } else if (window.step2Phase > 3) {
-              // Advance to Step 3
-              window.advanceTutorial();
-            }
-          };
-
-          // Override Next button to call step2Advance
-          const nextBtn = document.getElementById('tut-next-btn');
-          if (nextBtn) {
-            nextBtn.onclick = null;
-            nextBtn.setAttribute('onclick', 'window.step2Advance()');
-            nextBtn.style.display = 'inline-block';
-          }
-        },
-        onExit: () => {
-          if (window._step2FadeTimeout) {
-            clearTimeout(window._step2FadeTimeout);
-            window._step2FadeTimeout = null;
-          }
-          const hlEl = document.getElementById('tut-headline');
-          const bodyEl = document.getElementById('tut-body');
-          if (hlEl) {
-            hlEl.style.transition = '';
-            hlEl.style.opacity = '1';
-          }
-          if (bodyEl) {
-            bodyEl.style.transition = '';
-            bodyEl.style.opacity = '1';
-          }
-
-          const nextBtn = document.getElementById('tut-next-btn');
-          if (nextBtn) {
-            nextBtn.onclick = null;
-            nextBtn.setAttribute('onclick', 'advanceTutorial()');
-          }
-          window.step2Phase = null;
-          window.step2Advance = null;
-
           if (window._tutSetSidebarOpen) {
             window._tutSetSidebarOpen(false);
             window._tutRenderAll();
@@ -4674,7 +4625,62 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       },
       {
+        id: 2,
+        phaseLabel: "Orientation · 2 of 3",
+        headline: "Your revision sidebar.",
+        body: "This is where all of your revision cards live. Every pin you drop shows up here, organized by status so you always know where things stand.",
+        target: ".inspire-rev-sidebar",
+        padding: 0,
+        cardPos: { top: '50%', left: 'calc(50% - 190px)', transform: 'translate(-50%, -50%)', bottom: 'auto', right: 'auto' },
+        showNext: true,
+        onEnter: () => {
+          if (window._tutSetSidebarOpen) {
+            window._tutSetSidebarOpen(true);
+            window._tutRenderAll();
+          } else {
+            const sidebar = document.querySelector('.inspire-rev-sidebar');
+            const sidebarBtn = document.getElementById('btn-sidebar');
+            if (sidebar && !sidebar.classList.contains('inspire-rev-open') && sidebarBtn) {
+              sidebarBtn.click();
+            }
+          }
+        }
+      },
+      {
         id: 3,
+        phaseLabel: "Orientation · 3 of 3",
+        headline: "Your canvas.",
+        body: "This is the live website. You can scroll through it, find anything you want changed, and drop a pin directly on it. Everything you see here is exactly what your designer sees.",
+        target: null,
+        customSpotlight: () => {
+          const sb = document.querySelector('.inspire-rev-sidebar');
+          const sbWidth = sb && window.innerWidth > 768 && sb.classList.contains('inspire-rev-open') ? sb.offsetWidth : 0;
+          positionSpotlight(null, 0, { left: 0, top: 0, width: window.innerWidth - sbWidth, height: window.innerHeight });
+        },
+        cardPos: { top: '40%', left: '50%', transform: 'translate(-50%, -50%)', bottom: 'auto', right: 'auto' },
+        showNext: true,
+        onEnter: () => {
+          const sb = document.querySelector('.inspire-rev-sidebar');
+          const sbWidth = sb && window.innerWidth > 768 && sb.classList.contains('inspire-rev-open') ? sb.offsetWidth : 0;
+          positionSpotlight(null, 0, { left: 0, top: 0, width: window.innerWidth - sbWidth, height: window.innerHeight });
+        },
+        onExit: () => {
+          if (window._tutSetSidebarOpen) {
+            window._tutSetSidebarOpen(false);
+            window._tutRenderAll();
+          } else {
+            const closeBtn = document.getElementById('btn-close-sidebar');
+            if (closeBtn) closeBtn.click();
+          }
+        }
+      },
+
+      // ----------------------------------------------------
+      // PHASE 2 - DROPPING YOUR FIRST PIN (3 steps)
+      // ----------------------------------------------------
+      {
+        id: 4,
+        phaseLabel: "Dropping Your First Pin · 1 of 3",
         headline: "Activate your revision tool.",
         body: "Click the Pin or Box button below to turn on pinning mode. Once active, you can click anywhere on the page to drop a pin, or click and drag to draw a box around an entire section.",
         target: "#btn-drop-pin",
@@ -4682,8 +4688,13 @@ document.addEventListener("DOMContentLoaded", () => {
         cardPos: { bottom: '120px', left: 'calc(50% - 150px)', transform: 'none', top: 'auto', right: 'auto' },
         showNext: false,
         onEnter: () => {
+          if (window._tutSetSidebarOpen) {
+            window._tutSetSidebarOpen(false);
+            window._tutRenderAll();
+          }
           window.tut3ClickListener = (e) => {
-            if (window.currentTutorialStep !== 3) return;
+            if (window.currentTutorialStep !== 4) return;
+            if (e.target.closest('#tut-back-btn') || e.target.closest('#tut-skip-btn')) return;
             if (!e.target.closest('#btn-drop-pin')) {
               e.preventDefault();
               e.stopPropagation();
@@ -4701,25 +4712,30 @@ document.addEventListener("DOMContentLoaded", () => {
           document.addEventListener('click', window.tut3ClickListener, true);
         },
         onExit: () => {
-          document.removeEventListener('click', window.tut3ClickListener, true);
+          if (window.tut3ClickListener) {
+            document.removeEventListener('click', window.tut3ClickListener, true);
+            window.tut3ClickListener = null;
+          }
         }
       },
       {
-        id: 4,
+        id: 5,
+        phaseLabel: "Dropping Your First Pin · 2 of 3",
         headline: "Drop your first pin.",
         body: "Click anywhere on the page to place a pin. Try clicking on an element you would like to change.",
         target: null,
+        customSpotlight: () => {
+          positionSpotlight(null, 0, { left: 0, top: 0, width: window.innerWidth, height: window.innerHeight });
+        },
         cardPos: { top: '32px', left: '32px', transform: 'none', bottom: 'auto', right: 'auto' },
         showNext: false,
         onEnter: () => {
-          const contentRect = document.body.getBoundingClientRect();
           positionSpotlight(null, 0, { left: 0, top: 0, width: window.innerWidth, height: window.innerHeight });
-          
           window.tut4ClickListener = (e) => {
-            if (window.currentTutorialStep !== 4) return;
+            if (window.currentTutorialStep !== 5) return;
+            if (e.target.closest('#tut-back-btn') || e.target.closest('#tut-skip-btn')) return;
             const isSidebar = e.target.closest('.inspire-rev-sidebar');
             const isControlBar = e.target.closest('.inspire-rev-control-bar');
-            
             const isCard = e.target.closest('#tut-instruction-card');
             if (isSidebar || isControlBar || isCard) {
               e.preventDefault();
@@ -4732,17 +4748,20 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
               const err = document.getElementById('tut-error-msg');
               if (err) err.style.display = 'none';
-              // DO NOT auto-advance here. The pin drop mouseup logic already handles advancing when the pin is successfully created.
             }
           };
           document.addEventListener('click', window.tut4ClickListener, true);
         },
         onExit: () => {
-          document.removeEventListener('click', window.tut4ClickListener, true);
+          if (window.tut4ClickListener) {
+            document.removeEventListener('click', window.tut4ClickListener, true);
+            window.tut4ClickListener = null;
+          }
         }
       },
       {
-        id: 5,
+        id: 6,
+        phaseLabel: "Dropping Your First Pin · 3 of 3",
         headline: "Tell us what you want changed.",
         body: 'Type your revision note in the box, choose your guidance level below, and click Save when you are done.<span style="display: block; margin-top: 12px; font-family: \'Public Sans\', sans-serif; font-style: italic; font-size: 13px; color: #E5E7EB; opacity: 0.85; line-height: 1.5;">Flexible lets your designer decide the details. Guided provides creative direction. Exact requires following your note precisely.</span>',
         target: ".inspire-note-card",
@@ -4756,7 +4775,6 @@ document.addEventListener("DOMContentLoaded", () => {
           const gWrap = document.querySelector('.inspire-rev-global-overlay-wrapper');
           if (gWrap) gWrap.style.zIndex = '9002';
 
-          // Autofocus note card textarea the moment note card appears in Step 5
           const focusNoteTextarea = () => {
             const ta = document.getElementById('rev-comment');
             if (ta) {
@@ -4768,22 +4786,21 @@ document.addEventListener("DOMContentLoaded", () => {
           setTimeout(focusNoteTextarea, 50);
           setTimeout(focusNoteTextarea, 150);
 
-          // Real-time intelligent collision-free positioning via requestAnimationFrame
-          const positionStep5Card = () => {
-            if (window.currentTutorialStep !== 5) return;
+          const positionStep6Card = () => {
+            if (window.currentTutorialStep !== 6) return;
 
             const card = document.getElementById('tut-instruction-card');
             if (!card) return;
 
             const noteCard = document.querySelector('.inspire-note-card');
             if (!noteCard) {
-              window._step5Raf = requestAnimationFrame(positionStep5Card);
+              window._step5Raf = requestAnimationFrame(positionStep6Card);
               return;
             }
 
             const noteRect = noteCard.getBoundingClientRect();
             if (noteRect.width === 0 && noteRect.height === 0) {
-              window._step5Raf = requestAnimationFrame(positionStep5Card);
+              window._step5Raf = requestAnimationFrame(positionStep6Card);
               return;
             }
 
@@ -4799,7 +4816,6 @@ document.addEventListener("DOMContentLoaded", () => {
             let targetLeft, targetTop;
 
             if (isNearTop) {
-              // If near top of screen -> position below it
               targetTop = noteRect.bottom + 20;
               if (isLeftHalf) {
                 targetLeft = (noteRect.right + 20 + cardWidth <= vw - 16) ? (noteRect.right + 20) : noteRect.left;
@@ -4807,7 +4823,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 targetLeft = (noteRect.left - cardWidth - 20 >= 16) ? (noteRect.left - cardWidth - 20) : (noteRect.right - cardWidth);
               }
             } else if (isNearBottom) {
-              // If near bottom of screen -> position above it
               targetTop = noteRect.top - cardHeight - 20;
               if (isLeftHalf) {
                 targetLeft = (noteRect.right + 20 + cardWidth <= vw - 16) ? (noteRect.right + 20) : noteRect.left;
@@ -4815,17 +4830,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 targetLeft = (noteRect.left - cardWidth - 20 >= 16) ? (noteRect.left - cardWidth - 20) : (noteRect.right - cardWidth);
               }
             } else {
-              // Left half -> position to the right with at least 20px clearance
-              // Right half -> position to the left with at least 20px clearance
               targetLeft = isLeftHalf ? (noteRect.right + 20) : (noteRect.left - cardWidth - 20);
               targetTop = noteRect.top;
             }
 
-            // Boundary checks: minimum 16px padding on all 4 edges
             let left = Math.max(16, Math.min(vw - cardWidth - 16, targetLeft));
             let top = Math.max(16, Math.min(vh - cardHeight - 16, targetTop));
 
-            // Guarantee zero overlap with at least 20px clearance
             const isOverlapping = (
               left < noteRect.right + 20 &&
               left + cardWidth > noteRect.left - 20 &&
@@ -4855,12 +4866,11 @@ document.addEventListener("DOMContentLoaded", () => {
             card.style.right = 'auto';
             card.style.transform = 'none';
 
-            window._step5Raf = requestAnimationFrame(positionStep5Card);
+            window._step5Raf = requestAnimationFrame(positionStep6Card);
           };
 
-          // Cancel any previous loop and start positioning
           if (window._step5Raf) cancelAnimationFrame(window._step5Raf);
-          positionStep5Card();
+          positionStep6Card();
         },
         onExit: () => {
           if (window._step5Raf) {
@@ -4871,8 +4881,13 @@ document.addEventListener("DOMContentLoaded", () => {
           if (gWrap) gWrap.style.zIndex = '100';
         }
       },
+
+      // ----------------------------------------------------
+      // PHASE 3 - MANAGING YOUR REVISIONS (5 steps)
+      // ----------------------------------------------------
       {
-        id: 6,
+        id: 7,
+        phaseLabel: "Managing Your Revisions · 1 of 5",
         headline: "Stay active or drop one at a time.",
         body: "LATCH controls how your revision tool behaves. When LATCH is off, the tool automatically turns off after placing a single pin. When LATCH is on, the tool stays active so you can continue placing pins without reactivating it each time.",
         target: "#workflow-toggle",
@@ -4894,26 +4909,32 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       },
       {
-        id: 7,
-        headline: "See all your revisions in one place.",
+        id: 8,
+        phaseLabel: "Managing Your Revisions · 2 of 5",
+        headline: "See all your revisions.",
         body: "Click Revisions to open your sidebar. Every pin you have placed is organized here as an individual revision card.",
         target: "#btn-sidebar",
         padding: 0,
         cardPos: { bottom: '100px', left: '50%', transform: 'translateX(-50%)' },
         showNext: false,
+        onEnter: () => {
+          if (window._tutSetSidebarOpen) {
+            window._tutSetSidebarOpen(false);
+            window._tutRenderAll();
+          }
+        },
         onExit: () => {}
       },
       {
-        id: 8,
-        headline: "Your revision card controls.",
+        id: 9,
+        phaseLabel: "Managing Your Revisions · 3 of 5",
+        headline: "Your revision card controls overview.",
         body: "Let us walk you through everything you can do with a revision card.",
         target: ".inspire-rev-sidebar",
+        padding: 0,
         showNext: true,
         cardPos: { top: '50%', left: 'calc(50% - 190px)', transform: 'translate(-50%, -50%)', bottom: 'auto', right: 'auto' },
         onEnter: () => {
-          window.step8Phase = 1;
-
-          // Open sidebar and auto-expand the exact revision card the user created in Step 4/5
           const pinsArr = window._tutPins ? window._tutPins() : [];
           const userPin = (window.userTutorialPinId && pinsArr.find(p => p.id === window.userTutorialPinId)) ||
                           pinsArr.find(p => p.status === 'draft') ||
@@ -4925,9 +4946,8 @@ document.addEventListener("DOMContentLoaded", () => {
             window._tutRenderAll();
           }
 
-          // Disable card action buttons and chevron during Step 8 — visible but not clickable
           setTimeout(() => {
-            const cardEl = document.querySelector('.inspire-rev-card.expanded');
+            const cardEl = document.querySelector('.inspire-rev-card.expanded') || document.querySelector('.inspire-rev-card');
             const scrollContainer = document.getElementById('sidebar-content');
             if (cardEl && scrollContainer) {
               const containerRect = scrollContainer.getBoundingClientRect();
@@ -4938,122 +4958,53 @@ document.addEventListener("DOMContentLoaded", () => {
             }
           }, 50);
 
-          const setStep8Detail = (iconHtml, captionText) => {
-            let dynContainer = document.getElementById('tut-dynamic-text');
-            if (!dynContainer) {
-              dynContainer = document.createElement('div');
-              dynContainer.id = 'tut-dynamic-text';
-              dynContainer.style.marginTop = '16px';
-              dynContainer.style.display = 'flex';
-              dynContainer.style.flexDirection = 'column';
-              dynContainer.style.alignItems = 'center';
-              dynContainer.style.textAlign = 'center';
-              dynContainer.style.opacity = '0';
-              dynContainer.style.transition = 'opacity 300ms ease';
-              const tutBody = document.getElementById('tut-body');
-              if (tutBody && tutBody.parentNode) {
-                tutBody.parentNode.insertBefore(dynContainer, tutBody.nextSibling);
-              }
-            }
-
-            const newContent = `
-              ${iconHtml ? `<div style="display: flex; justify-content: center; align-items: center; width: 28px; height: 28px; margin: 0 auto 8px auto;">${iconHtml}</div>` : ''}
-              <div style="color: #E5E7EB; font-family: 'Public Sans', sans-serif; font-style: italic; font-size: 13px; line-height: 1.5;">${captionText}</div>
-            `;
-
-            const currentOpacity = parseFloat(window.getComputedStyle(dynContainer).opacity);
-            if (currentOpacity === 0) {
-              dynContainer.innerHTML = newContent;
-              requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                  dynContainer.style.opacity = '1';
-                });
-              });
-            } else {
-              dynContainer.style.opacity = '0';
-              let transitioned = false;
-              const onFadeOut = () => {
-                if (transitioned) return;
-                transitioned = true;
-                dynContainer.removeEventListener('transitionend', onFadeOut);
-                dynContainer.innerHTML = newContent;
-                requestAnimationFrame(() => {
-                  requestAnimationFrame(() => {
-                    dynContainer.style.opacity = '1';
-                  });
-                });
-              };
-              dynContainer.addEventListener('transitionend', onFadeOut, { once: true });
-              setTimeout(onFadeOut, 350);
-            }
-          };
-
-          // User-controlled phase advance handler — no timers, no automation
-          window.step8Advance = () => {
-            if (window.currentTutorialStep !== 8) return;
-            window.step8Phase++;
-
-            const sidebar = document.querySelector('.inspire-rev-sidebar');
-            if (sidebar) positionSpotlight(sidebar, 0);
-
-            const nextBtn = document.getElementById('tut-next-btn');
-
-            if (window.step8Phase === 2) {
-              // Phase 2: Chevron icon (#4B5563) + caption
-              const chevronIcon = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4B5563" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display: block;"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
-              setStep8Detail(chevronIcon, "Expand or collapse this card.");
-              if (nextBtn) nextBtn.style.display = 'inline-block';
-
-            } else if (window.step8Phase === 3) {
-              // Phase 3: Locate / target icon (🎯) + caption
-              const locateIcon = `<span style="font-size: 28px; line-height: 1; display: inline-block;">🎯</span>`;
-              setStep8Detail(locateIcon, "Jump directly to this pin on the page.");
-              if (nextBtn) nextBtn.style.display = 'inline-block';
-
-            } else if (window.step8Phase === 4) {
-              // Phase 4: Pencil / edit icon (Amber #F59E0B) + caption
-              const editIcon = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: block;"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>`;
-              setStep8Detail(editIcon, "Update your note or guidance level.");
-              if (nextBtn) nextBtn.style.display = 'inline-block';
-
-            } else if (window.step8Phase === 5) {
-              // Phase 5: Trash / delete icon (#EF4444) + caption
-              const deleteIcon = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: block;"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>`;
-              setStep8Detail(deleteIcon, "Permanently delete this revision.");
-              if (nextBtn) nextBtn.style.display = 'inline-block';
-
-            } else if (window.step8Phase > 5) {
-              // Advance to Step 9
-              window.advanceTutorial();
-            }
-          };
-
-          // Override Next button to call step8Advance
-          const nextBtn = document.getElementById('tut-next-btn');
-          if (nextBtn) {
-            nextBtn.onclick = null;
-            nextBtn.setAttribute('onclick', 'window.step8Advance()');
-            nextBtn.style.display = 'inline-block';
-          }
-
-          // Phase 1: Spotlight full sidebar
           const sidebar = document.querySelector('.inspire-rev-sidebar');
           if (sidebar) positionSpotlight(sidebar, 0);
         },
-        onExit: () => {
-          const nextBtn = document.getElementById('tut-next-btn');
-          if (nextBtn) {
-            nextBtn.onclick = null;
-            nextBtn.setAttribute('onclick', 'advanceTutorial()');
-          }
-          window.step8Phase = null;
-          window.step8Advance = null;
-          const dynText = document.getElementById('tut-dynamic-text');
-          if (dynText) dynText.remove();
-        }
+        onExit: () => {}
       },
       {
-        id: 9,
+        id: 10,
+        phaseLabel: "Managing Your Revisions · 4 of 5",
+        headline: "Locate, edit, and delete.",
+        body: `Each revision card includes quick controls to manage your pin:
+<div style="display: flex; flex-direction: column; gap: 10px; margin-top: 14px; text-align: left;">
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <div style="width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.06); border-radius: 6px; flex-shrink: 0;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+    <div style="font-size: 13px; line-height: 1.4; color: #E5E7EB;"><strong style="color: white;">Chevron:</strong> Expand or collapse this card.</div>
+  </div>
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <div style="width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.06); border-radius: 6px; flex-shrink: 0; font-size: 15px;">🎯</div>
+    <div style="font-size: 13px; line-height: 1.4; color: #E5E7EB;"><strong style="color: white;">Locate:</strong> Jump directly to this pin on the page.</div>
+  </div>
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <div style="width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.06); border-radius: 6px; flex-shrink: 0;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+    </div>
+    <div style="font-size: 13px; line-height: 1.4; color: #E5E7EB;"><strong style="color: white;">Edit:</strong> Update your note or guidance level.</div>
+  </div>
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <div style="width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.06); border-radius: 6px; flex-shrink: 0;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+    </div>
+    <div style="font-size: 13px; line-height: 1.4; color: #E5E7EB;"><strong style="color: white;">Delete:</strong> Permanently delete this revision.</div>
+  </div>
+</div>`,
+        target: ".inspire-rev-sidebar",
+        padding: 0,
+        showNext: true,
+        cardPos: { top: '50%', left: 'calc(50% - 190px)', transform: 'translate(-50%, -50%)', bottom: 'auto', right: 'auto', maxWidth: '360px' },
+        onEnter: () => {
+          const sidebar = document.querySelector('.inspire-rev-sidebar');
+          if (sidebar) positionSpotlight(sidebar, 0);
+        },
+        onExit: () => {}
+      },
+      {
+        id: 11,
+        phaseLabel: "Managing Your Revisions · 5 of 5",
         headline: "Send your revisions to your designer.",
         body: "When you are ready, click Submit to Designer to send all your revisions at once. You can place multiple pins beforehand, as each submission counts as a single revision round. Your designer will be notified immediately and begin work.",
         target: "#btn-submit-designer",
@@ -5061,8 +5012,13 @@ document.addEventListener("DOMContentLoaded", () => {
         cardPos: { bottom: '40px', right: 'calc(380px + 20px)', maxWidth: 'min(340px, calc(100vw - 420px))' },
         showNext: true
       },
+
+      // ----------------------------------------------------
+      // PHASE 4 - THE DESIGNER RESPONSE (2 steps)
+      // ----------------------------------------------------
       {
-        id: 10,
+        id: 12,
+        phaseLabel: "The Designer Response · 1 of 2",
         headline: "When your designer responds.",
         body: "When your designer completes an update, they return it for your review and approval. Cards pending your approval appear in amber. Review their work, then either accept the revision or request additional changes.",
         target: null,
@@ -5070,7 +5026,6 @@ document.addEventListener("DOMContentLoaded", () => {
         showNext: true,
         cardPos: { top: '50%', right: 'calc(380px + 20px)', transform: 'translateY(-50%)', maxWidth: 'min(340px, calc(100vw - 420px))' },
         onEnter: () => {
-          // Open the sidebar with the pending card selected
           const pinsArr = window._tutPins ? window._tutPins() : [];
           const pendingPin = pinsArr.find(p => p.status === 'pending') || pinsArr.find(p => p.id === 'pin_3') || pinsArr[0];
           if (pendingPin) {
@@ -5079,13 +5034,11 @@ document.addEventListener("DOMContentLoaded", () => {
             window._tutRenderAll();
           }
 
-          // Give renderAll one frame to paint, then expand, scroll, and spotlight the card
           setTimeout(() => {
-            if (window.currentTutorialStep !== 10) return;
+            if (window.currentTutorialStep !== 12) return;
 
             const scrollContainer = document.getElementById('sidebar-content');
 
-            // Expand the card if needed so Accept and Needs More Work are in the DOM
             let cardEl = document.querySelector('.inspire-rev-card.expanded') ||
                          document.querySelector('.inspire-rev-card');
             if (cardEl && !cardEl.classList.contains('expanded')) {
@@ -5095,7 +5048,6 @@ document.addEventListener("DOMContentLoaded", () => {
                        document.querySelector('.inspire-rev-card');
             }
 
-            // Scroll the card fully into view with 40px breathing room
             if (cardEl && scrollContainer) {
               const containerRect = scrollContainer.getBoundingClientRect();
               const cardRect = cardEl.getBoundingClientRect();
@@ -5107,25 +5059,17 @@ document.addEventListener("DOMContentLoaded", () => {
               }
             }
 
-            // Spotlight the full pending approval card
             const card = document.querySelector('.inspire-rev-card.expanded') ||
                          document.querySelector('.inspire-rev-card');
             if (card) positionSpotlight(card, 0);
-
-            // One Next button advances directly to Step 11
-            const nextBtn = document.getElementById('tut-next-btn');
-            if (nextBtn) {
-              nextBtn.onclick = null;
-              nextBtn.setAttribute('onclick', 'advanceTutorial()');
-              nextBtn.style.display = 'inline-block';
-            }
           }, 150);
         },
         onExit: () => {}
       },
       {
-        id: 11,
-        headline: "You're all set!",
+        id: 13,
+        phaseLabel: "The Designer Response · 2 of 2",
+        headline: "You are ready.",
         body: "You now have everything you need to start reviewing pages and submitting revisions with Pinpoint.",
         target: null,
         padding: 0,
@@ -5149,59 +5093,64 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     ];
 
-    
     window.restartTutorial = function() {
       localStorage.removeItem('pinpoint_onboarding_completed_v2');
       window.location.reload();
     };
 
-    window.advanceTutorial = function() {
+    function renderTutorialStep(step) {
       if (window._tutGlobalRaf) { cancelAnimationFrame(window._tutGlobalRaf); window._tutGlobalRaf = null; }
-      const current = tutorialSteps[window.currentTutorialStep - 1];
-      if (current && current.onExit) current.onExit();
-      
-      const nextStepIndex = window.currentTutorialStep; 
-      if (nextStepIndex >= tutorialSteps.length) {
-        hideTutorialOverlay();
-        document.getElementById('tut-instruction-card').style.display = 'none';
-        return;
-      }
-      
-      const step = tutorialSteps[nextStepIndex];
+      if (window._step5Raf) { cancelAnimationFrame(window._step5Raf); window._step5Raf = null; }
+
       window.currentTutorialStep = step.id;
-      
+
       const skipBtn = document.getElementById('tut-skip-btn');
       if (skipBtn) {
-        skipBtn.style.display = (step.id >= 1 && step.id <= 10) ? 'block' : 'none';
+        skipBtn.style.display = (step.id >= 1 && step.id < tutorialSteps.length) ? 'block' : 'none';
       }
 
       const card = document.getElementById('tut-instruction-card');
-      
-      document.getElementById('tut-step-ind').innerText = "Step " + step.id + " of 11";
-      document.getElementById('tut-headline').innerText = step.headline;
-      document.getElementById('tut-body').innerHTML = step.body;
+      const stepInd = document.getElementById('tut-step-ind');
+      const headlineEl = document.getElementById('tut-headline');
+      const bodyEl = document.getElementById('tut-body');
+      const errMsg = document.getElementById('tut-error-msg');
       const nextBtn = document.getElementById('tut-next-btn');
+      const backBtn = document.getElementById('tut-back-btn');
+
+      if (stepInd) stepInd.innerText = step.phaseLabel;
+      if (headlineEl) headlineEl.innerText = step.headline;
+      if (bodyEl) bodyEl.innerHTML = step.body;
+      if (errMsg) errMsg.style.display = 'none';
+
+      if (backBtn) {
+        backBtn.style.display = (step.id > 1) ? 'inline-block' : 'none';
+      }
+
       if (nextBtn) {
         nextBtn.innerText = step.btnText || "Next";
         nextBtn.style.display = step.showNext ? 'inline-block' : 'none';
         nextBtn.onclick = null;
         nextBtn.setAttribute('onclick', 'advanceTutorial()');
       }
-      
+
       card.style.top = 'auto';
       card.style.bottom = 'auto';
       card.style.left = 'auto';
       card.style.right = 'auto';
       card.style.transform = 'none';
       card.style.maxWidth = '340px';
-      Object.assign(card.style, step.cardPos);
-      
+      if (step.cardPos) {
+        Object.assign(card.style, step.cardPos);
+      }
+
       if (step.target) {
         positionSpotlight(step.target, step.padding !== undefined ? step.padding : 0);
+      } else if (step.customSpotlight) {
+        step.customSpotlight();
       } else {
         positionSpotlight(null);
       }
-      
+
       if (typeof updateTutorialLockdown === 'function') {
         updateTutorialLockdown(step.id);
       }
@@ -5209,6 +5158,32 @@ document.addEventListener("DOMContentLoaded", () => {
       if (step.onEnter) step.onEnter();
       card.style.display = 'block';
       card.className = 'tut-card-enter';
+    }
+
+    window.advanceTutorial = function() {
+      const current = tutorialSteps[window.currentTutorialStep - 1];
+      if (current && current.onExit) current.onExit();
+
+      const nextStepIndex = window.currentTutorialStep; 
+      if (nextStepIndex >= tutorialSteps.length) {
+        hideTutorialOverlay();
+        document.getElementById('tut-instruction-card').style.display = 'none';
+        return;
+      }
+
+      renderTutorialStep(tutorialSteps[nextStepIndex]);
+    };
+
+    window.previousTutorialStep = function() {
+      if (window.currentTutorialStep <= 1) return;
+
+      const current = tutorialSteps[window.currentTutorialStep - 1];
+      if (current && current.onExit) current.onExit();
+
+      const prevStepIndex = window.currentTutorialStep - 2;
+      if (prevStepIndex < 0) return;
+
+      renderTutorialStep(tutorialSteps[prevStepIndex]);
     };
 </script>
 </body>
