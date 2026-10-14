@@ -1,0 +1,96 @@
+================================================================================
+MONTHLY MANAGEMENT SECTION AUDIT
+File: pages/plans/plans.html
+================================================================================
+
+1. TEXT CONTENT
+--------------------------------------------------------------------------------
+Section Label:
+MONTHLY SERVICE
+
+Headline:
+Website Management
+
+Body Copy:
+Keep your site current without lifting a finger. We handle new events, staff updates, pop-ups, announcements, and ongoing content so your website always reflects where your ministry is right now.
+
+Price:
+$250 per month
+
+Revision Note:
+*Required with all website purchases. Includes 3 revision rounds per month. Each round can contain multiple change requests submitted together through your Relay page.
+
+Contract Terms Statement:
+No long-term contracts. We require a 60-day written notice to cancel so we can properly hand off all your files and assets.
+
+
+2. HTML STRUCTURE
+--------------------------------------------------------------------------------
+  <!-- MONTHLY MANAGEMENT -->
+  <section class="monthly-section">
+    <div class="monthly-inner">
+      <div class="monthly-left">
+        <span class="monthly-label">MONTHLY SERVICE</span>
+        <h2 class="monthly-headline">Website Management</h2>
+        <p class="monthly-body">Keep your site current without lifting a finger. We handle new events, staff updates, pop-ups, announcements, and ongoing content so your website always reflects where your ministry is right now.</p>
+        <p class="monthly-note">*Required with all website purchases. Includes 3 revision rounds per month. Each round can contain multiple change requests submitted together through your Relay page.</p>
+      </div>
+      <div class="monthly-right">
+        <span class="monthly-price">$250</span>
+        <span class="tier-period">per month</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- NO CONTRACT STATEMENT -->
+  <section class="no-contract-statement">
+    <p>No long-term contracts. We require a 60-day written notice to cancel so we can properly hand off all your files and assets.</p>
+  </section>
+
+
+3. CSS CLASS NAMES APPLIED
+--------------------------------------------------------------------------------
+- .monthly-section
+  Main container section for the monthly service block.
+  Styles: width 100%, padding 40px 24px (40px 48px at min-width 960px), background rgba(255,255,255,0.05), backdrop-filter blur(16px), gradient border-top and border-bottom.
+
+- .monthly-inner
+  Inner container centering and arranging the content.
+  Styles: max-width 1320px, margin 0 auto, display flex, flex-direction column with gap 32px (flex-direction row, align-items center, justify-content space-between at min-width 960px).
+
+- .monthly-left
+  Left column container housing label, headline, body, and note.
+  Styles: flex 1, max-width 720px.
+
+- .monthly-label
+  Eyebrow category label above the headline ("MONTHLY SERVICE").
+  Styles: font-family 'Public Sans', font-weight 700, font-size 0.75rem, letter-spacing 0.1em, text-transform uppercase, color #FF7F50, margin-bottom 12px, display block.
+
+- .monthly-headline
+  Headline element ("Website Management").
+  Styles: font-family 'Public Sans', font-weight 700, font-size 2rem, color #FFFFFF, margin-bottom 16px.
+
+- .monthly-body
+  Main description paragraph.
+  Styles: font-family 'Public Sans', font-weight 400, font-size 1rem, line-height 1.6, color #E5E7EB, margin-bottom 12px.
+
+- .monthly-note
+  Footnote detailing purchase requirement and revision rounds.
+  Styles: font-family 'Public Sans', font-weight 400, font-size 0.8125rem, font-style italic, color #9CA3AF.
+
+- .monthly-right
+  Right column container housing price and billing period.
+  Styles: display flex, align-items baseline, gap 8px (margin-right 100px at min-width 960px).
+
+- .monthly-price
+  Price display text ("$250").
+  Styles: font-family 'Public Sans', font-weight 700, font-size 3rem, color #FFFFFF.
+
+- .tier-period
+  Period text beside price ("per month").
+  Styles: font-family 'Public Sans', font-weight 400, font-size 0.875rem, color #4B5563.
+
+- .no-contract-statement
+  Contract terms statement block directly following monthly management.
+  Styles: text-align center, padding 24px 24px, font-family 'Public Sans', font-weight 400, font-size 1.125rem, color #E5E7EB, max-width 800px, margin 0 auto.
+================================================================================

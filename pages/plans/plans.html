@@ -1882,17 +1882,26 @@
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      gap: 32px;
     }
     
     @media (min-width: 960px) {
       .monthly-section {
         padding: 40px 48px;
       }
-      .monthly-inner {
+    }
+
+    .monthly-option {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    
+    @media (min-width: 960px) {
+      .monthly-option {
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
+        gap: 40px;
       }
     }
     
@@ -1934,19 +1943,43 @@
       font-weight: 400;
       font-size: 0.8125rem;
       font-style: italic;
+      line-height: 1.5;
       color: #9CA3AF;
     }
     
-        .monthly-right {
+    .monthly-right {
       display: flex;
-      align-items: baseline;
+      flex-direction: column;
+      align-items: flex-start;
       gap: 8px;
     }
     
     @media (min-width: 960px) {
       .monthly-right {
         margin-right: 100px;
+        min-width: 220px;
       }
+    }
+
+    .monthly-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #2F80ED 0%, #8E54E9 40%, #E34C89 70%, #FF7F50 100%);
+      color: #FFFFFF;
+      font-family: 'Public Sans', sans-serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 50px;
+      white-space: nowrap;
+      width: fit-content;
+    }
+    
+    .monthly-price-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
     }
     
     .monthly-price {
@@ -1954,6 +1987,14 @@
       font-weight: 700;
       font-size: 3rem;
       color: #FFFFFF;
+    }
+
+    .monthly-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(135deg, #2F80ED 0%, #8E54E9 40%, #E34C89 70%, #FF7F50 100%);
+      opacity: 0.3;
+      margin: 40px 0;
     }
 
     /* CUSTOM SECTION */
@@ -2259,9 +2300,18 @@
       font-family: 'Public Sans', sans-serif;
       font-weight: 400;
       font-size: 1.125rem;
+      line-height: 1.6;
       color: #E5E7EB;
       max-width: 800px;
       margin: 0 auto;
+    }
+
+    .no-contract-statement .required-note {
+      font-size: 0.9375rem;
+      color: #9CA3AF;
+      font-style: italic;
+      margin-bottom: 12px;
+      line-height: 1.5;
     }
 
 
@@ -2466,21 +2516,47 @@
   <!-- MONTHLY MANAGEMENT -->
   <section class="monthly-section">
     <div class="monthly-inner">
-      <div class="monthly-left">
-        <span class="monthly-label">MONTHLY SERVICE</span>
-        <h2 class="monthly-headline">Website Management</h2>
-        <p class="monthly-body">Keep your site current without lifting a finger. We handle new events, staff updates, pop-ups, announcements, and ongoing content so your website always reflects where your ministry is right now.</p>
-        <p class="monthly-note">*Required with all website purchases. Includes 3 revision rounds per month. Each round can contain multiple change requests submitted together through your Relay page.</p>
+      <!-- OPTION 1 - ESSENTIAL CARE -->
+      <div class="monthly-option">
+        <div class="monthly-left">
+          <span class="monthly-label">HOSTING &amp; SECURITY</span>
+          <h2 class="monthly-headline">Essential Care</h2>
+          <p class="monthly-body">Covers your hosting server and security fees. Your site stays live and protected. Any updates or changes are billed at our hourly rate. Contact our team to get started.</p>
+          <p class="monthly-note">Once your site launches, no code changes are included. Any fixes, updates, or browser compatibility issues are billed at our standard hourly rate.</p>
+        </div>
+        <div class="monthly-right">
+          <div class="monthly-price-wrap">
+            <span class="monthly-price">$69</span>
+            <span class="tier-period">per month</span>
+          </div>
+        </div>
       </div>
-      <div class="monthly-right">
-        <span class="monthly-price">$250</span>
-        <span class="tier-period">per month</span>
+
+      <!-- GRADIENT DIVIDER -->
+      <div class="monthly-divider"></div>
+
+      <!-- OPTION 2 - WEBSITE MANAGEMENT -->
+      <div class="monthly-option">
+        <div class="monthly-left">
+          <span class="monthly-label">MONTHLY SERVICE</span>
+          <h2 class="monthly-headline">Website Management</h2>
+          <p class="monthly-body">Keep your site current without lifting a finger. We handle new events, staff updates, pop-ups, announcements, and ongoing content so your website always reflects where your ministry is right now.</p>
+          <p class="monthly-note">Includes 3 revision rounds per month. Each round can contain multiple change requests submitted together through your Relay page.</p>
+        </div>
+        <div class="monthly-right">
+          <span class="monthly-badge">Most Popular</span>
+          <div class="monthly-price-wrap">
+            <span class="monthly-price">$249</span>
+            <span class="tier-period">per month</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- NO CONTRACT STATEMENT -->
   <section class="no-contract-statement">
+    <p class="required-note">Required with all website purchases. Choose Essential Care for hosting and security only, or Website Management for full ongoing support and revision rounds.</p>
     <p>No long-term contracts. We require a 60-day written notice to cancel so we can properly hand off all your files and assets.</p>
   </section>
 
